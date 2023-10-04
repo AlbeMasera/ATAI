@@ -9,6 +9,7 @@ You can find this file at the following path: `speakeasy-python-client-library/d
 To install speakeasy in your local environment, use the following command:
 ```shell
 pip install [local]/[path]/[to]/[your]/speakeasy-python-client-library/dist/speakeasypy-1.0.0-py3-none-any.whl
+pip install speakeasy-python-client-library/dist/speakeasypy-1.0.0-py3-none-any.whl
 ```
 Please replace `[local]/[path]/[to]/[your]` with the actual path to the directory containing the `speakeasypy-1.0.0-py3-none-any.whl` file.
 
