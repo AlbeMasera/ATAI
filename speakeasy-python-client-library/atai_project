@@ -1,0 +1,13 @@
+import time
+import speakeasypy.openapi.client
+from pprint import pprint
+from speakeasypy.openapi.client.api import chat_api
+from speakeasypy.openapi.client.model.chat_message_reaction import ChatMessageReaction
+from speakeasypy.openapi.client.model.chat_room_list import ChatRoomList
+from speakeasypy.openapi.client.model.chat_room_state import ChatRoomState
+from speakeasypy.openapi.client.model.error_status import ErrorStatus
+from speakeasypy.openapi.client.model.success_status import SuccessStatus
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = speakeasypy.openapi.client.Configuration(
+    host = "http://localhost"
