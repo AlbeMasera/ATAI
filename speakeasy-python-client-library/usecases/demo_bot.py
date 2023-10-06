@@ -2,6 +2,9 @@ from speakeasypy import Speakeasy, Chatroom
 from typing import List
 import time
 
+from SPARQLWrapper import SPARQLWrapper, JSON
+import re  # Regular expressions
+
 DEFAULT_HOST_URL = "https://speakeasy.ifi.uzh.ch"
 listen_freq = 2
 
@@ -14,6 +17,13 @@ class Agent:
             host=DEFAULT_HOST_URL, username=username, password=password
         )
         self.speakeasy.login()  # This framework will help you log out automatically when the program terminates.
+
+    
+    @staticmethod
+    def is_sparql(query):
+        #Determine if a string is a SPARQL query
+        sparql_keywords = ["SELECT", "ASK", "DESCRIBE", "CONSTRUCT", "PREFIX"]
+        return any(re.search(fr"\b{keyword}\b", query, re.IGNORECASE) for keyword in sparql_keywords)
 
     def listen(self):
         while True:
@@ -37,9 +47,27 @@ class Agent:
                     )
 
                     # Implement your agent here #
-
+                    #
+                    # Extract query from message
+                    query = message.message.strip()
+                    
+                    # Basic check to see if the message contains a SPARQL query
+                    #if query.split(" ")[0].upper() in ["SELECT", "ASK", "DESCRIBE", "CONSTRUCT"]:
+                    if self.is_sparql(query):
+                        try:
+                            sparql = SPARQLWrapper("INSERT SPARQL ENDPOINT")
+                            sparql.setQuery(query)
+                            sparql.setReturnFormat(JSON)
+                            results = sparql.query().convert() 
+                            
+                            room.post_messages({results})
+                        except Exception as e:
+                            room.post_messages(f"Error executing query: {str(e)}")
+                    else:
+                        room.post_messages("Hi! Please enter a valid SPARQL query.")
+                    
                     # Send a message to the corresponding chat room using the post_messages method of the room object.
-                    room.post_messages(f"Received your message: '{message.message}' ")
+                    #room.post_messages(f"Received your message: '{message.message}' ")
                     # Mark the message as processed, so it will be filtered out when retrieving new messages.
                     room.mark_as_processed(message)
 
