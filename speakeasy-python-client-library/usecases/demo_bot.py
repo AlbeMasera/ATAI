@@ -79,8 +79,7 @@ class Agent:
                     )
 
                     # Implement your agent here #
-                    # Don't know what's needed here?
-                    
+
                     room.post_messages(f"Received your reaction: '{reaction.type}' ")
                     room.mark_as_processed(reaction)
 
@@ -94,3 +93,27 @@ class Agent:
 if __name__ == "__main__":
     demo_bot = Agent("kindle-pizzicato-wheat_bot", "zJD7llj0A010Zg")
     demo_bot.listen()
+
+
+'''
+COMMENT: I think for SPARQL endpoint, the data has to be on a server or have to setup endpoints. We probably have to locally query with rdflib ?
+In that case:
+
+pip install rdflib
+
+import rdflib
+
+graph = rdflib.Graph()
+
+graph = rdflib.Graph()
+graph.parse('./14_graph.nt', format='turtle')   # is this the correct one?
+
+def execute_query(query):
+    try:
+        results = graph.query(query)
+        # Format
+        result_list = [row for row in results]
+        return result_list
+    except Exception as e:
+        return str(e)
+'''
