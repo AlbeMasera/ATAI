@@ -51,8 +51,6 @@ class Agent:
                     # Extract query from message
                     query = message.message.strip()
                     
-                    # Basic check to see if the message contains a SPARQL query
-                    #if query.split(" ")[0].upper() in ["SELECT", "ASK", "DESCRIBE", "CONSTRUCT"]:
                     if self.is_sparql(query):
                         try:
                             sparql = SPARQLWrapper("INSERT SPARQL ENDPOINT")
@@ -81,7 +79,8 @@ class Agent:
                     )
 
                     # Implement your agent here #
-
+                    # Don't know what's needed here?
+                    
                     room.post_messages(f"Received your reaction: '{reaction.type}' ")
                     room.mark_as_processed(reaction)
 
