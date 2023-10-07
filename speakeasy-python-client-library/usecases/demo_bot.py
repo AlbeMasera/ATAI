@@ -1,9 +1,16 @@
+from rdflib import Graph
 from speakeasypy import Speakeasy, Chatroom
 from typing import List
 import time
 
 DEFAULT_HOST_URL = "https://speakeasy.ifi.uzh.ch"
 listen_freq = 2
+
+
+# define an empty knowledge graph
+graph = Graph()
+# load a knowledge graph
+graph.parse(source="speakeasy-python-client-library/graph/14_graph.nt", format="turtle")
 
 
 class Agent:
@@ -14,6 +21,19 @@ class Agent:
             host=DEFAULT_HOST_URL, username=username, password=password
         )
         self.speakeasy.login()  # This framework will help you log out automatically when the program terminates.
+
+    def sparql_query(self, query):
+        # clean input
+        query = query.replace("'''", "\n")
+        query = query.replace("‘’’", "\n")
+        query = query.replace("PREFIX", "\nPREFIX")
+
+        try:
+            result = [str(s) for s, in graph.query(query)]
+        except:
+            result = "Error"
+
+        return result
 
     def listen(self):
         while True:
@@ -39,10 +59,14 @@ class Agent:
                     # Implement your agent here #
 
                     # Send a message to the corresponding chat room using the post_messages method of the room object.
-                    room.post_messages(f"Received your message: '{message.message}' ")
+                    room.post_messages(f"Received your message!  ")
                     # Mark the message as processed, so it will be filtered out when retrieving new messages.
-                    room.mark_as_processed(message)
 
+                    respond = self.sparql_query(message.message)
+
+                    room.post_messages(f"Query answer: '{respond}' ")
+
+                    room.mark_as_processed(message)
                 # Retrieve reactions from this chat room.
                 # If only_new=True, it filters out reactions that have already been marked as processed.
                 for reaction in room.get_reactions(only_new=True):
