@@ -32,9 +32,25 @@ class Agent:
         query = query.replace("PREFIX", "\nPREFIX")
 
         try:
-            result = [str(s) for s, in graph.query(query)]
-        except:
-            result = "Error"
+            result = graph.query(query)
+            # Handle different conditions
+            processed_result = []
+            for item in result:
+                try:
+                    # Unpack as (str, int)
+                    s, nc = item
+                    processed_result.append((str(s), int(nc)))
+                except ValueError:
+                    try:
+                        # Unpack as (str, str)
+                        s, nc = item
+                        processed_result.append((str(s), str(nc)))
+                    except ValueError:
+                        # String value
+                        processed_result.append(str(item[0]))
+            result = processed_result
+        except Exception as e:
+            result = f"Error: {str(e)}"
 
         return result
 
