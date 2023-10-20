@@ -5,6 +5,7 @@ import time
 import pickle
 
 import re  # Regular expressions
+import spacy
 
 DEFAULT_HOST_URL = "https://speakeasy.ifi.uzh.ch"
 listen_freq = 2
@@ -62,6 +63,8 @@ class Agent:
         self.speakeasy = Speakeasy(
             host=DEFAULT_HOST_URL, username=username, password=password
         )
+        # Initialize the spaCy model
+        self.nlp = spacy.load("en_core_web_sm")
         self.speakeasy.login()  # This framework will help you log out automatically when the program terminates.
 
     def handle_utf8(self, query):
