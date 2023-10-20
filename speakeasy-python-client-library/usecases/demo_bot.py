@@ -2,6 +2,7 @@ from rdflib import Graph
 from speakeasypy import Speakeasy, Chatroom
 from typing import List
 import time
+import pickle
 
 import re  # Regular expressions
 
@@ -11,38 +12,48 @@ listen_freq = 2
 
 # define an empty knowledge graph
 graph = Graph()
+
+
 # load a knowledge graph
-graph.parse(source="speakeasy-python-client-library/graph/14_graph.nt", format="turtle")
+# open the file where we stored the pickled data
+file = open("important", "rb")
+
+# dump information to that file
+graph = pickle.load(file)
+
+# close the file
+file.close()
 
 LATIN_1_CHARS = (
-    ('\\\\xe2\\\\x80\\\\x99', "'"),
-    ('\\\\xc3\\\\xa9', 'e'),
-    ('\\\\xe2\\\\x80\\\\x90', '-'),
-    ('\\\\xe2\\\\x80\\\\x91', '-'),
-    ('\\\\xe2\\\\x80\\\\x92', '-'),
-    ('\\\\xe2\\\\x80\\\\x93', '-'),
-    ('\\\\xe2\\\\x80\\\\x94', '-'),
-    ('\\\\xe2\\\\x80\\\\x94', '-'),
-    ('\\\\xe2\\\\x80\\\\x98', "'"),
-    ('\\\\xe2\\\\x80\\\\x9b', "'"),
-    ('\\\\xe2\\\\x80\\\\x9c', '"'),
-    ('\\\\xe2\\\\x80\\\\x9c', '"'),
-    ('\\\\xe2\\\\x80\\\\x9d', '"'),
-    ('\\\\xe2\\\\x80\\\\x9e', '"'),
-    ('\\\\xe2\\\\x80\\\\x9f', '"'),
-    ('\\\\xe2\\\\x80\\\\xa6', '...'),
-    ('\\\\xe2\\\\x80\\\\xb2', "'"),
-    ('\\\\xe2\\\\x80\\\\xb3', "'"),
-    ('\\\\xe2\\\\x80\\\\xb4', "'"),
-    ('\\\\xe2\\\\x80\\\\xb5', "'"),
-    ('\\\\xe2\\\\x80\\\\xb6', "'"),
-    ('\\\\xe2\\\\x80\\\\xb7', "'"),
-    ('\\\\xe2\\\\x81\\\\xba', "+"),
-    ('\\\\xe2\\\\x81\\\\xbb', "-"),
-    ('\\\\xe2\\\\x81\\\\xbc', "="),
-    ('\\\\xe2\\\\x81\\\\xbd', "("),
-    ('\\\\xe2\\\\x81\\\\xbe', ")")
+    ("\\\\xe2\\\\x80\\\\x99", "'"),
+    ("\\\\xc3\\\\xa9", "e"),
+    ("\\\\xe2\\\\x80\\\\x90", "-"),
+    ("\\\\xe2\\\\x80\\\\x91", "-"),
+    ("\\\\xe2\\\\x80\\\\x92", "-"),
+    ("\\\\xe2\\\\x80\\\\x93", "-"),
+    ("\\\\xe2\\\\x80\\\\x94", "-"),
+    ("\\\\xe2\\\\x80\\\\x94", "-"),
+    ("\\\\xe2\\\\x80\\\\x98", "'"),
+    ("\\\\xe2\\\\x80\\\\x9b", "'"),
+    ("\\\\xe2\\\\x80\\\\x9c", '"'),
+    ("\\\\xe2\\\\x80\\\\x9c", '"'),
+    ("\\\\xe2\\\\x80\\\\x9d", '"'),
+    ("\\\\xe2\\\\x80\\\\x9e", '"'),
+    ("\\\\xe2\\\\x80\\\\x9f", '"'),
+    ("\\\\xe2\\\\x80\\\\xa6", "..."),
+    ("\\\\xe2\\\\x80\\\\xb2", "'"),
+    ("\\\\xe2\\\\x80\\\\xb3", "'"),
+    ("\\\\xe2\\\\x80\\\\xb4", "'"),
+    ("\\\\xe2\\\\x80\\\\xb5", "'"),
+    ("\\\\xe2\\\\x80\\\\xb6", "'"),
+    ("\\\\xe2\\\\x80\\\\xb7", "'"),
+    ("\\\\xe2\\\\x81\\\\xba", "+"),
+    ("\\\\xe2\\\\x81\\\\xbb", "-"),
+    ("\\\\xe2\\\\x81\\\\xbc", "="),
+    ("\\\\xe2\\\\x81\\\\xbd", "("),
+    ("\\\\xe2\\\\x81\\\\xbe", ")"),
 )
+
 
 class Agent:
     def __init__(self, username, password):
@@ -53,16 +64,16 @@ class Agent:
         )
         self.speakeasy.login()  # This framework will help you log out automatically when the program terminates.
 
-    def handle_utf8(self,query):
-        temp = repr(bytes(query, encoding = 'utf-8', errors='ignore'))[2:-1]
+    def handle_utf8(self, query):
+        temp = repr(bytes(query, encoding="utf-8", errors="ignore"))[2:-1]
 
         for _hex, _char in LATIN_1_CHARS:
             res = temp.replace(_hex, _char)
-        
+
         return res
 
-    def handle_none(self,query):
-        return self.handle_utf8('None' if query is None else str(query))
+    def handle_none(self, query):
+        return self.handle_utf8("None" if query is None else str(query))
 
     def sparql_query(self, query):
         # clean input
@@ -78,12 +89,16 @@ class Agent:
                 try:
                     # Unpack as (str, int)
                     s, nc = item
-                    processed_result.append((str(self.handle_none(s)), int(self.handle_none(nc))))
+                    processed_result.append(
+                        (str(self.handle_none(s)), int(self.handle_none(nc)))
+                    )
                 except ValueError:
                     try:
                         # Unpack as (str, str)
                         s, nc = item
-                        processed_result.append((str(self.handle_none(s)), str(self.handle_none(nc))))
+                        processed_result.append(
+                            (str(self.handle_none(s)), str(self.handle_none(nc)))
+                        )
                     except ValueError:
                         # String value
                         processed_result.append(str(self.handle_none(item[0])))
