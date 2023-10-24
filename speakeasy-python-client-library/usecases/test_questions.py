@@ -1,3 +1,4 @@
+import graphlib
 import pickle
 from rdflib import Graph
 import spacy
@@ -10,7 +11,7 @@ nlp = spacy.load("en_core_web_sm")
 
 nlp = spacy.load("en_core_web_sm")
 
-query = "Who directed of Shrek?"
+query = "Who is Aldo Moro?"
 
 
 def nounify(verb_word):
@@ -27,6 +28,9 @@ def nounify(verb_word):
 
 def info(query):
     doc = nlp(query)
+
+    for word in doc.ents:
+        print(word.text, word.label_)
     # Initialize variables to store the subject, predicate, and object
     subject = ""
     predicate = ""
@@ -60,7 +64,7 @@ def sparql_query(query):
     query = query.replace("PREFIX", "\nPREFIX")
 
     try:
-        result = graph.query(query)
+        result = graphlib.query(query)
         # Handle different conditions
         processed_result = []
         for item in result:
@@ -72,6 +76,13 @@ def sparql_query(query):
     return result
 
 
+doc = nlp(query)
+
+for ent in doc.ents:
+    print(f"{ent.label_} : {ent.text}")
+
+
+'''
 subject, predicate, obj = info(query)
 print(subject, predicate, obj)
 # Construct the SPARQL query
@@ -84,13 +95,13 @@ PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 
 PREFIX schema: <http://schema.org/>   
 
-SELECT ?director WHERE {{
+SELECT ?x WHERE {{
 
-     ?movie rdfs:label "{obj.strip()}"@en .  
+     ?z rdfs:label "{obj.strip()}"@en .  
 
-    ?movie wdt:P57 ?directorItem . 
+    ?z wdt:P57 ?y . 
 
-    ?directorItem rdfs:label ?director .  
+    ?y rdfs:label ?x .  
 
 }}
 
@@ -112,3 +123,4 @@ file = open("important", "rb")
 graph = pickle.load(file)
 
 print(sparql_query(msg))
+'''
