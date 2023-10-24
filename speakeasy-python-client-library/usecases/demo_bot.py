@@ -22,7 +22,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 base_dir = os.path.dirname(script_dir)
 
 # construct path to graph and embeddings
-graph_path = os.path.join(base_dir, 'graph', '14_graph_nt')
+graph_path = os.path.join(base_dir, 'graph', '14_graph.nt')
 
 entity_emb_path = os.path.join(base_dir, 'embeddings', 'entity_embeds.npy')
 relation_emb_path = os.path.join(base_dir, 'embeddings', 'relation_embeds.npy')
