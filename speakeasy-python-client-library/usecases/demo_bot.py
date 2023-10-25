@@ -336,3 +336,24 @@ class Agent:
 if __name__ == "__main__":
     demo_bot = Agent("kindle-pizzicato-wheat_bot", "zJD7llj0A010Zg")
     demo_bot.listen()
+
+
+
+
+'''
+    PREFIX ddis: <http://ddis.ch/atai/> 
+    PREFIX wd: <http://www.wikidata.org/entity/> 
+    PREFIX wdt: <http://www.wikidata.org/prop/direct/> 
+    PREFIX schema: <http://schema.org/> 
+    
+    SELECT ?lbl WHERE {
+        SELECT ?movie ?lbl ?rating WHERE {
+            ?movie wdt:P31 wd:Q11424 .
+            ?movie ddis:rating ?rating .
+            ?movie rdfs:label ?lbl .
+        }
+        ORDER BY DESC(?rating) 
+        LIMIT 20
+    }
+    
+'''
