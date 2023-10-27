@@ -12,7 +12,7 @@ import graphlib
 import numpy as np
 import csv
 import os
-
+from entity_classification import EntryClassification
 
 DEFAULT_HOST_URL = "https://speakeasy.ifi.uzh.ch"
 listen_freq = 2
@@ -26,19 +26,7 @@ class Agent:
             host=DEFAULT_HOST_URL, username=username, password=password
         )
         self.speakeasy.login()  # This framework will help you log out automatically when the program terminates.
-        # define an empty knowledge graph
-        self.graph = Graph()
-
-        # Load the graph
-        # graph = rdflib.Graph().parse('14_graph.nt', format='turtle')
-
-        # load a knowledge graph
-        # open the file where we stored the pickled data
-        file = open("important", "rb")
-        # dump information to that file
-        self.graph = pickle.load(file)
-        # close the file
-        file.close()
+        self.ec = EntryClassification()
 
     def handle_none(self, query):
         return self.handle_utf8("None" if query is None else str(query))
@@ -109,17 +97,22 @@ class Agent:
                     # Implement your agent here #
                     #
                     # Extract query from message
-                    query = message.message.strip()
+                    query = message.message
 
                     # Send a message to the corresponding chat room using the post_messages method of the room object.
-                    room.post_messages(f"Received your message!  ")
+                    room.post_messages(f"Received your message!")
                     # Mark the message as processed, so it will be filtered out when retrieving new messages.
 
                     if self.is_sparql(query):
                         respond = self.sparql_query(message.message)
                         room.post_messages(f"Query answer: '{respond}' ")
                     else:
-                        room.post_messages("Hi! Please enter a valid SPARQL query.")
+                        try:
+                            respond = self.ec.start(query)
+                            room.post_messages(respond.get_text())
+                        except Exception as e:
+                            print(f"Error: {str(e)}")
+                            room.post_messages("Sorry something went wrong '>.<")
 
                     room.mark_as_processed(message)
                 # Retrieve reactions from this chat room.
