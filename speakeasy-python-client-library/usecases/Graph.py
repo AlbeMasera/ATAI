@@ -1,5 +1,5 @@
 import os
-from typing import List
+from typing import List, Union
 import rdflib
 from rdflib import Namespace, query
 from rdflib.term import Node, IdentifiedNode, URIRef
@@ -49,7 +49,7 @@ class Graph(object):
         print("\n Executing Query: \n", query_str, "\n")
         return self.g.query(HEADER_CONST + query_str)
 
-    def entity_2_label(self, entity: IdentifiedNode) -> IdentifiedNode | None:
+    def entity_2_label(self, entity: IdentifiedNode) -> Union[IdentifiedNode, None]:
         for x in self.g.objects(entity, RDFS.label, True):
             return x
         return None

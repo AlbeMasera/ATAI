@@ -6,6 +6,7 @@ import Graph
 import rdflib
 from enum import Enum
 from collections import Counter
+from typing import Union
 
 WD = rdflib.Namespace("http://www.wikidata.org/entity/")
 WDT = rdflib.Namespace("http://www.wikidata.org/prop/direct/")
@@ -33,7 +34,7 @@ class AnswerLevel(Enum):
 
 
 class CrowdAnswer:
-    def __init__(self, level: AnswerLevel, message: str, stats: str | None):
+    def __init__(self, level: AnswerLevel, message: str, stats: Union[str, None]):
         self.level = level
         self.message = message
         self.stats = stats

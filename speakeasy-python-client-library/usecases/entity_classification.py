@@ -1,5 +1,5 @@
 import os
-from typing import Tuple
+from typing import Tuple, List, Dict
 import rdflib
 import utils
 
@@ -30,12 +30,12 @@ class EntryClassification(object):
         self.embeddingRecogniser = embeddingsRec.EmbeddingRecogniser()
         self.crowd = crowdAnswerer.CrowdAnswerer(self.embeddingRecogniser, self.graph)
 
-        print("[+] Answerer READY")
+        print("Answerer is ready!")
 
     # Start function of all the question answering
     def start(self, query: str) -> Answer:
         query = utils.remove_different_minus_scores(query)
-        print("[+] start classification")
+        print("Start classification")
 
         predicate = self.embeddingRecogniser.get_predicates(query)
 
@@ -48,10 +48,10 @@ class EntryClassification(object):
                     None,
                 )
 
-            print(f"[+] found PREDICATE in question")
+            print(f"Found 'predicate' in question")
             em_rl = self.embeddingAnswer.is_predicate_in_embedding(predicate.label)
             if em_rl:
-                print(f"[+] found EMBEDDING in question {em_rl.relation_label}")
+                print(f"Found 'embedding' in question {em_rl.relation_label}")
                 answer, answered = self.answer_embedding_question(
                     predicate.fixed_query, em_rl
                 )
@@ -65,15 +65,13 @@ class EntryClassification(object):
                 predicate.predicate, query
             ).with_crowd_opinion(crowd_answer.get_text())
 
-        return Answer.from_error("This seems to be a question that I cannot answer.")
+        return Answer.from_error("Sorry, I cannot answer this question.")
 
-    def answer_statical_question(
-        self, predicate: rdflib.term.URIRef, query: str
-    ) -> Answer:
+    def answer_statical_question(self, predicate: rdflib.term.URIRef, query: str) -> Answer:
         prediction = self.ner.get_single_prediction(query, is_question=True)
         if not prediction:
             return Answer.from_error(
-                f"No NER entities found. Wanted to use graph to answer. \n Found predicate {predicate}"
+                f"Could not find NER entities. Instead found predicate: {predicate}"
             )
 
         if prediction.label == "PER":
@@ -93,6 +91,7 @@ class EntryClassification(object):
 
     # @utils.catch_exc_decor(exc_val=Answer("The graph failed to answer question. Sorry."))
 
+    # answer questions about a person using the graph
     def get_static_question_from_person(
         self, name: str, predicate: rdflib.term.URIRef
     ) -> Answer:
@@ -109,9 +108,10 @@ class EntryClassification(object):
             )
 
         return Answer.from_error(
-            f"No answer found in the graph for {res[0]} and predicate {predicate}"
+            f"Could not find the answer in the graph for {res[0]} and predicate {predicate}"
         )
 
+    # answer questions about a movie using the graph
     def get_static_question_from_movie(
         self, name: str, predicate: rdflib.term.URIRef
     ) -> Answer:
@@ -128,9 +128,10 @@ class EntryClassification(object):
             )
 
         return Answer.from_error(
-            f"No answer found in the graph for {res[0]} and predicate {predicate}"
+            f"Could not find the answer in the graph for {res[0]} and predicate {predicate}"
         )
 
+    # answer a question using embeddings based on the recognized entity and relation
     def answer_embedding_question(
         self, query: str, relation: embeddings.EmbeddingRelation
     ) -> Tuple[Answer, bool]:
@@ -155,7 +156,8 @@ class EntryClassification(object):
                 )
             entity = res
 
-        else:  # Don't care about label whether ORG, LOC, MISC
+        else:  
+            # ignore labels
             res = self.graph.get_movie_with_label(prediction.original_text)
             if not len(res):
                 return (
@@ -204,53 +206,26 @@ if __name__ == "__main__":
     e2 = "What is the MPAA film rating of Weathering with You?"
     e3 = "What is the genre of Good Neighbors?"
 
-    mmq1 = "Show me a picture of Halle Berry."
-    mmq2 = "What does Julia Roberts look like?"
-    mmq3 = "Let me know what Sandra Bullock looks like."
-
-    r1 = "Recommend me a movie like The Dark Knight."
-    r2 = "Recommend me a movie like The Dark Knight and The Dark Knight Rises."
-    r3 = "Recommend me a movie like The Dark Knight and The Dark Knight Rises and The Dark Knight Returns."
-    r4 = "Given that I like The Lion King, Pocahontas, and The Beauty and the Beast, can you recommend some movies?"
-    r5 = (
-        "Recommend movies like Nightmare on Elm Street, Friday the 13th, and Halloween."
-    )
-    r6 = "Recommend movies similar to Hamlet and Othello.	"
-
     c1 = "What is the box office of The Princess and the Frog?	"
     c2 = "Can you tell me the publication date of Tom Meets Zizou?	"
     c3 = "Who is the executive producer of X-Men: First Class?	"
 
     ec = EntryClassification()
-    # print(ec.start(f0))
-    # print(ec.start(f1))
-    # print(ec.start(f2))
-    #
-    # print(ec.start(r1))
-    # print(ec.start(r2))
-    # print(ec.start(r3))
-    # print(ec.start(r4))
-    # print(ec.start(r5))
-    # print(ec.start(r6))
-    #
     answer = ec.start(f2)
     print(answer.get_text())
+
     # print(ec.start(q2))
     # print(ec.start(q3))
     # print(ec.start(q4))
+    #
+    # print(ec.start(f0))
+    # print(ec.start(f1))
+    # print(ec.start(f2))
+    # 
     # print(ec.start(e1))
     # print(ec.start(e2))
     # print(ec.start(e3))
-    # print(ec.start(mmq1))
-    # print(ec.start(mmq2))
-    # print(ec.start(mmq3))
     #
     # print(ec.start(c1))
     # print(ec.start(c2))
     # print(ec.start(c3))
-
-    # print(ec.movieRecommendation.recommend_embedding(["The Lion King", "Pocahontas", "The Beauty and the Beast"]))
-    # print(ec.movieRecommendation.recommend_embedding(["Nightmare on Elm Street", "Friday the 13th", "Halloween"]))
-    # print(ec.movieRecommendation.recommend_embedding(["Hangover"]))
-    # print(ec.movieRecommendation.recommend_embedding(["genre"]))
-    # print(ec.movieRecommendation.recommend_embedding(["The Dark Knight", "The Dark Knight Rises"]))

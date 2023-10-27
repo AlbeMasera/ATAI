@@ -1,6 +1,7 @@
 import numpy as np
 import rdflib, csv
 from sklearn.metrics import pairwise_distances
+from typing import Union
 
 import os
 
@@ -39,25 +40,33 @@ class EmbeddingAnswerer(object):
         entity_emb_path = os.path.join(data_folder, "entity_embeds.npy")
         relation_emb_path = os.path.join(data_folder, "relation_embeds.npy")
         ent_ids_path = os.path.join(data_folder, "entity_ids.del")
+        rel_ids_path = os.path.join(data_folder, "relation_ids.del")
 
         # load the embeddings
         self.entity_emb = np.load(entity_emb_path)
         self.relation_emb = np.load(relation_emb_path)
 
+        # load the dictionaries
         with open(ent_ids_path, "r") as ifile:
             self.ent2id = {
                 rdflib.term.URIRef(ent): int(idx)
-                for idx, ent in csv.reader(ifile, delimiter="\t")
-            }
+                for idx, ent in csv.reader(ifile, delimiter="\t")            }
             self.id2ent = {v: k for k, v in self.ent2id.items()}
-
+        '''
+        with open(rel_ids_path, 'r') as ifile:
+            self.rel2id = {
+                rdflib.term.URIRef(rel): int(idx)
+                 for idx, rel in csv.reader(ifile, delimiter='\t')}
+            self.id2rel = {v: k for k, v in rel2id.items()}
+        '''
+        
         assert self.entity_emb.any(), "Should contain entity_emb"
         assert self.relation_emb.any(), "Should contain relation_emb"
         assert self.ent2id, "Should contain ent2id"
         assert self.id2ent, "Should contain id2ent"
 
     @staticmethod
-    def is_predicate_in_embedding(relation_label: str) -> EmbeddingRelation | None:
+    def is_predicate_in_embedding(relation_label: str) -> Union[EmbeddingRelation, None]:
         relation_id = LABELS_IN_RELATION_IDS_DEL.get(relation_label, None)
         if relation_id:
             return EmbeddingRelation.from_key_and_label(relation_id, relation_label)
@@ -66,7 +75,7 @@ class EmbeddingAnswerer(object):
 
     def calculate_embedding_node(
         self, subject, relation_key: int
-    ) -> rdflib.IdentifiedNode | None:
+    ) -> Union[rdflib.IdentifiedNode, None]:
         print(f"[+] Embedding calc: {subject} +  {relation_key}")
 
         ent_id = self.ent2id.get(subject)

@@ -1,6 +1,6 @@
 import utils
-from transformers import AutoTokenizer, AutoModelForTokenClassification
-from transformers import NerPipeline
+from transformers import AutoTokenizer, AutoModelForTokenClassification, NerPipeline
+from typing import List, Dict, Union
 
 NER_MODEL = "dslim/bert-base-NER-uncased"
 
@@ -36,7 +36,7 @@ class EntityRecognition(object):
         assert self.pipeline, "Should contain pipeline"
 
     @staticmethod
-    def fix_spans(query: str, predictions: list[dict]) -> list[NerGroups]:
+    def fix_spans(query: str, predictions: List[Dict]) -> List[NerGroups]:
         out = []
         for p in predictions:
             original_text = query[p["start"] : p["end"]]
@@ -62,9 +62,10 @@ class EntityRecognition(object):
 
         return out
 
+    # returns a single recognized entity (as a NerGroups object)
     def get_single_prediction(
         self, sentence: str, is_question=False
-    ) -> None | NerGroups:
+    ) -> Union[None, NerGroups]:
         predictions: list[NerGroups] = self.get_predictions(sentence, is_question)
         if not predictions:
             return None
@@ -82,7 +83,9 @@ class EntityRecognition(object):
             "MISC", f"{start.word} -> {end.word}", start.start, end.end, org_text
         )
 
-    def get_predictions(self, sentence: str, is_question=False) -> list[NerGroups]:
+    # recognizes entities in the given sentence and returns a list of NerGroups objects
+    def get_predictions(self, sentence: str, is_question=False) -> List[NerGroups]:
+
         print(f"[.] NER: {sentence}")
         # add sentence end => NER result better for name at end of sentence
         sentence = utils.add_sentence_ending(sentence, is_question=is_question)

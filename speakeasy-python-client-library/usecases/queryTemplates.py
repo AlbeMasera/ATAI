@@ -1,7 +1,7 @@
 IS_MOVIE = "wdt:P31 wd:Q2431196."
 DIRECTED = "wdt:P57"
 
-GET_FILM_BY_NAME_FILTER = """
+GET_MOVIE_BY_NAME = """
                 SELECT DISTINCT ?film ?queryByTitle WHERE{
                   ?film wdt:P31/wdt:P279* wd:Q2431196.                                                                 
                   ?film rdfs:label ?queryByTitle.                                                          
@@ -10,7 +10,17 @@ GET_FILM_BY_NAME_FILTER = """
                 LIMIT 1
             """
 
-GET_FILM_DETAILS_BY_NAME_FILTER = """
+GET_MOVIE_BY_NAME_FILTER = """
+                SELECT DISTINCT ?queryByTitle ?film WHERE{
+                  ?film wdt:P31/wdt:P279* wd:Q2431196.                                                                 
+                  ?film rdfs:label ?queryByTitle.                                                          
+                  FILTER(REGEX(?queryByTitle, "%(filmName)s", "i"))
+                  FILTER(LANG(?queryByTitle) = "en")
+                }
+                LIMIT 10 
+            """
+
+GET_MOVIE_DETAILS_BY_NAME = """
                  SELECT DISTINCT ?film ?genre ?director ?production_com ?screenwriter ?country_of_origin ?producer WHERE{
                   ?film wdt:P31/wdt:P279* wd:Q2431196.
                   ?film rdfs:label ?queryByTitle.
@@ -25,16 +35,6 @@ GET_FILM_DETAILS_BY_NAME_FILTER = """
                 }
                 LIMIT 10
  """
-
-GET_FILMS_BY_NAME_FILTER = """
-                SELECT DISTINCT ?queryByTitle ?film WHERE{
-                  ?film wdt:P31/wdt:P279* wd:Q2431196.                                                                 
-                  ?film rdfs:label ?queryByTitle.                                                          
-                  FILTER(REGEX(?queryByTitle, "%(filmName)s", "i"))
-                  FILTER(LANG(?queryByTitle) = "en")
-                }
-                LIMIT 10 
-            """
 
 GET_PER_BY_LABEL = """
   SELECT DISTINCT ?item WHERE {
@@ -57,18 +57,6 @@ SELECT DISTINCT ?per ?queryByTitle WHERE {
 LIMIT 1
 """
 
-GET_FILM_RECOMMENDATION_BY_DETAILS = """
-SELECT DISTINCT ?film ?filmtitle WHERE{
-    ?film wdt:P31/wdt:P279* wd:Q2431196.
-    ?film rdfs:label ?filmtitle.
-
-%(filmDetails)s
-
-    FILTER(LANG(?filmtitle) = "en")
-}
-LIMIT 5
-    """
-
 GET_BY_MOVIE_SUB_LABEL_AND_PREDICATE = """
 SELECT DISTINCT ?entity ?entity_label WHERE {
   {
@@ -80,7 +68,7 @@ SELECT DISTINCT ?entity ?entity_label WHERE {
     }
     LIMIT 1 
   }
-  ?subject %(predicate)s ?entity.                                                                 # film => directed by FilmDirector
+  ?subject %(predicate)s ?entity.
   ?entity rdfs:label ?entity_label.
   
   FILTER(LANG(?entity_label) = "en")

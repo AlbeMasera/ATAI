@@ -9,7 +9,7 @@ import rdflib
 from nltk.util import everygrams
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
-
+from typing import Union
 
 THRESHOLD = 0.75
 EVERYGRAM_LEN = 5
@@ -130,7 +130,7 @@ class EmbeddingRecogniser:
         else:
             return query.replace(org_string, r_df["fixed"].values[0])
 
-    def get_predicates(self, query, stemming=True) -> PossiblePredicate | None:
+    def get_predicates(self, query, stemming=True) -> Union[PossiblePredicate, None]:
         original_query = query
         query = utils.remove_sent_endings(query)
 
@@ -187,7 +187,7 @@ class EmbeddingRecogniser:
         print("[X] PredicateEmbedding: No match found")
         return
 
-    def get_crowd_entity(self, query) -> CrowdEntity | None:
+    def get_crowd_entity(self, query) -> Union[CrowdEntity, None]:
         split = utils.remove_sent_endings(query).split(" ")
 
         words = [
