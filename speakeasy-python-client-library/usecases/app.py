@@ -1,5 +1,3 @@
-from typing import Callable
-
 from demo_bot import Agent
 
 
@@ -19,3 +17,7 @@ def main():
         except KeyboardInterrupt:
             print("Keyboard interrupt")
             return
+
+
+if __name__ == "__main__":
+    main()
