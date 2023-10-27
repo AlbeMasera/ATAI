@@ -198,7 +198,7 @@ if __name__ == "__main__":
 
     f0 = "Who is the director of Good Will Hunting?	"
     f1 = "Who directed The Bridge on the River Kwai?	"
-    f2 = "Who is the director of Star Wars: Episode VI - Return of the Jedi?	"
+    f2 = "Who directed Star Wars: Episode VI - Return of the Jedi?	"
 
     e1 = "Who is the screenwriter of The Masked Gang: Cyprus?"
     e2 = "What is the MPAA film rating of Weathering with You?"
@@ -233,7 +233,8 @@ if __name__ == "__main__":
     # print(ec.start(r5))
     # print(ec.start(r6))
     #
-    print(ec.start(q).get_text())
+    answer = ec.start(f2)
+    print(answer.get_text())
     # print(ec.start(q2))
     # print(ec.start(q3))
     # print(ec.start(q4))

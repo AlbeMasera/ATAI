@@ -6,7 +6,7 @@ def remove_sent_endings(inp: str):
 
 
 def remove_different_minus_scores(query: str) -> str:
-    return query.replace("–", "-")
+    return query.replace("-", "–")
 
 
 def add_sentence_ending(sentence: str, is_question=False):

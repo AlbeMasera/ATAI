@@ -110,7 +110,7 @@ class EmbeddingRecogniser:
         words = [" ".join(tup) for tup in everygrams(words, max_len=len(words))]
 
         found_str_embedding = self.model.encode(
-            words, convert_to_tensor=True, device="cuda"
+            words, convert_to_tensor=True, device="cpu"
         )
         hits = util.semantic_search(embedding_found, found_str_embedding, top_k=1)
         h = hits[0][0]
