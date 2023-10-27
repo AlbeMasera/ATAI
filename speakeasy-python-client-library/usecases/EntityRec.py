@@ -25,12 +25,12 @@ class NerGroups(object):
 class EntityRecognition(object):
     def __init__(self):
         # load the NER tagger
-        tokenizer = AutoTokenizer.from_pretrained(NER_MODEL, device=0)
-        model = AutoModelForTokenClassification.from_pretrained(NER_MODEL).to("cuda:0")
+        tokenizer = AutoTokenizer.from_pretrained(NER_MODEL, device=-1)
+        model = AutoModelForTokenClassification.from_pretrained(NER_MODEL).to("cpu")
 
         # maybe change grouping strategy later
         self.pipeline = NerPipeline(
-            model=model, tokenizer=tokenizer, device=0, aggregation_strategy="average"
+            model=model, tokenizer=tokenizer, device=-1, aggregation_strategy="average"
         )
 
         assert self.pipeline, "Should contain pipeline"

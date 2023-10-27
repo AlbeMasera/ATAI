@@ -1,3 +1,4 @@
+import os
 import utils
 import torch
 from sentence_transformers import SentenceTransformer, util
@@ -11,19 +12,22 @@ from nltk.tokenize import word_tokenize
 
 THRESHOLD = 0.75
 EVERYGRAM_LEN = 5
-PREDICATE_DESC = "/home/luc/UZH/w22/AI/code/Project/embedding/predicates_extended.csv"
-PRED_EMBEDDINGS = "/home/luc/UZH/w22/AI/code/Project/embedding/embeddings2.npy"
 
-CROWD_ENTITIES_DESC = (
-    "/home/luc/UZH/w22/AI/code/Project/crowd/embedding/entities_crowd.csv"
-)
-CROWD_ENTITIES_EMBEDDINGS = (
-    "/home/luc/UZH/w22/AI/code/Project/crowd/embedding/entities_crowd_emb.npy"
-)
+# Get the absolute path to the current directory
+current_directory = os.path.dirname(os.path.abspath(__file__))
 
-REPLACE_PREDICATES_FILE = (
-    "/home/luc/UZH/w22/AI/code/Project/embedding/replace_predicates_ner.csv"
-)
+# Define the relative path to the "data" folder
+data_folder = os.path.join(current_directory, "data")
+
+# Use absolute paths for loading files from the "data" folder
+PREDICATE_DESC = os.path.join(data_folder, "predicates_extended.csv")
+PRED_EMBEDDINGS = os.path.join(data_folder, "embeddings2.npy")
+
+CROWD_ENTITIES_DESC = os.path.join(data_folder, "entities_crowd.csv")
+
+CROWD_ENTITIES_EMBEDDINGS = os.path.join(data_folder, "entities_crowd_emb.npy")
+
+REPLACE_PREDICATES_FILE = os.path.join(data_folder, "replace_predicates_ner.csv")
 
 
 class PossiblePredicate:
@@ -55,11 +59,11 @@ class EmbeddingRecogniser:
         self.stammer = PorterStemmer()
 
         np_arr = numpy.load(pred_embeddings_path)
-        self.pred_embeddings = torch.from_numpy(np_arr).to("cuda")
+        self.pred_embeddings = torch.from_numpy(np_arr).to("cpu")
         self.pred_df = pd.read_csv(pred_df_path)
 
         np_arr = numpy.load(crowd_embeddings_path)
-        self.crowd_embeddings = torch.from_numpy(np_arr).to("cuda")
+        self.crowd_embeddings = torch.from_numpy(np_arr).to("cpu")
         self.crowd_df = pd.read_csv(crowd_df_path)
 
         self.replace_predicates_df = pd.read_csv(replace_predicates_path)
@@ -102,7 +106,7 @@ class EmbeddingRecogniser:
 
         print("[.] PredicateEmbedding: will embed:", words)
         query_embeddings = self.model.encode(
-            words, convert_to_tensor=True, device="cuda"
+            words, convert_to_tensor=True, device="cpu"
         )
         for i, query_embed in enumerate(query_embeddings):
             hits = util.semantic_search(query_embed, self.pred_embeddings, top_k=1)

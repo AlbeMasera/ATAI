@@ -2,6 +2,9 @@ import numpy as np
 import rdflib, csv
 
 
+import os
+
+
 class EmbeddingRelation(object):
     relation_key: int
     relation_label: str
@@ -26,17 +29,22 @@ class EmbeddingRelation(object):
 
 class EmbeddingAnswerer(object):
     def __init__(self):
-        # load the embeddings
-        self.entity_emb = np.load(
-            "../Project/Resources/ddis-graph-embeddings/entity_embeds.npy"
-        )
-        self.relation_emb = np.load(
-            "../Project/Resources/ddis-graph-embeddings/relation_embeds.npy"
-        )
+        # Get the absolute path to the current directory
+        current_directory = os.path.dirname(os.path.abspath(__file__))
 
-        with open(
-            "../Project/Resources/ddis-graph-embeddings/entity_ids.del", "r"
-        ) as ifile:
+        # Define the relative path to the "data" folder
+        data_folder = os.path.join(current_directory, "data")
+
+        # Use absolute paths for loading files from the "data" folder
+        entity_emb_path = os.path.join(data_folder, "entity_embeds.npy")
+        relation_emb_path = os.path.join(data_folder, "relation_embeds.npy")
+        ent_ids_path = os.path.join(data_folder, "entity_ids.del")
+
+        # load the embeddings
+        self.entity_emb = np.load(entity_emb_path)
+        self.relation_emb = np.load(relation_emb_path)
+
+        with open(ent_ids_path, "r") as ifile:
             self.ent2id = {
                 rdflib.term.URIRef(ent): int(idx)
                 for idx, ent in csv.reader(ifile, delimiter="\t")

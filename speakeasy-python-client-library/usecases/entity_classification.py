@@ -1,25 +1,31 @@
+import os
 import rdflib
 import utils
 
 
-from EntityRec import EntityRecognition, NerGroups
+from EntityRec import EntityRecognition
 import crowdAnswerer
 from answer import Answer
 import embeddingsRec
 import embeddings
+from Graph import Graph
 
-GRAPH_FILE = "../Project/Resources/14_graph.nt"
-GRAPH_FILE_SMALL = "../Project/Resources/small_graph.ttl"
-GRAPH_PICKLE = "../Project/Graph/graph_pickle_2.pickle"
 
-MMP_PICKLE = "../Project/media/multimediaprocessor.pickle"
+# Get the absolute path to the current directory
+current_directory = os.path.dirname(os.path.abspath(__file__))
+
+# Define the relative path to the "data" folder
+data_folder = os.path.join(current_directory, "data")
+
+# Use absolute paths for loading files from the "data" folder
+GRAPH_PICKLE = os.path.join(data_folder, "pickle_graph.pickel")
 
 
 class EntryClassification(object):
     def __init__(self):
         self.ner = EntityRecognition()
         self.embeddingAnswer = embeddings.EmbeddingAnswerer()
-
+        self.graph = Graph(GRAPH_PICKLE, is_pickle=True)
         self.embeddingRecogniser = embeddingsRec.EmbeddingRecogniser()
         self.crowd = crowdAnswerer.CrowdAnswerer(self.embeddingRecogniser, self.graph)
 

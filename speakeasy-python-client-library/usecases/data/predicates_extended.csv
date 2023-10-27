@@ -1,0 +1,766 @@
+,Unnamed: 0,label,predicate,org_label
+242,79777,Australian Classification,http://www.wikidata.org/prop/direct/P3156,Australian Classification
+193,9828,BAMID film rating,http://www.wikidata.org/prop/direct/P9086,BAMID film rating
+193,9828,BAMID filmi rating,http://www.wikidata.org/prop/direct/P9086,BAMID film rating
+53,263,BBFC rating,http://www.wikidata.org/prop/direct/P2629,BBFC rating
+64,345,CNC film rating (France),http://www.wikidata.org/prop/direct/P2758,CNC film rating (France)
+100,954,CNC film rating (Romania),http://www.wikidata.org/prop/direct/P3402,CNC film rating (Romania)
+100,954,CNC film rating (romanian),http://www.wikidata.org/prop/direct/P3402,CNC film rating (Romania)
+64,345,CNC filmi rating (France),http://www.wikidata.org/prop/direct/P2758,CNC film rating (France)
+100,954,CNC filmi rating (Romania),http://www.wikidata.org/prop/direct/P3402,CNC film rating (Romania)
+112,1670,ClassInd rating,http://www.wikidata.org/prop/direct/P3216,ClassInd rating
+105,1408,EIRIN film rating,http://www.wikidata.org/prop/direct/P2756,EIRIN film rating
+105,1408,EIRIN filmi rating,http://www.wikidata.org/prop/direct/P2756,EIRIN film rating
+171,6333,FPB rating,http://www.wikidata.org/prop/direct/P4437,FPB rating
+36,112,FSK film rating,http://www.wikidata.org/prop/direct/P1981,FSK film rating
+36,112,FSK filmi rating,http://www.wikidata.org/prop/direct/P1981,FSK film rating
+27,59,Filmiroda rating,http://www.wikidata.org/prop/direct/P2747,Filmiroda rating
+96,897,Hong Kong film rating,http://www.wikidata.org/prop/direct/P8874,Hong Kong film rating
+96,897,Hong Kong filmi rating,http://www.wikidata.org/prop/direct/P8874,Hong Kong film rating
+28,62,ICAA rating,http://www.wikidata.org/prop/direct/P3306,ICAA rating
+95,870,IFCO rating,http://www.wikidata.org/prop/direct/P7573,IFCO rating
+119,1833,IGAC rating,http://www.wikidata.org/prop/direct/P5150,IGAC rating
+114,1705,IMDA rating,http://www.wikidata.org/prop/direct/P5201,IMDA rating
+8,10,IMDb ID,http://www.wikidata.org/prop/direct/P345,IMDb ID
+109,1591,INCAA film rating,http://www.wikidata.org/prop/direct/P3428,INCAA film rating
+109,1591,INCAA filmi rating,http://www.wikidata.org/prop/direct/P3428,INCAA film rating
+34,93,JMK film rating,http://www.wikidata.org/prop/direct/P3650,JMK film rating
+34,93,JMK filmi rating,http://www.wikidata.org/prop/direct/P3650,JMK film rating
+176,6589,KAVI rating,http://www.wikidata.org/prop/direct/P5152,KAVI rating
+191,9144,KMRB film rating,http://www.wikidata.org/prop/direct/P3818,KMRB film rating
+191,9144,KMRB filmi rating,http://www.wikidata.org/prop/direct/P3818,KMRB film rating
+39,144,Kijkwijzer rating,http://www.wikidata.org/prop/direct/P2684,Kijkwijzer rating
+122,2019,MPAA film rating,http://www.wikidata.org/prop/direct/P1657,MPAA film rating
+122,2019,MPAA filmi rating,http://www.wikidata.org/prop/direct/P1657,MPAA film rating
+159,5082,MTRCB rating,http://www.wikidata.org/prop/direct/P8889,MTRCB rating
+54,265,Medierådet rating,http://www.wikidata.org/prop/direct/P5970,Medierådet rating
+86,666,NMHH film rating,http://www.wikidata.org/prop/direct/P2363,NMHH film rating
+86,666,NMHH filmi rating,http://www.wikidata.org/prop/direct/P2363,NMHH film rating
+106,1448,OFLC classification,http://www.wikidata.org/prop/direct/P7327,OFLC classification
+140,3454,RARS rating,http://www.wikidata.org/prop/direct/P2637,RARS rating
+89,687,RCQ classification,http://www.wikidata.org/prop/direct/P6658,RCQ classification
+98,945,RTC film rating,http://www.wikidata.org/prop/direct/P3834,RTC film rating
+98,945,RTC filmi rating,http://www.wikidata.org/prop/direct/P3834,RTC film rating
+174,6497,affili,http://www.wikidata.org/prop/direct/P1416,affiliation
+174,6497,affiliation,http://www.wikidata.org/prop/direct/P1416,affiliation
+65,347,after a form by,http://www.wikidata.org/prop/direct/P1877,after a work by
+65,347,after a work by,http://www.wikidata.org/prop/direct/P1877,after a work by
+65,347,after a worker by,http://www.wikidata.org/prop/direct/P1877,after a work by
+150,4537,allegi,http://www.wikidata.org/prop/direct/P945,allegiance
+150,4537,allegiance,http://www.wikidata.org/prop/direct/P945,allegiance
+216,25074,ancestr home,http://www.wikidata.org/prop/direct/P66,ancestral home
+216,25074,ancestral home,http://www.wikidata.org/prop/direct/P66,ancestral home
+216,25074,ancestral homey,http://www.wikidata.org/prop/direct/P66,ancestral home
+216,25074,ancestral homi,http://www.wikidata.org/prop/direct/P66,ancestral home
+72,399,anim,http://www.wikidata.org/prop/direct/P6942,animator
+72,399,animator,http://www.wikidata.org/prop/direct/P6942,animator
+241,79775,appli to jurisdict,http://www.wikidata.org/prop/direct/P1001,applies to jurisdiction
+241,79775,applic to jurisdiction,http://www.wikidata.org/prop/direct/P1001,applies to jurisdiction
+241,79775,applier to jurisdiction,http://www.wikidata.org/prop/direct/P1001,applies to jurisdiction
+241,79775,applies to jurisdiction,http://www.wikidata.org/prop/direct/P1001,applies to jurisdiction
+221,30019,archiv at,http://www.wikidata.org/prop/direct/P485,archives at
+221,30019,archives at,http://www.wikidata.org/prop/direct/P485,archives at
+221,30019,archivist at,http://www.wikidata.org/prop/direct/P485,archives at
+133,2835,art direct,http://www.wikidata.org/prop/direct/P3174,art director
+133,2835,art director,http://www.wikidata.org/prop/direct/P3174,art director
+133,2835,arti director,http://www.wikidata.org/prop/direct/P3174,art director
+75,422,aspect ratio,http://www.wikidata.org/prop/direct/P2061,aspect ratio
+75,422,aspectu ratio,http://www.wikidata.org/prop/direct/P2061,aspect ratio
+24,46,assess,http://www.wikidata.org/prop/direct/P5021,assessment
+24,46,assessement,http://www.wikidata.org/prop/direct/P5021,assessment
+24,46,assessment,http://www.wikidata.org/prop/direct/P5021,assessment
+24,46,assessorment,http://www.wikidata.org/prop/direct/P5021,assessment
+242,79777,australia Classification,http://www.wikidata.org/prop/direct/P3156,Australian Classification
+242,79777,australian Classification,http://www.wikidata.org/prop/direct/P3156,Australian Classification
+242,79777,australian classif,http://www.wikidata.org/prop/direct/P3156,Australian Classification
+61,321,author,http://www.wikidata.org/prop/direct/P50,author
+61,321,authori,http://www.wikidata.org/prop/direct/P50,author
+33,92,award receiv,http://www.wikidata.org/prop/direct/P166,award received
+33,92,award received,http://www.wikidata.org/prop/direct/P166,award received
+193,9828,bamid film rate,http://www.wikidata.org/prop/direct/P9086,BAMID film rating
+52,257,basald on,http://www.wikidata.org/prop/direct/P144,based on
+52,257,base on,http://www.wikidata.org/prop/direct/P144,based on
+52,257,based on,http://www.wikidata.org/prop/direct/P144,based on
+183,8320,basin countri,http://www.wikidata.org/prop/direct/P205,basin country
+183,8320,basin country,http://www.wikidata.org/prop/direct/P205,basin country
+53,263,bbfc rate,http://www.wikidata.org/prop/direct/P2629,BBFC rating
+103,1323,box offic,http://www.wikidata.org/prop/direct/P2142,box office
+103,1323,box office,http://www.wikidata.org/prop/direct/P2142,box office
+103,1323,box offici,http://www.wikidata.org/prop/direct/P2142,box office
+103,1323,boxer office,http://www.wikidata.org/prop/direct/P2142,box office
+103,1323,boxi office,http://www.wikidata.org/prop/direct/P2142,box office
+161,5278,broadcast by,http://www.wikidata.org/prop/direct/P3301,broadcast by
+184,8384,busi model,http://www.wikidata.org/prop/direct/P7936,business model
+184,8384,business model,http://www.wikidata.org/prop/direct/P7936,business model
+90,738,capit,http://www.wikidata.org/prop/direct/P36,capital
+169,6005,capit of,http://www.wikidata.org/prop/direct/P1376,capital of
+90,738,capital,http://www.wikidata.org/prop/direct/P36,capital
+169,6005,capital of,http://www.wikidata.org/prop/direct/P1376,capital of
+90,738,capitalis,http://www.wikidata.org/prop/direct/P36,capital
+169,6005,capitalis of,http://www.wikidata.org/prop/direct/P1376,capital of
+7,9,cast member,http://www.wikidata.org/prop/direct/P161,cast member
+7,9,caster member,http://www.wikidata.org/prop/direct/P161,cast member
+220,29847,caus cause,http://www.wikidata.org/prop/direct/P828,has cause
+231,52651,caus edition or translation,http://www.wikidata.org/prop/direct/P747,has edition or translation
+177,6657,caus effect,http://www.wikidata.org/prop/direct/P1542,has effect
+111,1651,caus of death,http://www.wikidata.org/prop/direct/P509,cause of death
+40,147,caus part,http://www.wikidata.org/prop/direct/P527,has part
+238,71095,caus pet,http://www.wikidata.org/prop/direct/P1429,has pet
+51,253,caus quality,http://www.wikidata.org/prop/direct/P1552,has quality
+148,4446,caus works in the collection,http://www.wikidata.org/prop/direct/P6379,has works in the collection
+111,1651,causal of death,http://www.wikidata.org/prop/direct/P509,cause of death
+111,1651,causat of death,http://www.wikidata.org/prop/direct/P509,cause of death
+111,1651,cause of death,http://www.wikidata.org/prop/direct/P509,cause of death
+1,1,charact,http://www.wikidata.org/prop/direct/P674,characters
+235,63064,charact design,http://www.wikidata.org/prop/direct/P8670,character designer
+235,63064,charact designer,http://www.wikidata.org/prop/direct/P8670,character designer
+1,1,character,http://www.wikidata.org/prop/direct/P674,characters
+235,63064,character design,http://www.wikidata.org/prop/direct/P8670,character designer
+235,63064,character designer,http://www.wikidata.org/prop/direct/P8670,character designer
+1,1,characteris,http://www.wikidata.org/prop/direct/P674,characters
+235,63064,characteris designer,http://www.wikidata.org/prop/direct/P8670,character designer
+1,1,characterist,http://www.wikidata.org/prop/direct/P674,characters
+1,1,characters,http://www.wikidata.org/prop/direct/P674,characters
+60,320,child,http://www.wikidata.org/prop/direct/P40,child
+230,50386,choreograph,http://www.wikidata.org/prop/direct/P1809,choreographer
+230,50386,choreographer,http://www.wikidata.org/prop/direct/P1809,choreographer
+209,19405,citat work,http://www.wikidata.org/prop/direct/P2860,cites work
+209,19405,citats work,http://www.wikidata.org/prop/direct/P2860,cites work
+209,19405,cite work,http://www.wikidata.org/prop/direct/P2860,cites work
+209,19405,cites form,http://www.wikidata.org/prop/direct/P2860,cites work
+209,19405,cites work,http://www.wikidata.org/prop/direct/P2860,cites work
+209,19405,cites worker,http://www.wikidata.org/prop/direct/P2860,cites work
+112,1670,classind rate,http://www.wikidata.org/prop/direct/P3216,ClassInd rating
+64,345,cnc film rate ( franc ),http://www.wikidata.org/prop/direct/P2758,CNC film rating (France)
+100,954,cnc film rate ( romania ),http://www.wikidata.org/prop/direct/P3402,CNC film rating (Romania)
+202,13404,collect,http://www.wikidata.org/prop/direct/P195,collection
+202,13404,collection,http://www.wikidata.org/prop/direct/P195,collection
+202,13404,collectorion,http://www.wikidata.org/prop/direct/P195,collection
+19,29,color,http://www.wikidata.org/prop/direct/P462,color
+19,29,colour,http://www.wikidata.org/prop/direct/P462,color
+236,67740,confabred by,http://www.wikidata.org/prop/direct/P1027,conferred by
+236,67740,confer by,http://www.wikidata.org/prop/direct/P1027,conferred by
+236,67740,confere by,http://www.wikidata.org/prop/direct/P1027,conferred by
+236,67740,conferered by,http://www.wikidata.org/prop/direct/P1027,conferred by
+236,67740,conferr by,http://www.wikidata.org/prop/direct/P1027,conferred by
+236,67740,conferred by,http://www.wikidata.org/prop/direct/P1027,conferred by
+236,67740,conferrred by,http://www.wikidata.org/prop/direct/P1027,conferred by
+92,793,conflict,http://www.wikidata.org/prop/direct/P607,conflict
+136,3185,contain administr territori entiti,http://www.wikidata.org/prop/direct/P150,contains administrative territorial entity
+136,3185,contain administrative territorial entity,http://www.wikidata.org/prop/direct/P150,contains administrative territorial entity
+136,3185,contains administrative territori entity,http://www.wikidata.org/prop/direct/P150,contains administrative territorial entity
+136,3185,contains administrative territorial entity,http://www.wikidata.org/prop/direct/P150,contains administrative territorial entity
+198,11293,contin,http://www.wikidata.org/prop/direct/P30,continent
+136,3185,contin administrative territorial entity,http://www.wikidata.org/prop/direct/P150,contains administrative territorial entity
+198,11293,continent,http://www.wikidata.org/prop/direct/P30,continent
+136,3185,contins administrative territorial entity,http://www.wikidata.org/prop/direct/P150,contains administrative territorial entity
+124,2218,contribut to the creative work or subject,http://www.wikidata.org/prop/direct/P767,contributor to the creative work or subject
+124,2218,contributor to the creativ work or subject,http://www.wikidata.org/prop/direct/P767,contributor to the creative work or subject
+124,2218,contributor to the creative form or subject,http://www.wikidata.org/prop/direct/P767,contributor to the creative work or subject
+124,2218,contributor to the creative work or subject,http://www.wikidata.org/prop/direct/P767,contributor to the creative work or subject
+124,2218,contributor to the creative worker or subject,http://www.wikidata.org/prop/direct/P767,contributor to the creative work or subject
+210,19526,convict of,http://www.wikidata.org/prop/direct/P1399,convicted of
+210,19526,convicted of,http://www.wikidata.org/prop/direct/P1399,convicted of
+211,19594,copyright hold,http://www.wikidata.org/prop/direct/P3931,copyright holder
+211,19594,copyright holder,http://www.wikidata.org/prop/direct/P3931,copyright holder
+234,58694,copyright licenc,http://www.wikidata.org/prop/direct/P275,copyright license
+234,58694,copyright licens,http://www.wikidata.org/prop/direct/P275,copyright license
+234,58694,copyright license,http://www.wikidata.org/prop/direct/P275,copyright license
+234,58694,copyright licenti,http://www.wikidata.org/prop/direct/P275,copyright license
+213,20844,copyright repres,http://www.wikidata.org/prop/direct/P6275,copyright representative
+213,20844,copyright representative,http://www.wikidata.org/prop/direct/P6275,copyright representative
+46,215,copyright statu,http://www.wikidata.org/prop/direct/P6216,copyright status
+46,215,copyright status,http://www.wikidata.org/prop/direct/P6216,copyright status
+57,285,costum design,http://www.wikidata.org/prop/direct/P2515,costume designer
+57,285,costum designer,http://www.wikidata.org/prop/direct/P2515,costume designer
+57,285,costume design,http://www.wikidata.org/prop/direct/P2515,costume designer
+57,285,costume designer,http://www.wikidata.org/prop/direct/P2515,costume designer
+49,242,countri,http://www.wikidata.org/prop/direct/P17,country
+170,6327,countri for sport,http://www.wikidata.org/prop/direct/P1532,country for sport
+13,17,countri of citizenship,http://www.wikidata.org/prop/direct/P27,country of citizenship
+50,250,countri of origin,http://www.wikidata.org/prop/direct/P495,country of origin
+49,242,country,http://www.wikidata.org/prop/direct/P17,country
+170,6327,country for sport,http://www.wikidata.org/prop/direct/P1532,country for sport
+13,17,country of citizenship,http://www.wikidata.org/prop/direct/P27,country of citizenship
+50,250,country of origin,http://www.wikidata.org/prop/direct/P495,country of origin
+63,341,creat,http://www.wikidata.org/prop/direct/P170,creator
+63,341,creator,http://www.wikidata.org/prop/direct/P170,creator
+217,28233,crew member ( s ),http://www.wikidata.org/prop/direct/P1029,crew member(s)
+217,28233,crew member(s),http://www.wikidata.org/prop/direct/P1029,crew member(s)
+239,72769,dedic to,http://www.wikidata.org/prop/direct/P825,dedicated to
+239,72769,dedicated to,http://www.wikidata.org/prop/direct/P825,dedicated to
+134,2893,depart of,http://www.wikidata.org/prop/direct/P361,part of
+126,2390,depart of the series,http://www.wikidata.org/prop/direct/P179,part of the series
+162,5307,depict,http://www.wikidata.org/prop/direct/P180,depicts
+192,9395,depict by,http://www.wikidata.org/prop/direct/P1299,depicted by
+192,9395,depicted by,http://www.wikidata.org/prop/direct/P1299,depicted by
+162,5307,depicts,http://www.wikidata.org/prop/direct/P180,depicts
+71,396,deriv work,http://www.wikidata.org/prop/direct/P4969,derivative work
+71,396,derivative form,http://www.wikidata.org/prop/direct/P4969,derivative work
+71,396,derivative work,http://www.wikidata.org/prop/direct/P4969,derivative work
+71,396,derivative worker,http://www.wikidata.org/prop/direct/P4969,derivative work
+12,15,describ by sourc,http://www.wikidata.org/prop/direct/P1343,described by source
+12,15,described by sourc,http://www.wikidata.org/prop/direct/P1343,described by source
+12,15,described by source,http://www.wikidata.org/prop/direct/P1343,described by source
+250,117129,design by,http://www.wikidata.org/prop/direct/P287,designed by
+250,117129,designed by,http://www.wikidata.org/prop/direct/P287,designed by
+70,392,develop,http://www.wikidata.org/prop/direct/P178,developer
+70,392,developer,http://www.wikidata.org/prop/direct/P178,developer
+29,63,differ from,http://www.wikidata.org/prop/direct/P1889,different from
+29,63,different from,http://www.wikidata.org/prop/direct/P1889,different from
+58,289,diplomaci relation,http://www.wikidata.org/prop/direct/P530,diplomatic relation
+58,289,diplomaciic relation,http://www.wikidata.org/prop/direct/P530,diplomatic relation
+58,289,diplomat relat,http://www.wikidata.org/prop/direct/P530,diplomatic relation
+58,289,diplomat relation,http://www.wikidata.org/prop/direct/P530,diplomatic relation
+58,289,diplomatic relation,http://www.wikidata.org/prop/direct/P530,diplomatic relation
+30,65,direct,http://www.wikidata.org/prop/direct/P57,director
+225,37765,direct / manager,http://www.wikidata.org/prop/direct/P1037,director / manager
+2,2,direct of photography,http://www.wikidata.org/prop/direct/P344,director of photography
+30,65,director,http://www.wikidata.org/prop/direct/P57,director
+225,37765,director / manag,http://www.wikidata.org/prop/direct/P1037,director / manager
+225,37765,director / manager,http://www.wikidata.org/prop/direct/P1037,director / manager
+225,37765,director / manageri,http://www.wikidata.org/prop/direct/P1037,director / manager
+2,2,director of photograph,http://www.wikidata.org/prop/direct/P344,director of photography
+2,2,director of photographi,http://www.wikidata.org/prop/direct/P344,director of photography
+2,2,director of photography,http://www.wikidata.org/prop/direct/P344,director of photography
+25,52,distribut by,http://www.wikidata.org/prop/direct/P750,distributed by
+21,35,distribut format,http://www.wikidata.org/prop/direct/P437,distribution format
+25,52,distributed by,http://www.wikidata.org/prop/direct/P750,distributed by
+21,35,distribution format,http://www.wikidata.org/prop/direct/P437,distribution format
+25,52,distributor by,http://www.wikidata.org/prop/direct/P750,distributed by
+218,29257,edit or translat of,http://www.wikidata.org/prop/direct/P629,edition or translation of
+218,29257,edition or translation of,http://www.wikidata.org/prop/direct/P629,edition or translation of
+218,29257,editorion or translation of,http://www.wikidata.org/prop/direct/P629,edition or translation of
+87,672,educ at,http://www.wikidata.org/prop/direct/P69,educated at
+87,672,educate at,http://www.wikidata.org/prop/direct/P69,educated at
+87,672,educated at,http://www.wikidata.org/prop/direct/P69,educated at
+105,1408,eirin film rate,http://www.wikidata.org/prop/direct/P2756,EIRIN film rating
+77,440,employ,http://www.wikidata.org/prop/direct/P108,employer
+77,440,employeer,http://www.wikidata.org/prop/direct/P108,employer
+77,440,employer,http://www.wikidata.org/prop/direct/P108,employer
+160,5127,enemi of,http://www.wikidata.org/prop/direct/P7047,enemy of
+160,5127,enemy of,http://www.wikidata.org/prop/direct/P7047,enemy of
+74,421,ethnic group,http://www.wikidata.org/prop/direct/P172,ethnic group
+42,177,execut produc,http://www.wikidata.org/prop/direct/P1431,executive producer
+42,177,executive produc,http://www.wikidata.org/prop/direct/P1431,executive producer
+42,177,executive producer,http://www.wikidata.org/prop/direct/P1431,executive producer
+32,86,fabric method,http://www.wikidata.org/prop/direct/P2079,fabrication method
+32,86,fabrication method,http://www.wikidata.org/prop/direct/P2079,fabrication method
+139,3360,facet of,http://www.wikidata.org/prop/direct/P1269,facet of
+113,1694,father,http://www.wikidata.org/prop/direct/P22,father
+147,4426,father,http://www.wikidata.org/prop/direct/P25,mother
+107,1469,fiction univers describ in,http://www.wikidata.org/prop/direct/P1445,fictional universe described in
+107,1469,fiction universe described in,http://www.wikidata.org/prop/direct/P1445,fictional universe described in
+107,1469,fictional univers described in,http://www.wikidata.org/prop/direct/P1445,fictional universe described in
+107,1469,fictional universe described in,http://www.wikidata.org/prop/direct/P1445,fictional universe described in
+107,1469,fictional universe described inch,http://www.wikidata.org/prop/direct/P1445,fictional universe described in
+107,1469,fictitial universe described in,http://www.wikidata.org/prop/direct/P1445,fictional universe described in
+116,1775,field of form,http://www.wikidata.org/prop/direct/P101,field of work
+168,5976,field of thi occup,http://www.wikidata.org/prop/direct/P425,field of this occupation
+168,5976,field of this occupation,http://www.wikidata.org/prop/direct/P425,field of this occupation
+116,1775,field of work,http://www.wikidata.org/prop/direct/P101,field of work
+116,1775,field of worker,http://www.wikidata.org/prop/direct/P101,field of work
+168,5976,fielder of this occupation,http://www.wikidata.org/prop/direct/P425,field of this occupation
+116,1775,fielder of work,http://www.wikidata.org/prop/direct/P101,field of work
+120,1864,film crew member,http://www.wikidata.org/prop/direct/P3092,film crew member
+15,20,film edit,http://www.wikidata.org/prop/direct/P1040,film editor
+15,20,film editor,http://www.wikidata.org/prop/direct/P1040,film editor
+15,20,film editori,http://www.wikidata.org/prop/direct/P1040,film editor
+37,122,film locat,http://www.wikidata.org/prop/direct/P915,filming location
+120,1864,filmi crew member,http://www.wikidata.org/prop/direct/P3092,film crew member
+15,20,filmi editor,http://www.wikidata.org/prop/direct/P1040,film editor
+37,122,filmiing location,http://www.wikidata.org/prop/direct/P915,filming location
+37,122,filming location,http://www.wikidata.org/prop/direct/P915,filming location
+27,59,filmiroda rate,http://www.wikidata.org/prop/direct/P2747,Filmiroda rating
+73,402,finded by,http://www.wikidata.org/prop/direct/P112,founded by
+173,6381,first apparance,http://www.wikidata.org/prop/direct/P4584,first appearance
+173,6381,first appear,http://www.wikidata.org/prop/direct/P4584,first appearance
+173,6381,first appearance,http://www.wikidata.org/prop/direct/P4584,first appearance
+194,10502,fit during recurring event,http://www.wikidata.org/prop/direct/P9215,set during recurring event
+201,13020,fit in environment,http://www.wikidata.org/prop/direct/P8411,set in environment
+121,2010,fit in period,http://www.wikidata.org/prop/direct/P2408,set in period
+81,556,follow,http://www.wikidata.org/prop/direct/P155,follows
+45,214,follow by,http://www.wikidata.org/prop/direct/P156,followed by
+45,214,followed by,http://www.wikidata.org/prop/direct/P156,followed by
+81,556,follows,http://www.wikidata.org/prop/direct/P155,follows
+47,222,form location,http://www.wikidata.org/prop/direct/P937,work location
+163,5480,form of creativ work,http://www.wikidata.org/prop/direct/P7937,form of creative work
+163,5480,form of creative form,http://www.wikidata.org/prop/direct/P7937,form of creative work
+163,5480,form of creative work,http://www.wikidata.org/prop/direct/P7937,form of creative work
+163,5480,form of creative worker,http://www.wikidata.org/prop/direct/P7937,form of creative work
+163,5480,format of creative work,http://www.wikidata.org/prop/direct/P7937,form of creative work
+73,402,found by,http://www.wikidata.org/prop/direct/P112,founded by
+73,402,foundat by,http://www.wikidata.org/prop/direct/P112,founded by
+73,402,foundated by,http://www.wikidata.org/prop/direct/P112,founded by
+73,402,founded by,http://www.wikidata.org/prop/direct/P112,founded by
+73,402,founder by,http://www.wikidata.org/prop/direct/P112,founded by
+73,402,foundered by,http://www.wikidata.org/prop/direct/P112,founded by
+171,6333,fpb rate,http://www.wikidata.org/prop/direct/P4437,FPB rating
+62,339,from narr univers,http://www.wikidata.org/prop/direct/P1080,from narrative universe
+62,339,from narrative univers,http://www.wikidata.org/prop/direct/P1080,from narrative universe
+62,339,from narrative universe,http://www.wikidata.org/prop/direct/P1080,from narrative universe
+36,112,fsk film rate,http://www.wikidata.org/prop/direct/P1981,FSK film rating
+0,0,genr,http://www.wikidata.org/prop/direct/P136,genre
+0,0,genre,http://www.wikidata.org/prop/direct/P136,genre
+130,2667,give name,http://www.wikidata.org/prop/direct/P735,given name
+130,2667,given name,http://www.wikidata.org/prop/direct/P735,given name
+130,2667,given namer,http://www.wikidata.org/prop/direct/P735,given name
+130,2667,giver name,http://www.wikidata.org/prop/direct/P735,given name
+73,402,grounded by,http://www.wikidata.org/prop/direct/P112,founded by
+220,29847,ha caus,http://www.wikidata.org/prop/direct/P828,has cause
+231,52651,ha edit or translat,http://www.wikidata.org/prop/direct/P747,has edition or translation
+177,6657,ha effect,http://www.wikidata.org/prop/direct/P1542,has effect
+40,147,ha part,http://www.wikidata.org/prop/direct/P527,has part
+238,71095,ha pet,http://www.wikidata.org/prop/direct/P1429,has pet
+51,253,ha qualiti,http://www.wikidata.org/prop/direct/P1552,has quality
+148,4446,ha work in the collect,http://www.wikidata.org/prop/direct/P6379,has works in the collection
+220,29847,has caus,http://www.wikidata.org/prop/direct/P828,has cause
+220,29847,has causal,http://www.wikidata.org/prop/direct/P828,has cause
+220,29847,has causat,http://www.wikidata.org/prop/direct/P828,has cause
+220,29847,has cause,http://www.wikidata.org/prop/direct/P828,has cause
+40,147,has depart,http://www.wikidata.org/prop/direct/P527,has part
+231,52651,has edition or translation,http://www.wikidata.org/prop/direct/P747,has edition or translation
+231,52651,has editorion or translation,http://www.wikidata.org/prop/direct/P747,has edition or translation
+177,6657,has effect,http://www.wikidata.org/prop/direct/P1542,has effect
+177,6657,has effector,http://www.wikidata.org/prop/direct/P1542,has effect
+177,6657,has effectu,http://www.wikidata.org/prop/direct/P1542,has effect
+148,4446,has forms in the collection,http://www.wikidata.org/prop/direct/P6379,has works in the collection
+40,147,has part,http://www.wikidata.org/prop/direct/P527,has part
+40,147,has partit,http://www.wikidata.org/prop/direct/P527,has part
+238,71095,has pet,http://www.wikidata.org/prop/direct/P1429,has pet
+51,253,has qualifi,http://www.wikidata.org/prop/direct/P1552,has quality
+51,253,has quality,http://www.wikidata.org/prop/direct/P1552,has quality
+148,4446,has work in the collection,http://www.wikidata.org/prop/direct/P6379,has works in the collection
+148,4446,has worker in the collection,http://www.wikidata.org/prop/direct/P6379,has works in the collection
+148,4446,has workers in the collection,http://www.wikidata.org/prop/direct/P6379,has works in the collection
+148,4446,has works in the collection,http://www.wikidata.org/prop/direct/P6379,has works in the collection
+148,4446,has works in the collectorion,http://www.wikidata.org/prop/direct/P6379,has works in the collection
+148,4446,has works inch the collection,http://www.wikidata.org/prop/direct/P6379,has works in the collection
+220,29847,have cause,http://www.wikidata.org/prop/direct/P828,has cause
+231,52651,have edition or translation,http://www.wikidata.org/prop/direct/P747,has edition or translation
+177,6657,have effect,http://www.wikidata.org/prop/direct/P1542,has effect
+40,147,have part,http://www.wikidata.org/prop/direct/P527,has part
+238,71095,have pet,http://www.wikidata.org/prop/direct/P1429,has pet
+51,253,have quality,http://www.wikidata.org/prop/direct/P1552,has quality
+148,4446,have works in the collection,http://www.wikidata.org/prop/direct/P6379,has works in the collection
+226,38444,head of govern,http://www.wikidata.org/prop/direct/P6,head of government
+226,38444,head of government,http://www.wikidata.org/prop/direct/P6,head of government
+226,38444,head of governorment,http://www.wikidata.org/prop/direct/P6,head of government
+229,47625,head of state,http://www.wikidata.org/prop/direct/P35,head of state
+226,38444,header of government,http://www.wikidata.org/prop/direct/P6,head of government
+229,47625,header of state,http://www.wikidata.org/prop/direct/P35,head of state
+226,38444,headi of government,http://www.wikidata.org/prop/direct/P6,head of government
+229,47625,headi of state,http://www.wikidata.org/prop/direct/P35,head of state
+102,1000,headquart locat,http://www.wikidata.org/prop/direct/P159,headquarters location
+102,1000,headquarters location,http://www.wikidata.org/prop/direct/P159,headquarters location
+222,30198,health special,http://www.wikidata.org/prop/direct/P1995,health specialty
+222,30198,health specialis,http://www.wikidata.org/prop/direct/P1995,health specialty
+222,30198,health specialti,http://www.wikidata.org/prop/direct/P1995,health specialty
+222,30198,health specialty,http://www.wikidata.org/prop/direct/P1995,health specialty
+222,30198,healthi specialty,http://www.wikidata.org/prop/direct/P1995,health specialty
+143,3887,histor counti,http://www.wikidata.org/prop/direct/P7959,historic county
+143,3887,histori county,http://www.wikidata.org/prop/direct/P7959,historic county
+143,3887,historic county,http://www.wikidata.org/prop/direct/P7959,historic county
+155,4857,home world,http://www.wikidata.org/prop/direct/P1165,home world
+155,4857,homey world,http://www.wikidata.org/prop/direct/P1165,home world
+155,4857,homi world,http://www.wikidata.org/prop/direct/P1165,home world
+96,897,hong kong film rate,http://www.wikidata.org/prop/direct/P8874,Hong Kong film rating
+28,62,icaa rate,http://www.wikidata.org/prop/direct/P3306,ICAA rating
+95,870,ifco rate,http://www.wikidata.org/prop/direct/P7573,IFCO rating
+119,1833,igac rate,http://www.wikidata.org/prop/direct/P5150,IGAC rating
+6,8,imag,http://www.wikidata.org/prop/direct/P18,image
+6,8,image,http://www.wikidata.org/prop/direct/P18,image
+6,8,imageri,http://www.wikidata.org/prop/direct/P18,image
+114,1705,imda rate,http://www.wikidata.org/prop/direct/P5201,IMDA rating
+8,10,imdb id,http://www.wikidata.org/prop/direct/P345,IMDb ID
+109,1591,incaa film rate,http://www.wikidata.org/prop/direct/P3428,INCAA film rating
+178,7064,inchterested inch,http://www.wikidata.org/prop/direct/P2650,interested in
+182,7886,indigen to,http://www.wikidata.org/prop/direct/P2341,indigenous to
+182,7886,indigenous to,http://www.wikidata.org/prop/direct/P2341,indigenous to
+125,2331,industri,http://www.wikidata.org/prop/direct/P452,industry
+125,2331,industry,http://www.wikidata.org/prop/direct/P452,industry
+144,3893,influenc by,http://www.wikidata.org/prop/direct/P737,influenced by
+144,3893,influenced by,http://www.wikidata.org/prop/direct/P737,influenced by
+249,103458,input method,http://www.wikidata.org/prop/direct/P479,input method
+179,7312,inspir by,http://www.wikidata.org/prop/direct/P941,inspired by
+179,7312,inspired by,http://www.wikidata.org/prop/direct/P941,inspired by
+17,23,instanc of,http://www.wikidata.org/prop/direct/P31,instance of
+17,23,instance of,http://www.wikidata.org/prop/direct/P31,instance of
+17,23,instanti of,http://www.wikidata.org/prop/direct/P31,instance of
+227,39452,intend public,http://www.wikidata.org/prop/direct/P2360,intended public
+227,39452,intended public,http://www.wikidata.org/prop/direct/P2360,intended public
+227,39452,intented public,http://www.wikidata.org/prop/direct/P2360,intended public
+178,7064,interest in,http://www.wikidata.org/prop/direct/P2650,interested in
+178,7064,interested in,http://www.wikidata.org/prop/direct/P2650,interested in
+34,93,jmk film rate,http://www.wikidata.org/prop/direct/P3650,JMK film rating
+176,6589,kavi rate,http://www.wikidata.org/prop/direct/P5152,KAVI rating
+39,144,kijkwijz rate,http://www.wikidata.org/prop/direct/P2684,Kijkwijzer rating
+197,11156,kill by,http://www.wikidata.org/prop/direct/P157,killed by
+197,11156,killed by,http://www.wikidata.org/prop/direct/P157,killed by
+197,11156,killer by,http://www.wikidata.org/prop/direct/P157,killed by
+197,11156,killered by,http://www.wikidata.org/prop/direct/P157,killed by
+191,9144,kmrb film rate,http://www.wikidata.org/prop/direct/P3818,KMRB film rating
+59,301,languag of work or name,http://www.wikidata.org/prop/direct/P407,language of work or name
+16,22,"languag spoken , written or sign",http://www.wikidata.org/prop/direct/P1412,"languages spoken, written or signed"
+110,1608,languag use,http://www.wikidata.org/prop/direct/P2936,language used
+59,301,language of form or name,http://www.wikidata.org/prop/direct/P407,language of work or name
+59,301,language of work or name,http://www.wikidata.org/prop/direct/P407,language of work or name
+59,301,language of work or namer,http://www.wikidata.org/prop/direct/P407,language of work or name
+59,301,language of worker or name,http://www.wikidata.org/prop/direct/P407,language of work or name
+110,1608,language usag,http://www.wikidata.org/prop/direct/P2936,language used
+110,1608,language usagd,http://www.wikidata.org/prop/direct/P2936,language used
+110,1608,language use,http://www.wikidata.org/prop/direct/P2936,language used
+110,1608,language used,http://www.wikidata.org/prop/direct/P2936,language used
+110,1608,language user,http://www.wikidata.org/prop/direct/P2936,language used
+110,1608,language userd,http://www.wikidata.org/prop/direct/P2936,language used
+16,22,"languages spoken, write or signed",http://www.wikidata.org/prop/direct/P1412,"languages spoken, written or signed"
+16,22,"languages spoken, writer or signed",http://www.wikidata.org/prop/direct/P1412,"languages spoken, written or signed"
+16,22,"languages spoken, written or sign",http://www.wikidata.org/prop/direct/P1412,"languages spoken, written or signed"
+16,22,"languages spoken, written or signal",http://www.wikidata.org/prop/direct/P1412,"languages spoken, written or signed"
+16,22,"languages spoken, written or signaled",http://www.wikidata.org/prop/direct/P1412,"languages spoken, written or signed"
+16,22,"languages spoken, written or signed",http://www.wikidata.org/prop/direct/P1412,"languages spoken, written or signed"
+16,22,"languages spoken, written or signer",http://www.wikidata.org/prop/direct/P1412,"languages spoken, written or signed"
+16,22,"languages spoken, written or signered",http://www.wikidata.org/prop/direct/P1412,"languages spoken, written or signed"
+226,38444,lead of government,http://www.wikidata.org/prop/direct/P6,head of government
+229,47625,lead of state,http://www.wikidata.org/prop/direct/P35,head of state
+131,2669,lifestyl,http://www.wikidata.org/prop/direct/P1576,lifestyle
+131,2669,lifestyle,http://www.wikidata.org/prop/direct/P1576,lifestyle
+93,819,list of forms,http://www.wikidata.org/prop/direct/P1455,list of works
+93,819,list of work,http://www.wikidata.org/prop/direct/P1455,list of works
+93,819,list of worker,http://www.wikidata.org/prop/direct/P1455,list of works
+93,819,list of workers,http://www.wikidata.org/prop/direct/P1455,list of works
+93,819,list of works,http://www.wikidata.org/prop/direct/P1455,list of works
+93,819,lister of works,http://www.wikidata.org/prop/direct/P1455,list of works
+79,483,locat,http://www.wikidata.org/prop/direct/P276,location
+129,2588,locat in or next to bodi of water,http://www.wikidata.org/prop/direct/P206,located in or next to body of water
+129,2588,locat in or next to body of water,http://www.wikidata.org/prop/direct/P206,located in or next to body of water
+204,13957,locat in present-day administr territori entiti,http://www.wikidata.org/prop/direct/P3842,located in present-day administrative territorial entity
+204,13957,locat in present-day administrative territorial entity,http://www.wikidata.org/prop/direct/P3842,located in present-day administrative territorial entity
+41,164,locat in the administr territori entiti,http://www.wikidata.org/prop/direct/P131,located in the administrative territorial entity
+41,164,locat in the administrative territorial entity,http://www.wikidata.org/prop/direct/P131,located in the administrative territorial entity
+99,952,locat of format,http://www.wikidata.org/prop/direct/P740,location of formation
+167,5812,locat on street,http://www.wikidata.org/prop/direct/P669,located on street
+165,5703,locat on terrain featur,http://www.wikidata.org/prop/direct/P706,located on terrain feature
+165,5703,locat on terrain feature,http://www.wikidata.org/prop/direct/P706,located on terrain feature
+129,2588,located in or next to bodi of water,http://www.wikidata.org/prop/direct/P206,located in or next to body of water
+129,2588,located in or next to body of water,http://www.wikidata.org/prop/direct/P206,located in or next to body of water
+129,2588,located in or next to body of wateri,http://www.wikidata.org/prop/direct/P206,located in or next to body of water
+204,13957,located in present-day administrative territori entity,http://www.wikidata.org/prop/direct/P3842,located in present-day administrative territorial entity
+204,13957,located in present-day administrative territorial entity,http://www.wikidata.org/prop/direct/P3842,located in present-day administrative territorial entity
+41,164,located in the administrative territori entity,http://www.wikidata.org/prop/direct/P131,located in the administrative territorial entity
+41,164,located in the administrative territorial entity,http://www.wikidata.org/prop/direct/P131,located in the administrative territorial entity
+129,2588,located inch or next to body of water,http://www.wikidata.org/prop/direct/P206,located in or next to body of water
+204,13957,located inch present-day adminchistrative territorial entity,http://www.wikidata.org/prop/direct/P3842,located in present-day administrative territorial entity
+41,164,located inch the adminchistrative territorial entity,http://www.wikidata.org/prop/direct/P131,located in the administrative territorial entity
+167,5812,located on street,http://www.wikidata.org/prop/direct/P669,located on street
+165,5703,located on terrain featur,http://www.wikidata.org/prop/direct/P706,located on terrain feature
+165,5703,located on terrain feature,http://www.wikidata.org/prop/direct/P706,located on terrain feature
+79,483,location,http://www.wikidata.org/prop/direct/P276,location
+99,952,location of formation,http://www.wikidata.org/prop/direct/P740,location of formation
+243,81115,lowest point,http://www.wikidata.org/prop/direct/P1589,lowest point
+243,81115,lowest pointer,http://www.wikidata.org/prop/direct/P1589,lowest point
+35,102,main subject,http://www.wikidata.org/prop/direct/P921,main subject
+223,30252,make-up artist,http://www.wikidata.org/prop/direct/P4805,make-up artist
+223,30252,make_up artist,http://www.wikidata.org/prop/direct/P4805,make-up artist
+137,3201,manner of death,http://www.wikidata.org/prop/direct/P1196,manner of death
+43,189,media franchis,http://www.wikidata.org/prop/direct/P8345,media franchise
+43,189,media franchise,http://www.wikidata.org/prop/direct/P8345,media franchise
+43,189,medial franchise,http://www.wikidata.org/prop/direct/P8345,media franchise
+145,3913,medic condit,http://www.wikidata.org/prop/direct/P1050,medical condition
+145,3913,medic condition,http://www.wikidata.org/prop/direct/P1050,medical condition
+145,3913,medical condition,http://www.wikidata.org/prop/direct/P1050,medical condition
+145,3913,medicin condition,http://www.wikidata.org/prop/direct/P1050,medical condition
+54,265,medierådet rate,http://www.wikidata.org/prop/direct/P5970,Medierådet rating
+138,3231,member of,http://www.wikidata.org/prop/direct/P463,member of
+252,211312,member of sport team,http://www.wikidata.org/prop/direct/P54,member of sports team
+252,211312,member of sports team,http://www.wikidata.org/prop/direct/P54,member of sports team
+232,53569,member of the crew of,http://www.wikidata.org/prop/direct/P5096,member of the crew of
+132,2690,militar branch,http://www.wikidata.org/prop/direct/P241,military branch
+132,2690,militari branch,http://www.wikidata.org/prop/direct/P241,military branch
+132,2690,militaris branch,http://www.wikidata.org/prop/direct/P241,military branch
+132,2690,military branch,http://www.wikidata.org/prop/direct/P241,military branch
+132,2690,military branchi,http://www.wikidata.org/prop/direct/P241,military branch
+147,4426,mother,http://www.wikidata.org/prop/direct/P25,mother
+113,1694,mother,http://www.wikidata.org/prop/direct/P22,father
+214,21590,movement,http://www.wikidata.org/prop/direct/P135,movement
+122,2019,mpaa film rate,http://www.wikidata.org/prop/direct/P1657,MPAA film rating
+159,5082,mtrcb rate,http://www.wikidata.org/prop/direct/P8889,MTRCB rating
+206,15208,music conductor,http://www.wikidata.org/prop/direct/P3300,musical conductor
+206,15208,musical conduct,http://www.wikidata.org/prop/direct/P3300,musical conductor
+206,15208,musical conductor,http://www.wikidata.org/prop/direct/P3300,musical conductor
+153,4673,name after,http://www.wikidata.org/prop/direct/P138,named after
+153,4673,named after,http://www.wikidata.org/prop/direct/P138,named after
+153,4673,namer after,http://www.wikidata.org/prop/direct/P138,named after
+153,4673,namerd after,http://www.wikidata.org/prop/direct/P138,named after
+56,284,narr locat,http://www.wikidata.org/prop/direct/P840,narrative location
+212,19846,narr motif,http://www.wikidata.org/prop/direct/P6962,narrative motif
+115,1729,narrat,http://www.wikidata.org/prop/direct/P2438,narrator
+56,284,narrative location,http://www.wikidata.org/prop/direct/P840,narrative location
+212,19846,narrative motif,http://www.wikidata.org/prop/direct/P6962,narrative motif
+115,1729,narrator,http://www.wikidata.org/prop/direct/P2438,narrator
+11,14,nativ languag,http://www.wikidata.org/prop/direct/P103,native language
+11,14,nativ language,http://www.wikidata.org/prop/direct/P103,native language
+11,14,native language,http://www.wikidata.org/prop/direct/P103,native language
+86,666,nmhh film rate,http://www.wikidata.org/prop/direct/P2363,NMHH film rating
+175,6517,nobil title,http://www.wikidata.org/prop/direct/P97,noble title
+175,6517,nobl titl,http://www.wikidata.org/prop/direct/P97,noble title
+175,6517,noble titl,http://www.wikidata.org/prop/direct/P97,noble title
+175,6517,noble title,http://www.wikidata.org/prop/direct/P97,noble title
+3,3,node descript,http://schema.org/description,node description
+3,3,node description,http://schema.org/description,node description
+9,11,node label,http://www.w3.org/2000/01/rdf-schema#label,node label
+20,30,nomin for,http://www.wikidata.org/prop/direct/P1411,nominated for
+20,30,nominated for,http://www.wikidata.org/prop/direct/P1411,nominated for
+48,234,notabl work,http://www.wikidata.org/prop/direct/P800,notable work
+48,234,notable form,http://www.wikidata.org/prop/direct/P800,notable work
+48,234,notable work,http://www.wikidata.org/prop/direct/P800,notable work
+48,234,notable worker,http://www.wikidata.org/prop/direct/P800,notable work
+18,26,occup,http://www.wikidata.org/prop/direct/P106,occupation
+244,86036,occup,http://www.wikidata.org/prop/direct/P466,occupant
+244,86036,occupant,http://www.wikidata.org/prop/direct/P466,occupant
+18,26,occupation,http://www.wikidata.org/prop/direct/P106,occupation
+142,3698,offici languag,http://www.wikidata.org/prop/direct/P37,official language
+195,10833,offici resid,http://www.wikidata.org/prop/direct/P263,official residence
+142,3698,official language,http://www.wikidata.org/prop/direct/P37,official language
+195,10833,official residence,http://www.wikidata.org/prop/direct/P263,official residence
+195,10833,official residenti,http://www.wikidata.org/prop/direct/P263,official residence
+106,1448,oflc classif,http://www.wikidata.org/prop/direct/P7327,OFLC classification
+82,564,oper,http://www.wikidata.org/prop/direct/P137,operator
+205,15110,oper area,http://www.wikidata.org/prop/direct/P2541,operating area
+240,76051,oper system,http://www.wikidata.org/prop/direct/P306,operating system
+205,15110,operating area,http://www.wikidata.org/prop/direct/P2541,operating area
+205,15110,operating areal,http://www.wikidata.org/prop/direct/P2541,operating area
+240,76051,operating system,http://www.wikidata.org/prop/direct/P306,operating system
+240,76051,operating systemat,http://www.wikidata.org/prop/direct/P306,operating system
+240,76051,operating systemis,http://www.wikidata.org/prop/direct/P306,operating system
+82,564,operator,http://www.wikidata.org/prop/direct/P137,operator
+151,4629,opposit of,http://www.wikidata.org/prop/direct/P461,opposite of
+151,4629,opposite of,http://www.wikidata.org/prop/direct/P461,opposite of
+44,193,origin broadcast,http://www.wikidata.org/prop/direct/P449,original broadcaster
+44,193,origin broadcaster,http://www.wikidata.org/prop/direct/P449,original broadcaster
+207,15246,origin film format,http://www.wikidata.org/prop/direct/P3803,original film format
+5,6,origin languag of film or tv show,http://www.wikidata.org/prop/direct/P364,original language of film or TV show
+5,6,origin language of film or TV show,http://www.wikidata.org/prop/direct/P364,original language of film or TV show
+44,193,original broadcast,http://www.wikidata.org/prop/direct/P449,original broadcaster
+44,193,original broadcaster,http://www.wikidata.org/prop/direct/P449,original broadcaster
+207,15246,original film format,http://www.wikidata.org/prop/direct/P3803,original film format
+207,15246,original filmi format,http://www.wikidata.org/prop/direct/P3803,original film format
+5,6,original language of film or TV show,http://www.wikidata.org/prop/direct/P364,original language of film or TV show
+5,6,original language of film or TV showi,http://www.wikidata.org/prop/direct/P364,original language of film or TV show
+5,6,original language of filmi or TV show,http://www.wikidata.org/prop/direct/P364,original language of film or TV show
+149,4472,own by,http://www.wikidata.org/prop/direct/P127,owned by
+141,3676,own of,http://www.wikidata.org/prop/direct/P1830,owner of
+149,4472,owned by,http://www.wikidata.org/prop/direct/P127,owned by
+149,4472,owner by,http://www.wikidata.org/prop/direct/P127,owned by
+141,3676,owner of,http://www.wikidata.org/prop/direct/P1830,owner of
+149,4472,ownered by,http://www.wikidata.org/prop/direct/P127,owned by
+172,6346,parent organ,http://www.wikidata.org/prop/direct/P749,parent organization
+172,6346,parent organization,http://www.wikidata.org/prop/direct/P749,parent organization
+172,6346,parentag organization,http://www.wikidata.org/prop/direct/P749,parent organization
+134,2893,part of,http://www.wikidata.org/prop/direct/P361,part of
+126,2390,part of the seri,http://www.wikidata.org/prop/direct/P179,part of the series
+126,2390,part of the serial,http://www.wikidata.org/prop/direct/P179,part of the series
+126,2390,part of the series,http://www.wikidata.org/prop/direct/P179,part of the series
+117,1787,partial coincid with,http://www.wikidata.org/prop/direct/P1382,partially coincident with
+117,1787,partially coincident with,http://www.wikidata.org/prop/direct/P1382,partially coincident with
+196,11050,particip,http://www.wikidata.org/prop/direct/P710,participant
+181,7626,particip in,http://www.wikidata.org/prop/direct/P1344,participant in
+196,11050,participant,http://www.wikidata.org/prop/direct/P710,participant
+181,7626,participant in,http://www.wikidata.org/prop/direct/P1344,participant in
+181,7626,participant inch,http://www.wikidata.org/prop/direct/P1344,participant in
+134,2893,partit of,http://www.wikidata.org/prop/direct/P361,part of
+126,2390,partit of the series,http://www.wikidata.org/prop/direct/P179,part of the series
+224,30882,partner in busi or sport,http://www.wikidata.org/prop/direct/P1327,partner in business or sport
+224,30882,partner in business or sport,http://www.wikidata.org/prop/direct/P1327,partner in business or sport
+224,30882,partner inch businchess or sport,http://www.wikidata.org/prop/direct/P1327,partner in business or sport
+67,353,perform,http://www.wikidata.org/prop/direct/P175,performer
+67,353,performer,http://www.wikidata.org/prop/direct/P175,performer
+189,8950,perman resid of,http://www.wikidata.org/prop/direct/P5389,permanent resident of
+189,8950,permanent resident of,http://www.wikidata.org/prop/direct/P5389,permanent resident of
+22,42,place of birth,http://www.wikidata.org/prop/direct/P19,place of birth
+123,2177,place of buri,http://www.wikidata.org/prop/direct/P119,place of burial
+123,2177,place of burial,http://www.wikidata.org/prop/direct/P119,place of burial
+38,139,place of death,http://www.wikidata.org/prop/direct/P20,place of death
+200,12330,place of detent,http://www.wikidata.org/prop/direct/P2632,place of detention
+200,12330,place of detention,http://www.wikidata.org/prop/direct/P2632,place of detention
+154,4731,place of public,http://www.wikidata.org/prop/direct/P291,place of publication
+154,4731,place of publication,http://www.wikidata.org/prop/direct/P291,place of publication
+228,40928,place serv by transport hub,http://www.wikidata.org/prop/direct/P931,place served by transport hub
+228,40928,place served by transport hub,http://www.wikidata.org/prop/direct/P931,place served by transport hub
+228,40928,place server by transport hub,http://www.wikidata.org/prop/direct/P931,place served by transport hub
+228,40928,place servic by transport hub,http://www.wikidata.org/prop/direct/P931,place served by transport hub
+118,1797,platform,http://www.wikidata.org/prop/direct/P400,platform
+237,68479,plot expand in,http://www.wikidata.org/prop/direct/P5940,plot expanded in
+237,68479,plot expanded in,http://www.wikidata.org/prop/direct/P5940,plot expanded in
+237,68479,plot expanded inch,http://www.wikidata.org/prop/direct/P5940,plot expanded in
+237,68479,plot expansed in,http://www.wikidata.org/prop/direct/P5940,plot expanded in
+237,68479,plot expatied in,http://www.wikidata.org/prop/direct/P5940,plot expanded in
+237,68479,plot exponed in,http://www.wikidata.org/prop/direct/P5940,plot expanded in
+237,68479,plot expounded in,http://www.wikidata.org/prop/direct/P5940,plot expanded in
+246,96589,polit ideolog,http://www.wikidata.org/prop/direct/P1142,political ideology
+246,96589,political ideolog,http://www.wikidata.org/prop/direct/P1142,political ideology
+246,96589,political ideology,http://www.wikidata.org/prop/direct/P1142,political ideology
+248,102208,practic by,http://www.wikidata.org/prop/direct/P3095,practiced by
+248,102208,practiced by,http://www.wikidata.org/prop/direct/P3095,practiced by
+85,638,presenc in work,http://www.wikidata.org/prop/direct/P1441,present in work
+68,363,presenced in,http://www.wikidata.org/prop/direct/P5072,presented in
+186,8495,presencer,http://www.wikidata.org/prop/direct/P371,presenter
+186,8495,present,http://www.wikidata.org/prop/direct/P371,presenter
+68,363,present in,http://www.wikidata.org/prop/direct/P5072,presented in
+85,638,present in form,http://www.wikidata.org/prop/direct/P1441,present in work
+85,638,present in work,http://www.wikidata.org/prop/direct/P1441,present in work
+85,638,present in worker,http://www.wikidata.org/prop/direct/P1441,present in work
+85,638,present inch work,http://www.wikidata.org/prop/direct/P1441,present in work
+68,363,presented in,http://www.wikidata.org/prop/direct/P5072,presented in
+68,363,presented inch,http://www.wikidata.org/prop/direct/P5072,presented in
+186,8495,presenter,http://www.wikidata.org/prop/direct/P371,presenter
+128,2531,produc or material produced,http://www.wikidata.org/prop/direct/P1056,product or material produced
+31,74,producion company,http://www.wikidata.org/prop/direct/P272,production company
+10,12,producion designer,http://www.wikidata.org/prop/direct/P2554,production designer
+31,74,product compani,http://www.wikidata.org/prop/direct/P272,production company
+10,12,product design,http://www.wikidata.org/prop/direct/P2554,production designer
+128,2531,product or materi produc,http://www.wikidata.org/prop/direct/P1056,product or material produced
+128,2531,product or materi produced,http://www.wikidata.org/prop/direct/P1056,product or material produced
+128,2531,product or material produc,http://www.wikidata.org/prop/direct/P1056,product or material produced
+128,2531,product or material produced,http://www.wikidata.org/prop/direct/P1056,product or material produced
+128,2531,product or material product,http://www.wikidata.org/prop/direct/P1056,product or material produced
+31,74,production compani,http://www.wikidata.org/prop/direct/P272,production company
+31,74,production company,http://www.wikidata.org/prop/direct/P272,production company
+10,12,production design,http://www.wikidata.org/prop/direct/P2554,production designer
+10,12,production designer,http://www.wikidata.org/prop/direct/P2554,production designer
+26,53,public date,http://www.wikidata.org/prop/direct/P577,publication date
+158,5080,public holiday,http://www.wikidata.org/prop/direct/P832,public holiday
+26,53,publication date,http://www.wikidata.org/prop/direct/P577,publication date
+91,745,publiced in,http://www.wikidata.org/prop/direct/P1433,published in
+69,383,publicer,http://www.wikidata.org/prop/direct/P123,publisher
+69,383,publish,http://www.wikidata.org/prop/direct/P123,publisher
+91,745,publish in,http://www.wikidata.org/prop/direct/P1433,published in
+91,745,published in,http://www.wikidata.org/prop/direct/P1433,published in
+91,745,published inch,http://www.wikidata.org/prop/direct/P1433,published in
+69,383,publisher,http://www.wikidata.org/prop/direct/P123,publisher
+247,97300,quot work,http://www.wikidata.org/prop/direct/P6166,quotes work
+247,97300,quotat work,http://www.wikidata.org/prop/direct/P6166,quotes work
+247,97300,quoter work,http://www.wikidata.org/prop/direct/P6166,quotes work
+247,97300,quotes form,http://www.wikidata.org/prop/direct/P6166,quotes work
+247,97300,quotes work,http://www.wikidata.org/prop/direct/P6166,quotes work
+247,97300,quotes worker,http://www.wikidata.org/prop/direct/P6166,quotes work
+140,3454,rar rate,http://www.wikidata.org/prop/direct/P2637,RARS rating
+89,687,rcq classif,http://www.wikidata.org/prop/direct/P6658,RCQ classification
+104,1341,"refer work , tradit or theori",http://www.wikidata.org/prop/direct/P8371,"references work, tradition or theory"
+104,1341,"refereences work, tradition or theory",http://www.wikidata.org/prop/direct/P8371,"references work, tradition or theory"
+104,1341,"references form, tradition or theory",http://www.wikidata.org/prop/direct/P8371,"references work, tradition or theory"
+104,1341,"references work, tradition or theoret",http://www.wikidata.org/prop/direct/P8371,"references work, tradition or theory"
+104,1341,"references work, tradition or theoris",http://www.wikidata.org/prop/direct/P8371,"references work, tradition or theory"
+104,1341,"references work, tradition or theoriz",http://www.wikidata.org/prop/direct/P8371,"references work, tradition or theory"
+104,1341,"references work, tradition or theory",http://www.wikidata.org/prop/direct/P8371,"references work, tradition or theory"
+104,1341,"references worker, tradition or theory",http://www.wikidata.org/prop/direct/P8371,"references work, tradition or theory"
+104,1341,"referrences work, tradition or theory",http://www.wikidata.org/prop/direct/P8371,"references work, tradition or theory"
+108,1490,rel,http://www.wikidata.org/prop/direct/P1038,relative
+108,1490,relative,http://www.wikidata.org/prop/direct/P1038,relative
+135,3183,religi,http://www.wikidata.org/prop/direct/P140,religion
+135,3183,religion,http://www.wikidata.org/prop/direct/P140,religion
+233,58378,replac,http://www.wikidata.org/prop/direct/P1365,replaces
+188,8779,replac by,http://www.wikidata.org/prop/direct/P1366,replaced by
+188,8779,replaced by,http://www.wikidata.org/prop/direct/P1366,replaced by
+233,58378,replaces,http://www.wikidata.org/prop/direct/P1365,replaces
+245,91799,repres by,http://www.wikidata.org/prop/direct/P1875,represented by
+245,91799,represent by,http://www.wikidata.org/prop/direct/P1875,represented by
+85,638,represent in work,http://www.wikidata.org/prop/direct/P1441,present in work
+245,91799,represented by,http://www.wikidata.org/prop/direct/P1875,represented by
+68,363,represented in,http://www.wikidata.org/prop/direct/P5072,presented in
+186,8495,representer,http://www.wikidata.org/prop/direct/P371,presenter
+84,624,resid,http://www.wikidata.org/prop/direct/P551,residence
+84,624,residence,http://www.wikidata.org/prop/direct/P551,residence
+84,624,residenti,http://www.wikidata.org/prop/direct/P551,residence
+98,945,rtc film rate,http://www.wikidata.org/prop/direct/P3834,RTC film rating
+187,8668,said to be the same as,http://www.wikidata.org/prop/direct/P460,said to be the same as
+187,8668,say to be the same as,http://www.wikidata.org/prop/direct/P460,said to be the same as
+185,8418,scenograph,http://www.wikidata.org/prop/direct/P4608,scenographer
+185,8418,scenographer,http://www.wikidata.org/prop/direct/P4608,scenographer
+14,18,screenwrit,http://www.wikidata.org/prop/direct/P58,screenwriter
+14,18,screenwriter,http://www.wikidata.org/prop/direct/P58,screenwriter
+190,9035,season,http://www.wikidata.org/prop/direct/P4908,season
+194,10502,set dure recur event,http://www.wikidata.org/prop/direct/P9215,set during recurring event
+194,10502,set during recurring event,http://www.wikidata.org/prop/direct/P9215,set during recurring event
+194,10502,set during recurring eventu,http://www.wikidata.org/prop/direct/P9215,set during recurring event
+194,10502,set during recurrring event,http://www.wikidata.org/prop/direct/P9215,set during recurring event
+201,13020,set in environ,http://www.wikidata.org/prop/direct/P8411,set in environment
+201,13020,set in environment,http://www.wikidata.org/prop/direct/P8411,set in environment
+121,2010,set in period,http://www.wikidata.org/prop/direct/P2408,set in period
+201,13020,set inch environment,http://www.wikidata.org/prop/direct/P8411,set in environment
+121,2010,set inch period,http://www.wikidata.org/prop/direct/P2408,set in period
+208,17343,sex or gender,http://www.wikidata.org/prop/direct/P21,sex or gender
+208,17343,sexi or gender,http://www.wikidata.org/prop/direct/P21,sex or gender
+180,7487,sexual orient,http://www.wikidata.org/prop/direct/P91,sexual orientation
+180,7487,sexual orientation,http://www.wikidata.org/prop/direct/P91,sexual orientation
+94,859,share border with,http://www.wikidata.org/prop/direct/P47,shares border with
+94,859,sharer border with,http://www.wikidata.org/prop/direct/P47,shares border with
+94,859,sharers border with,http://www.wikidata.org/prop/direct/P47,shares border with
+94,859,shares border with,http://www.wikidata.org/prop/direct/P47,shares border with
+80,515,sibl,http://www.wikidata.org/prop/direct/P3373,sibling
+80,515,sibling,http://www.wikidata.org/prop/direct/P3373,sibling
+203,13570,sidekick of,http://www.wikidata.org/prop/direct/P2546,sidekick of
+101,984,signific event,http://www.wikidata.org/prop/direct/P793,significant event
+166,5765,signific person,http://www.wikidata.org/prop/direct/P3342,significant person
+101,984,significant event,http://www.wikidata.org/prop/direct/P793,significant event
+101,984,significant eventu,http://www.wikidata.org/prop/direct/P793,significant event
+166,5765,significant person,http://www.wikidata.org/prop/direct/P3342,significant person
+163,5480,sort of creative work,http://www.wikidata.org/prop/direct/P7937,form of creative work
+156,5055,sound design,http://www.wikidata.org/prop/direct/P5028,sound designer
+156,5055,sound designer,http://www.wikidata.org/prop/direct/P5028,sound designer
+156,5055,sounder designer,http://www.wikidata.org/prop/direct/P5028,sound designer
+88,675,sport,http://www.wikidata.org/prop/direct/P641,sport
+219,29283,sport disciplin compet in,http://www.wikidata.org/prop/direct/P2416,sports discipline competed in
+219,29283,sport discipline competed in,http://www.wikidata.org/prop/direct/P2416,sports discipline competed in
+219,29283,sports disciplin competed in,http://www.wikidata.org/prop/direct/P2416,sports discipline competed in
+219,29283,sports disciplinche competed inch,http://www.wikidata.org/prop/direct/P2416,sports discipline competed in
+219,29283,sports discipline competed in,http://www.wikidata.org/prop/direct/P2416,sports discipline competed in
+219,29283,sports discipline competit in,http://www.wikidata.org/prop/direct/P2416,sports discipline competed in
+97,902,spous,http://www.wikidata.org/prop/direct/P26,spouse
+97,902,spousal,http://www.wikidata.org/prop/direct/P26,spouse
+97,902,spouse,http://www.wikidata.org/prop/direct/P26,spouse
+251,142471,steppar,http://www.wikidata.org/prop/direct/P3448,stepparent
+251,142471,stepparent,http://www.wikidata.org/prop/direct/P3448,stepparent
+157,5057,storyboard artist,http://www.wikidata.org/prop/direct/P3275,storyboard artist
+152,4631,student,http://www.wikidata.org/prop/direct/P802,student
+164,5578,student of,http://www.wikidata.org/prop/direct/P1066,student of
+78,458,subclass of,http://www.wikidata.org/prop/direct/P279,subclass of
+83,599,superhuman featur or abil,http://www.wikidata.org/prop/direct/P2563,superhuman feature or ability
+83,599,superhuman featur or ability,http://www.wikidata.org/prop/direct/P2563,superhuman feature or ability
+83,599,superhuman feature or ability,http://www.wikidata.org/prop/direct/P2563,superhuman feature or ability
+76,432,take place in fiction univers,http://www.wikidata.org/prop/direct/P1434,takes place in fictional universe
+76,432,take place in fictional universe,http://www.wikidata.org/prop/direct/P1434,takes place in fictional universe
+76,432,taker place in fictional universe,http://www.wikidata.org/prop/direct/P1434,takes place in fictional universe
+76,432,takers place in fictional universe,http://www.wikidata.org/prop/direct/P1434,takes place in fictional universe
+76,432,takes place in fiction universe,http://www.wikidata.org/prop/direct/P1434,takes place in fictional universe
+76,432,takes place in fictional univers,http://www.wikidata.org/prop/direct/P1434,takes place in fictional universe
+76,432,takes place in fictional universe,http://www.wikidata.org/prop/direct/P1434,takes place in fictional universe
+76,432,takes place in fictitial universe,http://www.wikidata.org/prop/direct/P1434,takes place in fictional universe
+76,432,takes place inch fictional universe,http://www.wikidata.org/prop/direct/P1434,takes place in fictional universe
+93,819,tilt of works,http://www.wikidata.org/prop/direct/P1455,list of works
+146,3995,time period,http://www.wikidata.org/prop/direct/P2348,time period
+146,3995,timer period,http://www.wikidata.org/prop/direct/P2348,time period
+4,5,twin administr bodi,http://www.wikidata.org/prop/direct/P190,twinned administrative body
+4,5,twinned administrative bodi,http://www.wikidata.org/prop/direct/P190,twinned administrative body
+4,5,twinned administrative body,http://www.wikidata.org/prop/direct/P190,twinned administrative body
+55,283,unmarri partner,http://www.wikidata.org/prop/direct/P451,unmarried partner
+55,283,unmarried partner,http://www.wikidata.org/prop/direct/P451,unmarried partner
+215,21775,usag,http://www.wikidata.org/prop/direct/P2283,uses
+199,11656,usag,http://www.wikidata.org/prop/direct/P366,use
+215,21775,usags,http://www.wikidata.org/prop/direct/P2283,uses
+215,21775,use,http://www.wikidata.org/prop/direct/P2283,uses
+199,11656,use,http://www.wikidata.org/prop/direct/P366,use
+199,11656,user,http://www.wikidata.org/prop/direct/P366,use
+215,21775,user,http://www.wikidata.org/prop/direct/P2283,uses
+215,21775,users,http://www.wikidata.org/prop/direct/P2283,uses
+215,21775,uses,http://www.wikidata.org/prop/direct/P2283,uses
+23,44,voic actor,http://www.wikidata.org/prop/direct/P725,voice actor
+23,44,voice act,http://www.wikidata.org/prop/direct/P725,voice actor
+23,44,voice actor,http://www.wikidata.org/prop/direct/P725,voice actor
+23,44,voicer actor,http://www.wikidata.org/prop/direct/P725,voice actor
+66,351,winner,http://www.wikidata.org/prop/direct/P1346,winner
+47,222,work locat,http://www.wikidata.org/prop/direct/P937,work location
+47,222,work location,http://www.wikidata.org/prop/direct/P937,work location
+47,222,worker location,http://www.wikidata.org/prop/direct/P937,work location
+127,2513,write languag,http://www.wikidata.org/prop/direct/P6886,writing language
+127,2513,writing language,http://www.wikidata.org/prop/direct/P6886,writing language

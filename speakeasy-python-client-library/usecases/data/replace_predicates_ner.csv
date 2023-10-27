@@ -1,0 +1,25 @@
+,label,preds,fixed
+0,IMDb ID,NerGroups[MISC IMDb 11 15], ID
+1,ICAA rating,NerGroups[MISC ICAA 11 15], rating
+2,JMK film rating,NerGroups[ORG JMK 11 14], film rating
+3,FSK film rating,NerGroups[ORG FSK 11 14], film rating
+4,Kijkwijzer rating,NerGroups[ORG Kijkwijzer 11 21], rating
+5,BBFC rating,NerGroups[ORG BBFC 11 15], rating
+6,CNC film rating (France),NerGroups[ORG CNC 11 14],film rating
+7,CNC film rating (France),NerGroups[LOC France 28 34],film rating
+8,RCQ classification,NerGroups[MISC RCQ 11 14], classification
+9,IFCO rating,NerGroups[ORG IFCO 11 15], rating
+10,Hong Kong film rating,NerGroups[LOC Hong Kong 11 20], film rating
+11,RTC film rating,NerGroups[ORG RTC 11 14], film rating
+12,CNC film rating (Romania),NerGroups[ORG CNC 11 14],film rating
+13,CNC film rating (Romania),NerGroups[LOC Romania 28 35],film rating
+14,EIRIN film rating,NerGroups[MISC EIRIN 11 16], film rating
+15,OFLC classification,NerGroups[ORG OFLC 11 15], classification
+16,INCAA film rating,NerGroups[ORG INCAA 11 16], film rating
+17,IMDA rating,NerGroups[MISC IMDA 11 15], rating
+18,IGAC rating,NerGroups[MISC IGAC 11 15], rating
+19,MPAA film rating,NerGroups[ORG MPAA 11 15], film rating
+20,MTRCB rating,NerGroups[ORG MTRCB 11 16], rating
+21,KMRB film rating,NerGroups[ORG KMRB 11 15], film rating
+22,BAMID film rating,NerGroups[MISC BAMID 11 16], film rating
+23,Australian Classification,NerGroups[MISC Australian 11 21], Classification
