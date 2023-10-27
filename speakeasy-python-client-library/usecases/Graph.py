@@ -1,9 +1,11 @@
 import os
+from typing import List
 import rdflib
-from rdflib import Namespace
+from rdflib import Namespace, query
 from rdflib.term import Node, IdentifiedNode, URIRef
 import pickle
-
+import utils
+import queryTemplates
 
 WD = Namespace("http://www.wikidata.org/entity/")
 WDT = Namespace("http://www.wikidata.org/prop/direct/")
@@ -43,7 +45,18 @@ class Graph(object):
 
         assert len(self.g) > 5, "Graph should contain elements"
 
+    def __query(self, query_str: str) -> query.Result:
+        print("\n Executing Query: \n", query_str, "\n")
+        return self.g.query(HEADER_CONST + query_str)
+
     def entity_2_label(self, entity: IdentifiedNode) -> IdentifiedNode | None:
         for x in self.g.objects(entity, RDFS.label, True):
             return x
         return None
+
+    def get_movie_with_label(self, film_name: str) -> List[IdentifiedNode]:
+        q = queryTemplates.GET_FILM_BY_NAME_FILTER % {
+            "filmName": utils.lower_remove_sent_endings_at_end(film_name)
+        }
+        res = list(self.__query(q))
+        return res[0] if len(res) > 0 else []

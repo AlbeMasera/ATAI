@@ -1,4 +1,5 @@
 import os
+import re
 import utils
 import torch
 from sentence_transformers import SentenceTransformer, util
@@ -46,6 +47,19 @@ class PossiblePredicate:
         return f"PredicateEmbedding(label={self.label}, score={self.score}, predicate={self.predicate}, query={self.fixed_query})"
 
 
+class CrowdEntity:
+    def __init__(
+        self, label: str, score: float, predicate: rdflib.term.URIRef, query: str
+    ):
+        self.label: str = label
+        self.score: float = score
+        self.node: rdflib.term.URIRef = predicate
+        self.fixed_query: str = query
+
+    def __str__(self):
+        return f"PredicateEmbedding(label={self.label}, score={self.score}, predicate={self.node}, query={self.fixed_query})"
+
+
 class EmbeddingRecogniser:
     def __init__(
         self,
@@ -81,6 +95,40 @@ class EmbeddingRecogniser:
         assert (
             len(self.replace_predicates_df) > 0
         ), "replace_predicates_df: No predicates found"
+
+    @staticmethod
+    def __max_len_everygrams(arr):
+        if len(arr) > EVERYGRAM_LEN:
+            return EVERYGRAM_LEN
+        return len(arr)
+
+    def __fix_query(self, query, org_label, org_string_found, embedding_found):
+        if org_label in query:
+            return query
+
+        words = word_tokenize(org_string_found)
+        words = [" ".join(tup) for tup in everygrams(words, max_len=len(words))]
+
+        found_str_embedding = self.model.encode(
+            words, convert_to_tensor=True, device="cuda"
+        )
+        hits = util.semantic_search(embedding_found, found_str_embedding, top_k=1)
+        h = hits[0][0]
+        print(h)
+
+        return re.sub(
+            f'{words[h["corpus_id"]]}?(.*?)[\s,.?!-]',
+            org_label + " ",
+            query,
+            flags=re.DOTALL,
+        )
+
+    def __replace_pred(self, query: str, label: str, org_string: str) -> str:
+        r_df = self.replace_predicates_df[self.replace_predicates_df["label"] == label]
+        if r_df.empty:
+            return query
+        else:
+            return query.replace(org_string, r_df["fixed"].values[0])
 
     def get_predicates(self, query, stemming=True) -> PossiblePredicate | None:
         original_query = query
@@ -137,4 +185,37 @@ class EmbeddingRecogniser:
                     )
 
         print("[X] PredicateEmbedding: No match found")
+        return
+
+    def get_crowd_entity(self, query) -> CrowdEntity | None:
+        split = utils.remove_sent_endings(query).split(" ")
+
+        words = [
+            " ".join(tup)
+            for tup in everygrams(split, max_len=self.__max_len_everygrams(split))
+        ]
+        words.sort(key=len, reverse=True)
+
+        print("[.] CROWD Embedding: will embed:", words)
+        query_embeddings = self.model.encode(
+            words, convert_to_tensor=True, device="cpu"
+        )
+        for i, query_embed in enumerate(query_embeddings):
+            hits = util.semantic_search(query_embed, self.crowd_embeddings, top_k=1)
+            hits = hits[0]  # Get the hits for the first query
+            for hit in hits:
+                index = hit["corpus_id"]
+
+                if 0.9 < hits[0]["score"]:
+                    label = self.crowd_df["label"][index]
+                    print(f"[+] CROWD: Found a match: {label}")
+                    # print(words[i:i + label.count(" ")])
+                    query = query.replace(
+                        " ".join(words[i : i + label.count(" ")]), label
+                    )
+                    return CrowdEntity(
+                        label, hit["score"], self.crowd_df["entity"][index], query
+                    )
+
+        print("[X] CROWD: No match found")
         return

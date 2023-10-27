@@ -21,3 +21,9 @@ def add_sentence_ending(sentence: str, is_question=False):
     if is_question:
         return sentence.strip() + "?"
     return sentence.strip() + "."
+
+
+def lower_remove_sent_endings_at_end(inp: str):
+    return (
+        inp.strip(" ").strip("\t").strip(".").strip("?").strip(",").strip("!").lower()
+    )

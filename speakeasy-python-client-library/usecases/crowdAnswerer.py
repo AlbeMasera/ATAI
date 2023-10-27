@@ -1,4 +1,6 @@
+import os
 import pandas, rdflib
+from embeddingsRec import EmbeddingRecogniser
 
 import Graph
 import rdflib
@@ -11,7 +13,15 @@ DDIS = rdflib.Namespace("http://ddis.ch/atai/")
 RDFS = rdflib.namespace.RDFS
 SCHEMA = rdflib.Namespace("http://schema.org/")
 
-CROWD_FILE = "/home/luc/UZH/w22/AI/code/Project/crowd/crowd_bot.csv"
+
+# Get the absolute path to the current directory
+current_directory = os.path.dirname(os.path.abspath(__file__))
+
+# Define the relative path to the "data" folder
+data_folder = os.path.join(current_directory, "data")
+
+# Use absolute paths for loading files from the "data" folder
+CROWD_FILE = os.path.join(data_folder, "crowd_bot.csv")
 
 
 class AnswerLevel(Enum):
@@ -40,9 +50,12 @@ class CrowdAnswer:
 
 
 class CrowdAnswerer:
-    def __init__(self, recogniser, graph: Graph, file: str = CROWD_FILE):
+    def __init__(
+        self, recogniser: EmbeddingRecogniser, graph: Graph, file: str = CROWD_FILE
+    ):
         self.df = pandas.read_csv(file, sep="\t")
         self.graph = graph
+        self.recogniser = recogniser
 
         assert self.graph is not None
 

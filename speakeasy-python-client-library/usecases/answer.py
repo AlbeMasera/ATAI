@@ -73,7 +73,7 @@ class Answer(object):
 
     @classmethod
     def from_movie_graph_node(cls, movie: IdentifiedNode):
-        return "Movie"  # cls(_get_random_answer_from_array(random_movie_answers).format(movie.toPython()))
+        return cls("I think you are looking for the movie: {}".format(movie.toPython()))
 
     @classmethod
     def from_recommendation(cls, movie: IdentifiedNode, hints: str):
@@ -97,12 +97,7 @@ class Answer(object):
 
     @classmethod
     def from_general_graph_node(cls, node: IdentifiedNode):
-        return ""
-        cls(
-            _get_random_answer_from_array(random_general_node_answers).format(
-                node.toPython()
-            )
-        )
+        return cls("I think your are looking for {}".format(node.toPython()))
 
     @classmethod
     def from_director_graph_node(cls, directors: List[IdentifiedNode], ori_movie: str):
@@ -113,23 +108,11 @@ class Answer(object):
             d = "\n".join([f"-> {d.toPython()}" for d in directors])
             return f"Found multiple films with the name '{ori_movie}' and therefore found multiple director names:\n{d}"
 
-        return ""
-        cls(
-            _get_random_answer_from_array(random_director_answers).format(
-                directors[0].toPython()
-            )
+        return cls(
+            _get_random_answer_from_array(
+                "I think you are looking for the director {}"
+            ).format(directors[0].toPython())
         )
-
-    @classmethod
-    def from_img(cls, img_path: str, name: str, is_human: bool = True, hints: str = ""):
-        img = f"image:{'.'.join(img_path.split('.')[:-1])}\n{hints if hints else ''}"
-        if is_human:
-            txt = ""
-            # utility.ran_e(image_answers).format(name)
-            return cls(f"{txt}\n{img}")
-
-        # Movie?
-        return cls(f"{name} looks like this: {img}")
 
 
 if __name__ == "__main__":

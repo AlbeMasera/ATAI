@@ -1,3 +1,3 @@
-import torch
+import nltk
 
-print(torch.cuda.is_available())
+nltk.download("punkt")

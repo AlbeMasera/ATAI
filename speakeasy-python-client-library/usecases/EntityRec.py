@@ -35,6 +35,53 @@ class EntityRecognition(object):
 
         assert self.pipeline, "Should contain pipeline"
 
+    @staticmethod
+    def fix_spans(query: str, predictions: list[dict]) -> list[NerGroups]:
+        out = []
+        for p in predictions:
+            original_text = query[p["start"] : p["end"]]
+
+            # add to list
+            out.append(
+                NerGroups(
+                    p["entity_group"], p["word"], p["start"], p["end"], original_text
+                )
+            )
+
+        # prev = out[0]
+        # out2 = []
+        # for group in out[1:]:
+        #     if group.start <= prev.start + 3 and prev.entity_group == group.entity_group:
+        #         prev.word = f"{prev.word} {group.word}"
+        #         prev.end = group.end
+        #         prev.original_text = query[prev.start:prev.end]
+        #         out2.append(prev)
+        #     else:
+        #         out2.append(prev)
+        #         prev = group
+
+        return out
+
+    def get_single_prediction(
+        self, sentence: str, is_question=False
+    ) -> None | NerGroups:
+        predictions: list[NerGroups] = self.get_predictions(sentence, is_question)
+        if not predictions:
+            return None
+        if len(predictions) < 2:
+            return predictions[0] if len(predictions) == 1 else []
+
+        # predications more than 2 => clue together
+        predictions.sort(key=lambda x: x.start)
+        start = predictions[0]
+
+        end = sorted(predictions, key=lambda x: x.end)[-1]
+
+        org_text = sentence[start.start : end.end]
+        return NerGroups(
+            "MISC", f"{start.word} -> {end.word}", start.start, end.end, org_text
+        )
+
     def get_predictions(self, sentence: str, is_question=False) -> list[NerGroups]:
         print(f"[.] NER: {sentence}")
         # add sentence end => NER result better for name at end of sentence

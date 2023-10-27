@@ -1,4 +1,5 @@
 import os
+from typing import Tuple
 import rdflib
 import utils
 
@@ -130,6 +131,64 @@ class EntryClassification(object):
             f"No answer found in the graph for {res[0]} and predicate {predicate}"
         )
 
+    def answer_embedding_question(
+        self, query: str, relation: embeddings.EmbeddingRelation
+    ) -> Tuple[Answer, bool]:
+        print(f"[+] start embedding answering of q: {query}")
+        prediction = self.ner.get_single_prediction(query, is_question=True)
+        if not prediction:
+            return (
+                Answer.from_error(
+                    f"No NER entities found. Wanted to use embedding answerer. \n Found predicate {relation.relation_label}"
+                ),
+                True,
+            )
+
+        entity: rdflib.IdentifiedNode | None = None
+        hints = f"(Tried Embedding Answerer with predicate {relation.relation_label})"
+        if prediction.label == "PER":
+            res = self.graph.get_per(prediction.original_text)
+            if not res:
+                return (
+                    Answer.person_not_found(prediction.original_text).with_hint(hints),
+                    True,
+                )
+            entity = res
+
+        else:  # Don't care about label whether ORG, LOC, MISC
+            res = self.graph.get_movie_with_label(prediction.original_text)
+            if not len(res):
+                return (
+                    Answer.movie_not_found(prediction.original_text).with_hint(hints),
+                    True,
+                )
+            entity = res[0]
+
+        if not entity:
+            return Answer.error()
+
+        hints = f"(Used Embedding of {entity} + {relation.relation_label})"
+        answer_entity = self.embeddingAnswer.calculate_embedding_node(
+            entity, relation.relation_key
+        )
+        if not answer_entity:
+            return (
+                Answer.from_error(
+                    f"Could not calculate question in embedding. Sorry."
+                ).with_hint(hints),
+                False,
+            )
+
+        answer_label = self.graph.entity_2_label(answer_entity)
+        if not answer_label:
+            return (
+                Answer.from_error(
+                    f"Could not find the label of the calculated answer {answer_entity} in graph. Sorry."
+                ).with_hint(hints),
+                True,
+            )
+        return Answer.from_general_graph_node(answer_label).with_hint(hints), True
+
 
 if __name__ == "__main__":
     q = "who is director of Alice in Wonderland"
@@ -174,7 +233,7 @@ if __name__ == "__main__":
     # print(ec.start(r5))
     # print(ec.start(r6))
     #
-    print(ec.start(q))
+    print(ec.start(q).get_text())
     # print(ec.start(q2))
     # print(ec.start(q3))
     # print(ec.start(q4))

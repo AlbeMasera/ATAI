@@ -1,6 +1,6 @@
 import numpy as np
 import rdflib, csv
-
+from sklearn.metrics import pairwise_distances
 
 import os
 
@@ -63,6 +63,28 @@ class EmbeddingAnswerer(object):
             return EmbeddingRelation.from_key_and_label(relation_id, relation_label)
 
         return None
+
+    def calculate_embedding_node(
+        self, subject, relation_key: int
+    ) -> rdflib.IdentifiedNode | None:
+        print(f"[+] Embedding calc: {subject} +  {relation_key}")
+
+        ent_id = self.ent2id.get(subject)
+        if not ent_id:
+            print("[-] Could not find entity in embedding")
+            return
+
+        pred = self.relation_emb[relation_key]
+        head = self.entity_emb[ent_id]
+
+        lhs = head + pred
+        # compute distance to *any* entity
+        dist = pairwise_distances(lhs.reshape(1, -1), self.entity_emb).reshape(-1)
+        # find most plausible entities
+        most_likely = dist.argsort()
+        en = self.id2ent[most_likely[0]]
+
+        return en
 
 
 LABELS_IN_RELATION_IDS_DEL = {
