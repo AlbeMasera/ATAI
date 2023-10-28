@@ -2,10 +2,11 @@ import utils
 from transformers import AutoTokenizer, AutoModelForTokenClassification, NerPipeline
 from typing import List, Dict, Union
 
+# Define the model to be used for Named Entity Recognition (NER)
 NER_MODEL = "dslim/bert-base-NER-uncased"
 
-
 class NerGroups(object):
+    # Initialize the NerGroups object
     def __init__(
         self, entity_group: str, word: str, start: int, end: int, original_text: str
     ):
@@ -21,20 +22,21 @@ class NerGroups(object):
     def __repr__(self):
         return self.__str__()
 
-
+# Initialize the EntityRecognition object by loading the NER model and tokenizer
 class EntityRecognition(object):
     def __init__(self):
         # load the NER tagger
         tokenizer = AutoTokenizer.from_pretrained(NER_MODEL, device=-1)
         model = AutoModelForTokenClassification.from_pretrained(NER_MODEL).to("cpu")
 
-        # maybe change grouping strategy later
+        # Initialize the NER pipeline
         self.pipeline = NerPipeline(
             model=model, tokenizer=tokenizer, device=-1, aggregation_strategy="average"
         )
 
         assert self.pipeline, "Should contain pipeline"
 
+    # Adjust the spans of recognized entities based on the original query
     @staticmethod
     def fix_spans(query: str, predictions: List[Dict]) -> List[NerGroups]:
         out = []
@@ -62,7 +64,7 @@ class EntityRecognition(object):
 
         return out
 
-    # returns a single recognized entity (as a NerGroups object)
+    # Recognizes a single entity in the given sentence and returns the recognized entity if found
     def get_single_prediction(
         self, sentence: str, is_question=False
     ) -> Union[None, NerGroups]:
@@ -83,7 +85,7 @@ class EntityRecognition(object):
             "MISC", f"{start.word} -> {end.word}", start.start, end.end, org_text
         )
 
-    # recognizes entities in the given sentence and returns a list of NerGroups objects
+    # Recognizes entities in the given sentence and returns a list of NerGroups objects
     def get_predictions(self, sentence: str, is_question=False) -> List[NerGroups]:
 
         print(f"[.] NER: {sentence}")

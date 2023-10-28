@@ -5,7 +5,7 @@ import utils
 
 
 from EntityRec import EntityRecognition
-import crowdAnswerer
+import crowdAnswer
 from answer import Answer
 import embeddingsRec
 import embeddings
@@ -91,7 +91,7 @@ class EntryClassification(object):
 
     # @utils.catch_exc_decor(exc_val=Answer("The graph failed to answer question. Sorry."))
 
-    # answer questions about a person using the graph
+    # Answer questions about a person using the graph
     def get_static_question_from_person(
         self, name: str, predicate: rdflib.term.URIRef
     ) -> Answer:
@@ -111,7 +111,7 @@ class EntryClassification(object):
             f"Could not find the answer in the graph for {res[0]} and predicate {predicate}"
         )
 
-    # answer questions about a movie using the graph
+    # Answer questions about a movie using the graph
     def get_static_question_from_movie(
         self, name: str, predicate: rdflib.term.URIRef
     ) -> Answer:
@@ -131,7 +131,7 @@ class EntryClassification(object):
             f"Could not find the answer in the graph for {res[0]} and predicate {predicate}"
         )
 
-    # answer a question using embeddings based on the recognized entity and relation
+    # Answer a question using embeddings based on the recognized entity and relation
     def answer_embedding_question(
         self, query: str, relation: embeddings.EmbeddingRelation
     ) -> Tuple[Answer, bool]:

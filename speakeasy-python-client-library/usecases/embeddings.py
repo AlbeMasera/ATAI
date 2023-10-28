@@ -1,34 +1,36 @@
+import os
 import numpy as np
 import rdflib, csv
 from sklearn.metrics import pairwise_distances
 from typing import Union
 
-import os
-
-
+# Represents a relation with its key, label, and fixed query.
 class EmbeddingRelation(object):
     relation_key: int
     relation_label: str
     fixed_query: str
 
+    # Creates an EmbeddingRelation instance using a key, label, and fixed query
     @classmethod
-    def from_key_and_label_and_fixed_query(cls, key: int, label: str, query: str):
+    def from_key_label_fixed_query(cls, key: int, label: str, query: str):
         e = cls()
         e.relation_label = label
         e.relation_key = key
         e.fixed_query = query
         return e
 
+    # Creates an EmbeddingRelation instance using a key and label.
     @classmethod
-    def from_key_and_label(cls, key: int, label: str):
+    def from_key_label(cls, key: int, label: str):
         e = cls()
         e.relation_label = label
         e.relation_key = key
         e.fixed_query = None
         return e
 
-
+# Handles operations related to embeddings, including loading embeddings and calculating node embeddings
 class EmbeddingAnswerer(object):
+    # Initialize the EmbeddingAnswerer by loading embeddings and dictionaries.
     def __init__(self):
         # Get the absolute path to the current directory
         current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -65,6 +67,7 @@ class EmbeddingAnswerer(object):
         assert self.ent2id, "Should contain ent2id"
         assert self.id2ent, "Should contain id2ent"
 
+    # Check if a given relation label exists in the embeddings
     @staticmethod
     def is_predicate_in_embedding(relation_label: str) -> Union[EmbeddingRelation, None]:
         relation_id = LABELS_IN_RELATION_IDS_DEL.get(relation_label, None)
@@ -73,6 +76,7 @@ class EmbeddingAnswerer(object):
 
         return None
 
+    # Calculate the node embedding based on a subject and relation keys
     def calculate_embedding_node(
         self, subject, relation_key: int
     ) -> Union[rdflib.IdentifiedNode, None]:
@@ -87,15 +91,15 @@ class EmbeddingAnswerer(object):
         head = self.entity_emb[ent_id]
 
         lhs = head + pred
-        # compute distance to *any* entity
+        # compute distance to all entities in the embedding
         dist = pairwise_distances(lhs.reshape(1, -1), self.entity_emb).reshape(-1)
-        # find most plausible entities
+        # find the most likely entity based on the distance
         most_likely = dist.argsort()
         en = self.id2ent[most_likely[0]]
-
+        # return the most likely entity node based on the calculated embedding
         return en
 
-
+# Private dict for relation labels mapping to their IDs
 LABELS_IN_RELATION_IDS_DEL = {
     "cast member": 0,
     "notable work": 1,

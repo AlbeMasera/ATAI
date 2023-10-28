@@ -20,7 +20,6 @@ HEADER_CONST = """
         PREFIX schema: <http://schema.org/>
     """
 
-
 # Get the absolute path to the current directory
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
@@ -29,7 +28,6 @@ data_folder = os.path.join(current_directory, "data")
 
 # Use absolute paths for loading files from the "data" folder
 pickle_graph_path = os.path.join(data_folder, "pickle_graph.pickel")
-
 
 class Graph(object):
     def __init__(self, filepath: str, is_pickle: bool = False):

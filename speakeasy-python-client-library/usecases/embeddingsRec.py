@@ -3,7 +3,7 @@ import re
 import utils
 import torch
 from sentence_transformers import SentenceTransformer, util
-import numpy
+import numpy as np
 import pandas as pd
 import rdflib
 from nltk.util import everygrams
@@ -11,6 +11,7 @@ from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 from typing import Union
 
+# Define a similarity threshold and maximum length for everygrams
 THRESHOLD = 0.75
 EVERYGRAM_LEN = 5
 
@@ -30,7 +31,7 @@ CROWD_ENTITIES_EMBEDDINGS = os.path.join(data_folder, "entities_crowd_emb.npy")
 
 REPLACE_PREDICATES_FILE = os.path.join(data_folder, "replace_predicates_ner.csv")
 
-
+# Represents a possible predicate with attributes label, score, predicate, fixed query
 class PossiblePredicate:
     def __init__(
         self, label: str, score: float, predicate: rdflib.term.URIRef, query: str
@@ -46,7 +47,7 @@ class PossiblePredicate:
     def __str__(self):
         return f"PredicateEmbedding(label={self.label}, score={self.score}, predicate={self.predicate}, query={self.fixed_query})"
 
-
+# Represents a crowd entity with attributes label, score, predicate, fixed query
 class CrowdEntity:
     def __init__(
         self, label: str, score: float, predicate: rdflib.term.URIRef, query: str
@@ -59,8 +60,9 @@ class CrowdEntity:
     def __str__(self):
         return f"PredicateEmbedding(label={self.label}, score={self.score}, predicate={self.node}, query={self.fixed_query})"
 
-
+# Recognize and match entities and predicates using embeddings
 class EmbeddingRecogniser:
+    # Initialize EmbeddingRecogniser with necessary models and data
     def __init__(
         self,
         pred_df_path: str = PREDICATE_DESC,
@@ -69,19 +71,23 @@ class EmbeddingRecogniser:
         crowd_embeddings_path: str = CROWD_ENTITIES_EMBEDDINGS,
         replace_predicates_path: str = REPLACE_PREDICATES_FILE,
     ):
+        # load the sentence transformer model
         self.model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+        # initialize stemmer
         self.stammer = PorterStemmer()
 
-        np_arr = numpy.load(pred_embeddings_path)
-        self.pred_embeddings = torch.from_numpy(np_arr).to("cpu")
+        # load embeddings and dataframes
+        loaded_pred_embeddings = numpy.load(pred_embeddings_path)
+        self.pred_embeddings = torch.from_numpy(loaded_pred_embeddings).to("cpu")
         self.pred_df = pd.read_csv(pred_df_path)
 
-        np_arr = numpy.load(crowd_embeddings_path)
-        self.crowd_embeddings = torch.from_numpy(np_arr).to("cpu")
+        loaded_crowd_embeddings = numpy.load(crowd_embeddings_path)
+        self.crowd_embeddings = torch.from_numpy(loaded_crowd_embeddings).to("cpu")
         self.crowd_df = pd.read_csv(crowd_df_path)
 
         self.replace_predicates_df = pd.read_csv(replace_predicates_path)
 
+        # assertions to ensure data integrity
         assert len(self.pred_df) > 0, "PredicateEmbedding: No predicates found"
         assert len(self.pred_df) == len(
             self.pred_embeddings
@@ -96,12 +102,14 @@ class EmbeddingRecogniser:
             len(self.replace_predicates_df) > 0
         ), "replace_predicates_df: No predicates found"
 
+    # Determine maximum length for everygrams based on input array and EVERYGRAM_LEN constant
     @staticmethod
     def __max_len_everygrams(arr):
         if len(arr) > EVERYGRAM_LEN:
             return EVERYGRAM_LEN
         return len(arr)
 
+    # Adjust the query by replacing the found string with the original label
     def __fix_query(self, query, org_label, org_string_found, embedding_found):
         if org_label in query:
             return query
@@ -123,6 +131,7 @@ class EmbeddingRecogniser:
             flags=re.DOTALL,
         )
 
+    # Replace the predicate in the query with a fixed version if available
     def __replace_pred(self, query: str, label: str, org_string: str) -> str:
         r_df = self.replace_predicates_df[self.replace_predicates_df["label"] == label]
         if r_df.empty:
@@ -130,16 +139,18 @@ class EmbeddingRecogniser:
         else:
             return query.replace(org_string, r_df["fixed"].values[0])
 
+    # Identify possible predicates in the given query using embeddings
     def get_predicates(self, query, stemming=True) -> Union[PossiblePredicate, None]:
         original_query = query
         query = utils.remove_sent_endings(query)
 
+        # Tokenize and generate everygrams for the query
         split = word_tokenize(query)
         words = [
             " ".join(tup)
             for tup in everygrams(split, max_len=self.__max_len_everygrams(split))
         ]
-
+        # Apply stemming if enabled
         split2 = []
         if stemming:
             print("[.] Embedding: will try stemming")
@@ -187,9 +198,11 @@ class EmbeddingRecogniser:
         print("[X] PredicateEmbedding: No match found")
         return
 
+    # Identify crowd entities in the given query using embeddings
     def get_crowd_entity(self, query) -> Union[CrowdEntity, None]:
         split = utils.remove_sent_endings(query).split(" ")
-
+        
+        # Tokenize and generate everygrams for the query
         words = [
             " ".join(tup)
             for tup in everygrams(split, max_len=self.__max_len_everygrams(split))
@@ -197,6 +210,7 @@ class EmbeddingRecogniser:
         words.sort(key=len, reverse=True)
 
         print("[.] CROWD Embedding: will embed:", words)
+        # Encode the words using the sentence transformer mode
         query_embeddings = self.model.encode(
             words, convert_to_tensor=True, device="cpu"
         )

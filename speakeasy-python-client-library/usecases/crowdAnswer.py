@@ -1,9 +1,7 @@
 import os
 import pandas, rdflib
-from embeddingsRec import EmbeddingRecogniser
-
 import Graph
-import rdflib
+from embeddingsRec import EmbeddingRecogniser
 from enum import Enum
 from collections import Counter
 from typing import Union
@@ -22,9 +20,9 @@ current_directory = os.path.dirname(os.path.abspath(__file__))
 data_folder = os.path.join(current_directory, "data")
 
 # Use absolute paths for loading files from the "data" folder
-CROWD_FILE = os.path.join(data_folder, "crowd_bot.csv")
+CROWD_FILE = os.path.join(data_folder, "crowd_data.tsv")
 
-
+# Enumeration to represent different levels of answers
 class AnswerLevel(Enum):
     No = 0
     Position = 1
@@ -32,7 +30,7 @@ class AnswerLevel(Enum):
     Correct = 3
     Predicate = 4
 
-
+# Represents the answer from the crowd
 class CrowdAnswer:
     def __init__(self, level: AnswerLevel, message: str, stats: Union[str, None]):
         self.level = level
@@ -42,14 +40,15 @@ class CrowdAnswer:
     def __str__(self):
         return f"{self.level.name}: {self.message} ({self.stats})"
 
+    # Returns the text representation of the crowd's answer
     def get_text(self):
         if self.level == AnswerLevel.No:
             return ""
 
         stat = f"\n({self.stats})" if self.stats else ""
-        return f"However the crowd has an answer: {self.message}{stat}"
+        return f"The answer retrieved from crowd data is {self.message}{stat}"
 
-
+# Get answers from a crowd dataset
 class CrowdAnswerer:
     def __init__(
         self, recogniser: EmbeddingRecogniser, graph: Graph, file: str = CROWD_FILE
@@ -59,7 +58,8 @@ class CrowdAnswerer:
         self.recogniser = recogniser
 
         assert self.graph is not None
-
+    
+    # Adds labels to nodes if they belong to Wikidata
     def __add_lbl_if_node(self, value: str) -> str:
         if any(value) and "wikidata" in value:
             node = rdflib.URIRef(value)
@@ -67,34 +67,35 @@ class CrowdAnswerer:
             return f"{lbl}\n({value})"
         return value
 
+    # Determines if the crowd might have an answer to a given query based on the recognized predicate and entity.
     def might_answer(self, query: str, predicate: rdflib.term.URIRef) -> CrowdAnswer:
+        # Check if the predicate is recognized
         if not predicate:
-            print("[X] ERROR CROWD Answer: no recognised predicate")
+            print("Could not retrieve crowd answer. Predicate is not recognized.")
             return CrowdAnswer(
                 AnswerLevel.No,
                 "I could not find any predicates in your question.",
                 None,
             )
-
+        # Try to recognize an entity from the query
         recognised_entity = self.recogniser.get_crowd_entity(query)
         if not recognised_entity:
-            print("[.] CROWD Answer: no recognised entity")
+            print("Could not retrieve crowd answer. Entity is not recognized.")
             return CrowdAnswer(
                 AnswerLevel.No,
                 "I could not find any entity in the crowd dataset.",
                 None,
             )
-
+        # Search for the recognized entity and predicate in the crowd dataset
         result = self.df[
             (self.df["Input1ID"] == recognised_entity.node)
             & (self.df["Input2ID"] == predicate.toPython())
         ]
         if result.empty:
-            print("[.] CROWD Answer: no normal answer found")
+            print("Could not retrieve crowd answer. No answer could be found.")
             return self.get_fixed_predicate_answer(recognised_entity.node, predicate)
 
-        majority, stats = self.__calc_stats(result)
-
+        # Check if the crowd agrees on the correct value
         correct_value = result["Input3ID"].values[0]
         if majority > 0:
             correct_value = self.__add_lbl_if_node(correct_value)
@@ -103,29 +104,31 @@ class CrowdAnswerer:
                 f"The crowd has voted that the answer is correct. The answer is {correct_value}",
                 stats,
             )
-
+        # Check if the crowd suggests a fixed value or position
         values = result["FixValue"].tolist()
         pos = result["FixPosition"].values
         if not any(values):
-            print("[.] CROWD Answer: no correct value found")
+            print("Could not find a correct value.")
             return CrowdAnswer(
                 AnswerLevel.Position,
                 f"The crowd found some mistakes, but did not propose the fixed value. The error at the following position was found: {pos}",
                 stats,
             )
-
+        # Check if the crowd suggests a correction for the subject or predicate
         if any(pos) and pos[0] == "Subject" or pos[0] == "Predicate":
             correct_value = self.__add_lbl_if_node(correct_value)
-            print("[.] CROWD Answer: POS WEIRD")
+            print("Crowd answer: Strange POS.s")
             return CrowdAnswer(
                 AnswerLevel.Value,
                 f"The crowd was asked if {correct_value} is correct. They proposed a correction {values[0]} for the {pos[0]}.",
                 stats,
             )
-
+        # Return the crowd's proposed fixed value
         value = self.__add_lbl_if_node(values[0])
         return CrowdAnswer(
             AnswerLevel.Value,
             f"The crowd found some mistakes. The proposed fixed value is: {value}.",
             stats,
         )
+        # Calculate the majority vote and statistics from the crowd dataset
+        majority, stats = self.__calc_stats(result)
