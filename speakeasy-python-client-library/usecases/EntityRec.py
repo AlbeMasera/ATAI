@@ -50,20 +50,6 @@ class EntityRecognition(object):
                 )
             )
 
-        # prev = out[0]
-        # out2 = []
-        # for group in out[1:]:
-        #     if group.start <= prev.start + 3 and prev.entity_group == group.entity_group:
-        #         prev.word = f"{prev.word} {group.word}"
-        #         prev.end = group.end
-        #         prev.original_text = query[prev.start:prev.end]
-        #         out2.append(prev)
-        #     else:
-        #         out2.append(prev)
-        #         prev = group
-
-        return out
-
     # Recognizes a single entity in the given sentence and returns the recognized entity if found
     def get_single_prediction(
         self, sentence: str, is_question=False

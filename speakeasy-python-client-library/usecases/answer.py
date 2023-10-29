@@ -3,25 +3,12 @@ from enum import Enum
 import rdflib.term
 from rdflib.term import IdentifiedNode, Node, Identifier
 from random import randint
-
 import utils
 
 class ErrorMessages(Enum):
     GENERIC_ERROR = "Sorry, an error occured"
     MOVIE_NOT_FOUND = "Could not find a movie with the name: {}"
     PERSON_NOT_FOUND = "Could not find a person with the name: {}"
-'''    
-def return_error():
-    return "An error occured"
-
-
-def movie_not_found(movie_name: str) -> str:
-    return f"Could not find a movie with the name: {movie_name}."
-
-
-def per_not_found(per_name: str) -> str:
-    return f"Could not find a person with the name: {per_name}."
-'''
 
 # Generate and manage answers based on given input
 class Answer(object):
