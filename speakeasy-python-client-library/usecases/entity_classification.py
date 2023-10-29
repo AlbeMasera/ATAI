@@ -34,7 +34,7 @@ class EntryClassification(object):
 
     # Start function of all the question answering
     def start(self, query: str) -> Answer:
-        query = utils.remove_different_minus_scores(query)
+        query = utils.remove_hyphen_add_dash(query)
         print("Start classification")
 
         predicate = self.embeddingRecogniser.get_predicates(query)
@@ -84,12 +84,6 @@ class EntryClassification(object):
             return self.graph.get_static_question_from_movie(
                 prediction.original_text, predicate
             )
-
-            # else:
-            #     print(f"[-] ERROR: Could not match label to action.")
-            #     return Answer.error()
-
-    # @utils.catch_exc_decor(exc_val=Answer("The graph failed to answer question. Sorry."))
 
     # Answer questions about a person using the graph
     def get_static_question_from_person(

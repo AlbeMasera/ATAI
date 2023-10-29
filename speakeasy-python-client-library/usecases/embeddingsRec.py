@@ -142,7 +142,7 @@ class EmbeddingRecogniser:
     # Identify possible predicates in the given query using embeddings
     def get_predicates(self, query, stemming=True) -> Union[PossiblePredicate, None]:
         original_query = query
-        query = utils.remove_sent_endings(query)
+        query = utils.remove_sentence_ending(query)
 
         # Tokenize and generate everygrams for the query
         split = word_tokenize(query)
@@ -200,7 +200,7 @@ class EmbeddingRecogniser:
 
     # Identify crowd entities in the given query using embeddings
     def get_crowd_entity(self, query) -> Union[CrowdEntity, None]:
-        split = utils.remove_sent_endings(query).split(" ")
+        split = utils.remove_sentence_ending(query).split(" ")
         
         # Tokenize and generate everygrams for the query
         words = [
