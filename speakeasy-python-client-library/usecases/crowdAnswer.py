@@ -1,10 +1,10 @@
 import os
 import pandas, rdflib
 import Graph
-from embeddingsRec import EmbeddingRecogniser
 from enum import Enum
 from collections import Counter
-from typing import Union
+from typing import Unions
+from embeddingsRec import EmbeddingRecogniser
 
 WD = rdflib.Namespace("http://www.wikidata.org/entity/")
 WDT = rdflib.Namespace("http://www.wikidata.org/prop/direct/")
@@ -48,7 +48,7 @@ class CrowdAnswer:
         stat = f"\n({self.stats})" if self.stats else ""
         return f"The answer retrieved from crowd data is {self.message}{stat}"
 
-# Get answers from a crowd dataset
+# Get answers from a crowd-sourced dataset
 class CrowdAnswerer:
     def __init__(
         self, recogniser: EmbeddingRecogniser, graph: Graph, file: str = CROWD_FILE

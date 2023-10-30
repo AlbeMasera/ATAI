@@ -3,7 +3,7 @@ import re
 import utils
 import torch
 from sentence_transformers import SentenceTransformer, util
-import numpy as np
+import numpy
 import pandas as pd
 import rdflib
 from nltk.util import everygrams

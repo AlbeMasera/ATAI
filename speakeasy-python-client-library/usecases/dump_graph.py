@@ -8,7 +8,7 @@ graph = Graph()
 graph.parse(source="speakeasy-python-client-library/graph/14_graph.nt", format="turtle")
 
 # open a file, where you ant to store the data
-file = open("important", "wb")
+file = open("pickle_graph.pickel", "wb")
 
 # dump information to that file
 pickle.dump(graph, file)

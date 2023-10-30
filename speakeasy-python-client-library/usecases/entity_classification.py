@@ -28,7 +28,7 @@ class EntryClassification(object):
         self.embeddingAnswer = embeddings.EmbeddingAnswerer()
         self.graph = Graph(GRAPH_PICKLE, is_pickle=True)
         self.embeddingRecogniser = embeddingsRec.EmbeddingRecogniser()
-        self.crowd = crowdAnswerer.CrowdAnswerer(self.embeddingRecogniser, self.graph)
+        self.crowd = crowdAnswer.CrowdAnswerer(self.embeddingRecogniser, self.graph)
 
         print("Answerer is ready!")
 
@@ -42,8 +42,8 @@ class EntryClassification(object):
         if predicate:
             crowd_answer = self.crowd.might_answer(query, predicate.predicate)
             if not crowd_answer:
-                crowd_answer = crowdAnswerer.CrowdAnswer(
-                    crowdAnswerer.AnswerLevel.No,
+                crowd_answer = crowdAnswer.CrowdAnswer(
+                    crowdAnswer.AnswerLevel.No,
                     "There was an error in the crowd answerer.",
                     None,
                 )
