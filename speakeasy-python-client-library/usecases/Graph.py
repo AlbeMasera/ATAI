@@ -1,11 +1,10 @@
 import os
+import pickle
 from typing import List
 import rdflib
 from rdflib import Namespace, query
-from rdflib.term import Node, IdentifiedNode, URIRef
-import pickle
+from rdflib.term import IdentifiedNode
 import utils
-import queryTemplates
 
 WD = Namespace("http://www.wikidata.org/entity/")
 WDT = Namespace("http://www.wikidata.org/prop/direct/")
@@ -20,18 +19,17 @@ HEADER_CONST = """
         PREFIX schema: <http://schema.org/>
     """
 
+GET_FILM_BY_NAME_FILTER = """
+            SELECT DISTINCT ?film ?queryByTitle WHERE{
+                ?film wdt:P31/wdt:P279* wd:Q2431196.                                                                 
+                ?film rdfs:label ?queryByTitle.                                                          
+                FILTER(REGEX(?queryByTitle, "%(filmName)s", "i"))
+            }
+            LIMIT 1
+        """
 
-# Get the absolute path to the current directory
-current_directory = os.path.dirname(os.path.abspath(__file__))
 
-# Define the relative path to the "data" folder
-data_folder = os.path.join(current_directory, "data")
-
-# Use absolute paths for loading files from the "data" folder
-pickle_graph_path = os.path.join(data_folder, "pickle_graph.pickel")
-
-
-class Graph(object):
+class Graph:
     def __init__(self, filepath: str, is_pickle: bool = False):
         if not is_pickle:
             self.g: rdflib.Graph = rdflib.Graph()
@@ -43,19 +41,17 @@ class Graph(object):
             with open(filepath, "rb") as graph:
                 self.g: rdflib.Graph = pickle.load(graph)
 
-        assert len(self.g) > 5, "Graph should contain elements"
-
     def __query(self, query_str: str) -> query.Result:
         print("\n Executing Query: \n", query_str, "\n")
         return self.g.query(HEADER_CONST + query_str)
 
-    def entity_2_label(self, entity: IdentifiedNode) -> IdentifiedNode | None:
+    def entity_to_label(self, entity: IdentifiedNode) -> IdentifiedNode | None:
         for x in self.g.objects(entity, RDFS.label, True):
             return x
         return None
 
     def get_movie_with_label(self, film_name: str) -> List[IdentifiedNode]:
-        q = queryTemplates.GET_FILM_BY_NAME_FILTER % {
+        q = GET_FILM_BY_NAME_FILTER % {
             "filmName": utils.lower_remove_sent_endings_at_end(film_name)
         }
         res = list(self.__query(q))

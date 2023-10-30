@@ -11,9 +11,6 @@ from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 
 
-THRESHOLD = 0.75
-EVERYGRAM_LEN = 5
-
 # Get the absolute path to the current directory
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
@@ -23,11 +20,8 @@ data_folder = os.path.join(current_directory, "data")
 # Use absolute paths for loading files from the "data" folder
 PREDICATE_DESC = os.path.join(data_folder, "predicates_extended.csv")
 PRED_EMBEDDINGS = os.path.join(data_folder, "embeddings2.npy")
-
 CROWD_ENTITIES_DESC = os.path.join(data_folder, "entities_crowd.csv")
-
 CROWD_ENTITIES_EMBEDDINGS = os.path.join(data_folder, "entities_crowd_emb.npy")
-
 REPLACE_PREDICATES_FILE = os.path.join(data_folder, "replace_predicates_ner.csv")
 
 
@@ -40,12 +34,6 @@ class PossiblePredicate:
         self.predicate: rdflib.term.URIRef = predicate
         self.fixed_query: str = query
 
-    def __repr__(self):
-        return self.__str__()
-
-    def __str__(self):
-        return f"PredicateEmbedding(label={self.label}, score={self.score}, predicate={self.predicate}, query={self.fixed_query})"
-
 
 class CrowdEntity:
     def __init__(
@@ -56,11 +44,8 @@ class CrowdEntity:
         self.node: rdflib.term.URIRef = predicate
         self.fixed_query: str = query
 
-    def __str__(self):
-        return f"PredicateEmbedding(label={self.label}, score={self.score}, predicate={self.node}, query={self.fixed_query})"
 
-
-class EmbeddingRecogniser:
+class EmbeddingRecognizer:
     def __init__(
         self,
         pred_df_path: str = PREDICATE_DESC,
@@ -82,24 +67,10 @@ class EmbeddingRecogniser:
 
         self.replace_predicates_df = pd.read_csv(replace_predicates_path)
 
-        assert len(self.pred_df) > 0, "PredicateEmbedding: No predicates found"
-        assert len(self.pred_df) == len(
-            self.pred_embeddings
-        ), "Embeddings and predicates must have the same length"
-
-        assert len(self.crowd_embeddings) > 0, "crowd_embeddings: No entities found"
-        assert len(self.crowd_df) == len(
-            self.crowd_embeddings
-        ), "Embeddings and DF must have the same length"
-
-        assert (
-            len(self.replace_predicates_df) > 0
-        ), "replace_predicates_df: No predicates found"
-
     @staticmethod
     def __max_len_everygrams(arr):
-        if len(arr) > EVERYGRAM_LEN:
-            return EVERYGRAM_LEN
+        if len(arr) > 5:
+            return 5
         return len(arr)
 
     def __fix_query(self, query, org_label, org_string_found, embedding_found):
@@ -114,7 +85,6 @@ class EmbeddingRecogniser:
         )
         hits = util.semantic_search(embedding_found, found_str_embedding, top_k=1)
         h = hits[0][0]
-        print(h)
 
         return re.sub(
             f'{words[h["corpus_id"]]}?(.*?)[\s,.?!-]',
@@ -142,7 +112,6 @@ class EmbeddingRecogniser:
 
         split2 = []
         if stemming:
-            print("[.] Embedding: will try stemming")
             split2 = [self.stammer.stem(w) for w in split]
             words2 = [
                 " ".join(tup)
@@ -152,23 +121,18 @@ class EmbeddingRecogniser:
 
         words.sort(key=len, reverse=True)
 
-        print("[.] PredicateEmbedding: will embed:", words)
         query_embeddings = self.model.encode(
             words, convert_to_tensor=True, device="cpu"
         )
         for i, query_embed in enumerate(query_embeddings):
             hits = util.semantic_search(query_embed, self.pred_embeddings, top_k=1)
-            hits = hits[0]  # Get the hits for the first query
+            hits = hits[0]
             for hit in hits:
                 index = hit["corpus_id"]
-                # print("---Closest: ", index, hits[0]['score'])
 
-                if THRESHOLD < hits[0]["score"]:
+                if 0.75 < hits[0]["score"]:
                     org_label = self.pred_df["org_label"][index]
                     string_found = self.pred_df["label"][index]
-                    print(
-                        f"[+] PredicateEmbedding: Found a match: {org_label} / {string_found}"
-                    )
 
                     original_query = self.__fix_query(
                         original_query, org_label, words[i], self.pred_embeddings[index]
@@ -183,39 +147,4 @@ class EmbeddingRecogniser:
                         rdflib.term.URIRef(self.pred_df["predicate"][index]),
                         original_query,
                     )
-
-        print("[X] PredicateEmbedding: No match found")
-        return
-
-    def get_crowd_entity(self, query) -> CrowdEntity | None:
-        split = utils.remove_sent_endings(query).split(" ")
-
-        words = [
-            " ".join(tup)
-            for tup in everygrams(split, max_len=self.__max_len_everygrams(split))
-        ]
-        words.sort(key=len, reverse=True)
-
-        print("[.] CROWD Embedding: will embed:", words)
-        query_embeddings = self.model.encode(
-            words, convert_to_tensor=True, device="cpu"
-        )
-        for i, query_embed in enumerate(query_embeddings):
-            hits = util.semantic_search(query_embed, self.crowd_embeddings, top_k=1)
-            hits = hits[0]  # Get the hits for the first query
-            for hit in hits:
-                index = hit["corpus_id"]
-
-                if 0.9 < hits[0]["score"]:
-                    label = self.crowd_df["label"][index]
-                    print(f"[+] CROWD: Found a match: {label}")
-                    # print(words[i:i + label.count(" ")])
-                    query = query.replace(
-                        " ".join(words[i : i + label.count(" ")]), label
-                    )
-                    return CrowdEntity(
-                        label, hit["score"], self.crowd_df["entity"][index], query
-                    )
-
-        print("[X] CROWD: No match found")
         return

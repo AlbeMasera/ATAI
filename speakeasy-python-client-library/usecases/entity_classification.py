@@ -1,193 +1,75 @@
 import os
-from typing import Tuple
 import rdflib
 import utils
-
-
-from EntityRec import EntityRecognition
-import crowdAnswerer
-from answer import Answer
-import embeddingsRec
+from entity_recognizer import EntityRecognizer
+import embeddings_recognition as embeddings_rec
 import embeddings
-from Graph import Graph
+from graph import Graph
 
 
-# Get the absolute path to the current directory
-current_directory = os.path.dirname(os.path.abspath(__file__))
-
-# Define the relative path to the "data" folder
-data_folder = os.path.join(current_directory, "data")
-
-# Use absolute paths for loading files from the "data" folder
-GRAPH_PICKLE = os.path.join(data_folder, "pickle_graph.pickel")
-
-
-class EntryClassification(object):
+class EntryClassifier:
     def __init__(self):
-        self.ner = EntityRecognition()
-        self.embeddingAnswer = embeddings.EmbeddingAnswerer()
-        self.graph = Graph(GRAPH_PICKLE, is_pickle=True)
-        self.embeddingRecogniser = embeddingsRec.EmbeddingRecogniser()
-        self.crowd = crowdAnswerer.CrowdAnswerer(self.embeddingRecogniser, self.graph)
+        # Initialize components
+        self.entity_recognizer = EntityRecognizer()
+        self.embedding_answerer = embeddings.EmbeddingAnswerer()
+        self.graph = Graph(
+            os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "data",
+                "pickle_graph.pickel",
+            ),
+            is_pickle=True,
+        )
+        self.embedding_recognizer = embeddings_rec.EmbeddingRecognizer()
 
-        print("[+] Answerer READY")
+    def start(self, query: str) -> str:
+        # Preprocess query
+        cleaned_query = utils.remove_different_minus_scores(query)
 
-    # Start function of all the question answering
-    def start(self, query: str) -> Answer:
-        query = utils.remove_different_minus_scores(query)
-        print("[+] start classification")
+        # Get predicates using embedding recognizer
+        predicate = self.embedding_recognizer.get_predicates(cleaned_query)
 
-        predicate = self.embeddingRecogniser.get_predicates(query)
-
-        if predicate:
-            crowd_answer = self.crowd.might_answer(query, predicate.predicate)
-            if not crowd_answer:
-                crowd_answer = crowdAnswerer.CrowdAnswer(
-                    crowdAnswerer.AnswerLevel.No,
-                    "There was an error in the crowd answerer.",
-                    None,
-                )
-
-            print(f"[+] found PREDICATE in question")
-            em_rl = self.embeddingAnswer.is_predicate_in_embedding(predicate.label)
-            if em_rl:
-                print(f"[+] found EMBEDDING in question {em_rl.relation_label}")
-                answer, answered = self.answer_embedding_question(
-                    predicate.fixed_query, em_rl
-                )
-                if answered:
-                    return answer.with_crowd_opinion(crowd_answer.get_text())
-                print(f"[X] EMBEDDING did not answer question")
-
-            print("[!] not Embedding")
-            print("[+] Try answer STATIC question")
-            return self.answer_statical_question(
-                predicate.predicate, query
-            ).with_crowd_opinion(crowd_answer.get_text())
-
-        return Answer.from_error("This seems to be a question that I cannot answer.")
-
-    def answer_statical_question(
-        self, predicate: rdflib.term.URIRef, query: str
-    ) -> Answer:
-        prediction = self.ner.get_single_prediction(query, is_question=True)
-        if not prediction:
-            return Answer.from_error(
-                f"No NER entities found. Wanted to use graph to answer. \n Found predicate {predicate}"
-            )
-
-        if prediction.label == "PER":
-            return self.graph.get_static_question_from_person(
-                prediction.original_text, predicate
-            )
-
-        else:
-            # if prediction.labels[0].value == "MISC" or prediction.labels[0].value == "ORG":
-            return self.graph.get_static_question_from_movie(
-                prediction.original_text, predicate
-            )
-
-            # else:
-            #     print(f"[-] ERROR: Could not match label to action.")
-            #     return Answer.error()
-
-    # @utils.catch_exc_decor(exc_val=Answer("The graph failed to answer question. Sorry."))
-
-    def get_static_question_from_person(
-        self, name: str, predicate: rdflib.term.URIRef
-    ) -> Answer:
-        res = self.get_per(name)
-        if not res:
-            return Answer.person_not_found(name).with_hint(
-                f"Tried to use graph to answer question. Found predicate {predicate}"
-            )
-
-        lbl = self.__object_label(res, predicate)
-        if lbl:
-            return Answer.from_question(lbl).with_hint(
-                f"(Used graph to answer question.\n{res} -> {predicate})"
-            )
-
-        return Answer.from_error(
-            f"No answer found in the graph for {res[0]} and predicate {predicate}"
+        # Check if predicate exists in embeddings
+        is_predicate_in_embeddings = self.embedding_answerer.is_predicate_in_embedding(
+            predicate.label
         )
 
-    def get_static_question_from_movie(
-        self, name: str, predicate: rdflib.term.URIRef
-    ) -> Answer:
-        res = self.get_movie_with_label(name)
-        if not res:
-            return Answer.movie_not_found(name).with_hint(
-                f"Tried to use graph to answer question. Found predicate {predicate}"
-            )
-
-        lbl = self.__object_label(res[0], predicate)
-        if lbl:
-            return Answer.from_question(lbl).with_hint(
-                f"(Used graph to answer question.\n{res[0]} -> {predicate})"
-            )
-
-        return Answer.from_error(
-            f"No answer found in the graph for {res[0]} and predicate {predicate}"
+        # Answer the question using embeddings and NER
+        return self.answer_embedding_question(
+            predicate.fixed_query, is_predicate_in_embeddings
         )
 
     def answer_embedding_question(
         self, query: str, relation: embeddings.EmbeddingRelation
-    ) -> Tuple[Answer, bool]:
-        print(f"[+] start embedding answering of q: {query}")
-        prediction = self.ner.get_single_prediction(query, is_question=True)
-        if not prediction:
-            return (
-                Answer.from_error(
-                    f"No NER entities found. Wanted to use embedding answerer. \n Found predicate {relation.relation_label}"
-                ),
-                True,
-            )
-
+    ) -> str:
+        prediction = self.entity_recognizer.get_single_entity(query, is_question=True)
         entity: rdflib.IdentifiedNode | None = None
-        hints = f"(Tried Embedding Answerer with predicate {relation.relation_label})"
-        if prediction.label == "PER":
-            res = self.graph.get_per(prediction.original_text)
-            if not res:
-                return (
-                    Answer.person_not_found(prediction.original_text).with_hint(hints),
-                    True,
-                )
-            entity = res
 
-        else:  # Don't care about label whether ORG, LOC, MISC
-            res = self.graph.get_movie_with_label(prediction.original_text)
-            if not len(res):
-                return (
-                    Answer.movie_not_found(prediction.original_text).with_hint(hints),
-                    True,
-                )
-            entity = res[0]
+        res = self.graph.get_movie_with_label(prediction.original_text)
+        entity = res[0]
 
-        if not entity:
-            return Answer.error()
-
-        hints = f"(Used Embedding of {entity} + {relation.relation_label})"
-        answer_entity = self.embeddingAnswer.calculate_embedding_node(
+        answer_entity = self.embedding_answerer.calculate_embedding_node(
             entity, relation.relation_key
         )
-        if not answer_entity:
-            return (
-                Answer.from_error(
-                    f"Could not calculate question in embedding. Sorry."
-                ).with_hint(hints),
-                False,
-            )
 
-        answer_label = self.graph.entity_2_label(answer_entity)
-        if not answer_label:
-            return (
-                Answer.from_error(
-                    f"Could not find the label of the calculated answer {answer_entity} in graph. Sorry."
-                ).with_hint(hints),
-                True,
+        answer_label = self.graph.entity_to_label(answer_entity)
+        return "I think you are looking for {}".format(answer_label.toPython())
+        # Extract entity using NER
+        prediction = self.entity_recognizer.get_single_entity(query, is_question=True)
+
+        # Find corresponding entity in the graph
+        entities = self.graph.get_entities_with_label(prediction.original_text)
+        entity = entities[0] if entities else None
+
+        if entity:
+            # Calculate the answer using embeddings
+            answer_entity = self.embedding_answerer.calculate_embedding_node(
+                entity, relation_in_embeddings
             )
-        return Answer.from_general_graph_node(answer_label).with_hint(hints), True
+            answer_label = self.graph.entity_to_label(answer_entity)
+            return f"I think you are looking for {answer_label.toPython()}"
+        else:
+            return "I couldn't find information related to your query."
 
 
 if __name__ == "__main__":
@@ -221,7 +103,7 @@ if __name__ == "__main__":
     c2 = "Can you tell me the publication date of Tom Meets Zizou?	"
     c3 = "Who is the executive producer of X-Men: First Class?	"
 
-    ec = EntryClassification()
+    ec = EntryClassifier()
     # print(ec.start(f0))
     # print(ec.start(f1))
     # print(ec.start(f2))
@@ -233,8 +115,8 @@ if __name__ == "__main__":
     # print(ec.start(r5))
     # print(ec.start(r6))
     #
-    answer = ec.start(f2)
-    print(answer.get_text())
+    answer = ec.start(e3)
+    print(answer)
     # print(ec.start(q2))
     # print(ec.start(q3))
     # print(ec.start(q4))

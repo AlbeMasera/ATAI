@@ -51,11 +51,6 @@ class EmbeddingAnswerer(object):
             }
             self.id2ent = {v: k for k, v in self.ent2id.items()}
 
-        assert self.entity_emb.any(), "Should contain entity_emb"
-        assert self.relation_emb.any(), "Should contain relation_emb"
-        assert self.ent2id, "Should contain ent2id"
-        assert self.id2ent, "Should contain id2ent"
-
     @staticmethod
     def is_predicate_in_embedding(relation_label: str) -> EmbeddingRelation | None:
         relation_id = LABELS_IN_RELATION_IDS_DEL.get(relation_label, None)
@@ -67,13 +62,7 @@ class EmbeddingAnswerer(object):
     def calculate_embedding_node(
         self, subject, relation_key: int
     ) -> rdflib.IdentifiedNode | None:
-        print(f"[+] Embedding calc: {subject} +  {relation_key}")
-
         ent_id = self.ent2id.get(subject)
-        if not ent_id:
-            print("[-] Could not find entity in embedding")
-            return
-
         pred = self.relation_emb[relation_key]
         head = self.entity_emb[ent_id]
 

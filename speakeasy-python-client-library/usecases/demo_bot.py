@@ -109,7 +109,7 @@ class Agent:
                     else:
                         try:
                             respond = self.ec.start(query)
-                            room.post_messages(respond.get_text())
+                            room.post_messages(respond)
                         except Exception as e:
                             print(f"Error: {str(e)}")
                             room.post_messages("Sorry something went wrong '>.<")
