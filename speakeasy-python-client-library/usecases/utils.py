@@ -27,3 +27,13 @@ def lower_remove_sent_endings_at_end(inp: str):
     return (
         inp.strip(" ").strip("\t").strip(".").strip("?").strip(",").strip("!").lower()
     )
+
+
+GET_FILM_BY_NAME_FILTER = """
+            SELECT DISTINCT ?film ?queryByTitle WHERE{
+                ?film wdt:P31/wdt:P279* wd:Q2431196.                                                                 
+                ?film rdfs:label ?queryByTitle.                                                          
+                FILTER(REGEX(?queryByTitle, "%(filmName)s", "i"))
+            }
+            LIMIT 1
+        """

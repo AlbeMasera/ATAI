@@ -19,31 +19,11 @@ HEADER_CONST = """
         PREFIX schema: <http://schema.org/>
     """
 
-GET_FILM_BY_NAME_FILTER = """
-            SELECT DISTINCT ?film ?queryByTitle WHERE{
-                ?film wdt:P31/wdt:P279* wd:Q2431196.                                                                 
-                ?film rdfs:label ?queryByTitle.                                                          
-                FILTER(REGEX(?queryByTitle, "%(filmName)s", "i"))
-            }
-            LIMIT 1
-        """
-
 
 class Graph:
-    def __init__(self, filepath: str, is_pickle: bool = False):
-        if not is_pickle:
-            self.g: rdflib.Graph = rdflib.Graph()
-            self.g.parse(filepath, format="turtle")
-
-            with open(pickle_graph_path, "wb") as file:
-                pickle.dump(self.g, file)
-        else:
-            with open(filepath, "rb") as graph:
-                self.g: rdflib.Graph = pickle.load(graph)
-
-    def __query(self, query_str: str) -> query.Result:
-        print("\n Executing Query: \n", query_str, "\n")
-        return self.g.query(HEADER_CONST + query_str)
+    def __init__(self, filepath: str):
+        with open(filepath, "rb") as graph:
+            self.g: rdflib.Graph = pickle.load(graph)
 
     def entity_to_label(self, entity: IdentifiedNode) -> IdentifiedNode | None:
         for x in self.g.objects(entity, RDFS.label, True):
@@ -51,8 +31,8 @@ class Graph:
         return None
 
     def get_movie_with_label(self, film_name: str) -> List[IdentifiedNode]:
-        q = GET_FILM_BY_NAME_FILTER % {
+        query = utils.GET_FILM_BY_NAME_FILTER % {
             "filmName": utils.lower_remove_sent_endings_at_end(film_name)
         }
-        res = list(self.__query(q))
+        res = list(self.g.query(HEADER_CONST + query))
         return res[0] if len(res) > 0 else []
