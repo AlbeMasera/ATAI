@@ -12,7 +12,7 @@ import graphlib
 import numpy as np
 import csv
 import os
-from entity_classification import EntryClassification
+from entity_classification import EntryClassifier
 
 DEFAULT_HOST_URL = "https://speakeasy.ifi.uzh.ch"
 listen_freq = 2
@@ -26,7 +26,7 @@ class Agent:
             host=DEFAULT_HOST_URL, username=username, password=password
         )
         self.speakeasy.login()  # This framework will help you log out automatically when the program terminates.
-        self.ec = EntryClassification()
+        self.ec = EntryClassifier()
 
     def handle_none(self, query):
         return self.handle_utf8("None" if query is None else str(query))
@@ -109,7 +109,7 @@ class Agent:
                     else:
                         try:
                             respond = self.ec.start(query)
-                            room.post_messages(respond.get_text())
+                            room.post_messages(respond)
                         except Exception as e:
                             print(f"Error: {str(e)}")
                             room.post_messages("Sorry something went wrong '>.<")

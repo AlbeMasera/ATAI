@@ -1,18 +1,13 @@
-_SENTENCE_ENDING = {"?", ".", ",", '"'}
+_SENTENCE_END = {"?", ".", ",", '"'}
 
 
-def remove_sentence_ending(inp: str):
+def remove_sent_endings(inp: str):
     return inp.replace(".", "").replace("?", "").replace(",", "").strip(" ").strip("\t")
 
 
-def remove_hyphen_add_dash(query: str) -> str:
+def remove_different_minus_scores(query: str) -> str:
     return query.replace("-", "–")
 
-
-def lowercase_remove_sentence_ending(inp: str):
-    return (
-        inp.strip(" ").strip("\t").strip(".").strip("?").strip(",").strip("!").lower()
-    )
 
 def add_sentence_ending(sentence: str, is_question=False):
     if len(sentence) <= 1:
@@ -20,9 +15,25 @@ def add_sentence_ending(sentence: str, is_question=False):
 
     sentence = sentence.strip("\t").strip(" ")
     end = sentence[-1]
-    if end in _SENTENCE_ENDING:
+    if end in _SENTENCE_END:
         return sentence
 
     if is_question:
         return sentence.strip() + "?"
     return sentence.strip() + "."
+
+
+def lower_remove_sent_endings_at_end(inp: str):
+    return (
+        inp.strip(" ").strip("\t").strip(".").strip("?").strip(",").strip("!").lower()
+    )
+
+
+GET_FILM_BY_NAME_FILTER = """
+            SELECT DISTINCT ?film ?queryByTitle WHERE{
+                ?film wdt:P31/wdt:P279* wd:Q2431196.                                                                 
+                ?film rdfs:label ?queryByTitle.                                                          
+                FILTER(REGEX(?queryByTitle, "%(filmName)s", "i"))
+            }
+            LIMIT 1
+        """

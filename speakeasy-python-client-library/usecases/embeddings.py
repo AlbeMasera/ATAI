@@ -1,36 +1,33 @@
-import os
 import numpy as np
 import rdflib, csv
 from sklearn.metrics import pairwise_distances
-from typing import Union
 
-# Represents a relation with its key, label, and fixed query.
+import os
+
+
 class EmbeddingRelation(object):
     relation_key: int
     relation_label: str
     fixed_query: str
 
-    # Creates an EmbeddingRelation instance using a key, label, and fixed query
     @classmethod
-    def from_key_label_fixed_query(cls, key: int, label: str, query: str):
+    def from_key_and_label_and_fixed_query(cls, key: int, label: str, query: str):
         e = cls()
         e.relation_label = label
         e.relation_key = key
         e.fixed_query = query
         return e
 
-    # Creates an EmbeddingRelation instance using a key and label.
     @classmethod
-    def from_key_label(cls, key: int, label: str):
+    def from_key_and_label(cls, key: int, label: str):
         e = cls()
         e.relation_label = label
         e.relation_key = key
         e.fixed_query = None
         return e
 
-# Handles operations related to embeddings, including loading embeddings and calculating node embeddings
+
 class EmbeddingAnswerer(object):
-    # Initialize the EmbeddingAnswerer by loading embeddings and dictionaries.
     def __init__(self):
         # Get the absolute path to the current directory
         current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -42,64 +39,43 @@ class EmbeddingAnswerer(object):
         entity_emb_path = os.path.join(data_folder, "entity_embeds.npy")
         relation_emb_path = os.path.join(data_folder, "relation_embeds.npy")
         ent_ids_path = os.path.join(data_folder, "entity_ids.del")
-        rel_ids_path = os.path.join(data_folder, "relation_ids.del")
 
         # load the embeddings
         self.entity_emb = np.load(entity_emb_path)
         self.relation_emb = np.load(relation_emb_path)
 
-        # load the dictionaries
         with open(ent_ids_path, "r") as ifile:
             self.ent2id = {
                 rdflib.term.URIRef(ent): int(idx)
-                for idx, ent in csv.reader(ifile, delimiter="\t")            }
+                for idx, ent in csv.reader(ifile, delimiter="\t")
+            }
             self.id2ent = {v: k for k, v in self.ent2id.items()}
-        '''
-        with open(rel_ids_path, 'r') as ifile:
-            self.rel2id = {
-                rdflib.term.URIRef(rel): int(idx)
-                 for idx, rel in csv.reader(ifile, delimiter='\t')}
-            self.id2rel = {v: k for k, v in rel2id.items()}
-        '''
-        
-        assert self.entity_emb.any(), "Should contain entity_emb"
-        assert self.relation_emb.any(), "Should contain relation_emb"
-        assert self.ent2id, "Should contain ent2id"
-        assert self.id2ent, "Should contain id2ent"
 
-    # Check if a given relation label exists in the embeddings
     @staticmethod
-    def is_predicate_in_embedding(relation_label: str) -> Union[EmbeddingRelation, None]:
+    def is_predicate_in_embedding(relation_label: str) -> EmbeddingRelation | None:
         relation_id = LABELS_IN_RELATION_IDS_DEL.get(relation_label, None)
         if relation_id:
             return EmbeddingRelation.from_key_and_label(relation_id, relation_label)
 
         return None
 
-    # Calculate the node embedding based on a subject and relation keys
     def calculate_embedding_node(
         self, subject, relation_key: int
-    ) -> Union[rdflib.IdentifiedNode, None]:
-        print(f"[+] Embedding calc: {subject} +  {relation_key}")
-
+    ) -> rdflib.IdentifiedNode | None:
         ent_id = self.ent2id.get(subject)
-        if not ent_id:
-            print("[-] Could not find entity in embedding")
-            return
-
         pred = self.relation_emb[relation_key]
         head = self.entity_emb[ent_id]
 
         lhs = head + pred
-        # compute distance to all entities in the embedding
+        # compute distance to *any* entity
         dist = pairwise_distances(lhs.reshape(1, -1), self.entity_emb).reshape(-1)
-        # find the most likely entity based on the distance
+        # find most plausible entities
         most_likely = dist.argsort()
         en = self.id2ent[most_likely[0]]
-        # return the most likely entity node based on the calculated embedding
+
         return en
 
-# Private dict for relation labels mapping to their IDs
+
 LABELS_IN_RELATION_IDS_DEL = {
     "cast member": 0,
     "notable work": 1,
