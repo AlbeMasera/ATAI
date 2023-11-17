@@ -121,12 +121,6 @@ class EmbeddingRecognizer:
         original_query = query
         query = utils.remove_sent_endings(query)
 
-        # Check if the query is about a rating and map it to the correct predicate
-        mapped_predicate = self.map_rating_phrases_to_predicates(query)
-        if mapped_predicate:
-            # If a mapping is found, replace the phrase in the original query with the mapped predicate
-            original_query = original_query.replace(mapped_predicate, f"wdt:{mapped_predicate}")
-
         words = self.__generate_everygrams(query, stemming)
         query_embeddings = self.model.encode(
             words, convert_to_tensor=True, device="cpu"
@@ -156,15 +150,3 @@ class EmbeddingRecognizer:
                 )
 
         return None
-
-    def map_rating_phrases_to_predicates(self, query: str) -> str:
-        rating_mappings ={
-            "imdb rating": "P5201",
-            "cnc film rating": "P2758"
-            # extend
-        }
-        for phrase, predicate in rating_mappings.items():
-            if phrase in query.lower():
-                return predicate
-        return query
-        
