@@ -1,18 +1,24 @@
+import time
+import pickle
+import re
+import spacy
+import graphlib
+import numpy as np
+import csv
+import os
+import random
 from rdflib import Graph, URIRef
 from speakeasypy import Speakeasy, Chatroom
 from typing import List
 from nltk.corpus import wordnet as wn
 from transformers import pipeline, set_seed
 from sklearn.metrics import pairwise_distances
-import time
-import pickle
-import re  # Regular expressions
-import spacy
-import graphlib
-import numpy as np
-import csv
-import os
+
+from embeddings import EmbeddingAnswerer
 from entity_classification import EntryClassifier
+from entity_recognizer import EntityRecognizer
+from query_utils import is_recommendation_query
+from recommender import MovieRecommender
 
 DEFAULT_HOST_URL = "https://speakeasy.ifi.uzh.ch"
 listen_freq = 2
@@ -26,7 +32,16 @@ class Agent:
             host=DEFAULT_HOST_URL, username=username, password=password
         )
         self.speakeasy.login()  # This framework will help you log out automatically when the program terminates.
+ 
+        self.graph = Graph()
+        pickle_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "pickle_graph.pickel")
+
+        self.embedding_answerer = EmbeddingAnswerer()
+        self.entity_recognizer = EntityRecognizer()
         self.ec = EntryClassifier()
+
+        self.movie_recommender = MovieRecommender(self.graph, self.embedding_answerer)
+        
 
     def handle_none(self, query):
         return self.handle_utf8("None" if query is None else str(query))
@@ -72,8 +87,39 @@ class Agent:
             re.search(rf"\b{keyword}\b", query, re.IGNORECASE)
             for keyword in sparql_keywords
         )
+    
+    
+    def handle_query(self, query):
+        entities = self.entity_recognizer.extract_entities(query)
+
+        if self.is_recommendation_query(query):
+            movie_titles = [entity.word for entity in entities if entity.entity_type in ['WORK_OF_ART', 'ORG', 'MISC']]
+            return self.handle_recommendation_query(movie_titles)
+        else:
+            # Handle standard queries
+            return self.ec.start(query)  # EntryClassifier instance
+
+        
+    def handle_recommendation_query(self, movie_titles):
+        # Get recommendations directly using the movie_titles
+        recommendations = self.movie_recommender.recommend(movie_titles)
+        return f"Recommended movies: {', '.join(recommendations)}"
+
+        '''
+        # Extract movie titles from the query using entity_recognizer
+        entities = self.entity_recognizer.extract_entities(query)
+        movie_titles = [entity.word for entity in entities if entity.entity_type in ['WORK_OF_ART', 'ORG', 'MISC']]
+        ''' 
 
     def listen(self):
+        # Define response templates
+        response_templates = [
+            "Good question, let's see...",
+            "I hear you, let me quickly have a look.",
+            "Interesting query, I'm on it!",
+            "Hmm, checking now...",
+        ]
+
         while True:
             # only check active chatrooms (i.e., remaining_time > 0) if active=True.
             rooms: List[Chatroom] = self.speakeasy.get_rooms(active=True)
@@ -81,7 +127,8 @@ class Agent:
                 if not room.initiated:
                     # send a welcome message if room is not initiated
                     room.post_messages(
-                        f"Hello! This is a welcome message from {room.my_alias}."
+                        f"Hello and welcome! This is {room.my_alias}.\n" 
+                        f"I'm happy to answer your questions. Ask away :)"
                     )
                     room.initiated = True
                 # Retrieve messages from this chat room.
@@ -99,11 +146,18 @@ class Agent:
                     # Extract query from message
                     query = message.message
 
-                    # Send a message to the corresponding chat room using the post_messages method of the room object.
-                    room.post_messages(f"Received your message!")
-                    # Mark the message as processed, so it will be filtered out when retrieving new messages.
+                    # Select a random response template
+                    response_message = random.choice(response_templates)
 
-                    if self.is_sparql(query):
+                    # Send a randomized response message
+                    room.post_messages(response_message)
+
+                    # Check if it's a recommendation query
+                    if is_recommendation_query(query):
+                        # Handle recommendation query
+                        response_message = self.handle_recommendation_query(query)
+                        room.post_messages(response_message)
+                    elif self.is_sparql(query):
                         respond = self.sparql_query(message.message)
                         room.post_messages(f"Query answer: '{respond}' ")
                     else:
@@ -111,8 +165,8 @@ class Agent:
                             respond = self.ec.start(query)
                             room.post_messages(respond)
                         except Exception as e:
-                            print(f"Error: {str(e)}")
-                            room.post_messages("Sorry something went wrong '>.<")
+                            print(f"{str(e)}")
+                            room.post_messages("Sorry, I ran into an issue here. Should we try another question instead?")
 
                     room.mark_as_processed(message)
                 # Retrieve reactions from this chat room.
@@ -126,7 +180,7 @@ class Agent:
 
                     # Implement your agent here #
 
-                    room.post_messages(f"Received your reaction: '{reaction.type}' ")
+                    room.post_messages(f"Oh wow.. Thanks for the reaction '{reaction.type}'.")
                     room.mark_as_processed(reaction)
 
             time.sleep(listen_freq)
