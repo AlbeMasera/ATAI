@@ -1,11 +1,12 @@
 import os
-import re
 import rdflib
 import utils
+import random
 from entity_recognizer import EntityRecognizer
 import embeddings_recognition as embeddings_rec
 import embeddings
 from Graph import Graph
+
 
 
 class EntryClassifier:
@@ -25,83 +26,78 @@ class EntryClassifier:
     def start(self, query: str) -> str:
         # Preprocess query
         cleaned_query = utils.remove_different_minus_scores(query)
-        print(f"Cleaned query: {cleaned_query}") #debug
 
-        match = re.search(r'of (.+?)\?', cleaned_query, re.IGNORECASE)
-        movie_title = match.group(1) if match else None
-        if movie_title:
-            print(f"Extracted movie title: {movie_title}")
+        # Get predicates using embedding recognizer
+        predicate = self.embedding_recognizer.get_predicates(cleaned_query)
 
-            # Get predicates using embedding recognizer
-            predicate = self.embedding_recognizer.get_predicates(cleaned_query)
-            # If a predicate was found, proceed to check if it's in embeddings
-            if predicate:
-                # Check if predicate exists in embeddings
-                is_predicate_in_embeddings = self.embedding_answerer.is_predicate_in_embedding(
-                    predicate.label
-                )
-            # If the predicate is related to embeddings, answer using embeddings and NER
-                if is_predicate_in_embeddings:
-                    print(f"Predicate fixed query: {predicate.fixed_query}") #debug
-                    return self.answer_embedding_question(
-                        predicate.fixed_query, is_predicate_in_embeddings
-                    )
-                else:
-                    # Check if the predicate is a rating predicate
-                    movie_uri = self.graph.get_movie_with_label(predicate.fixed_query)
-                    print(f"Movie URI: {movie_uri}") #debug
-                    if movie_uri:
-                        movie_uri = movie_uri[0] if isinstance(movie_uri, list) else movie_uri
-                        print(movie_uri) #debug
-                        rating = self.graph.get_movie_rating(movie_uri, predicate.predicate)
-                        print(rating) #debug
-                        if rating is not None:
-                            return f"The rating of the movie is {rating}."
-                        else:
-                            return "Sorry, I couldn't find the rating for that movie."
-                    else:
-                        return "Sorry, I couldn't find that movie in the database."
+        # Check if a predicate is found
+        if predicate is None:
+            return "Sorry, I couldn't understand your query."
 
-            # Fallback logic if no predicate is found
-            return "I'm sorry, I don't understand your question. Can you try again?"
+        # Check if predicate exists in embeddings
+        is_predicate_in_embeddings = self.embedding_answerer.is_predicate_in_embedding(predicate.label)
 
+        # Answer the question using embeddings and NER
+        return self.answer_embedding_question(predicate.fixed_query, is_predicate_in_embeddings)
 
-    def answer_embedding_question(
-        self, query: str, relation: embeddings.EmbeddingRelation
-    ) -> str:
+    def answer_embedding_question(self, query: str, relation: embeddings.EmbeddingRelation) -> str:
+        # Updated call to get_single_entity
         prediction = self.entity_recognizer.get_single_entity(query, is_question=True)
+        
+        if not prediction:
+            return "Sorry, I couldn't find relevant information for your query."
+
         entity: rdflib.IdentifiedNode | None = None
-
         res = self.graph.get_movie_with_label(prediction.original_text)
-        entity = res[0]
+        
+        if res:
+            entity = res[0]
+        else:
+            return "Sorry, I couldn't find that movie in the database."
 
-        answer_entity = self.embedding_answerer.calculate_embedding_node(
-            entity, relation.relation_key
-        )
-
+        answer_entity = self.embedding_answerer.calculate_embedding_node(entity, relation.relation_key)
         answer_label = self.graph.entity_to_label(answer_entity)
-        return "I think you are looking for {}".format(answer_label.toPython())
+
+        # Define response templates
+        response_templates = [
+            "I think the answer you are looking for is {}.",
+            "The answer to your question is {}.",
+            "Your query led me to {}."
+            "According to the dataset, the answer is {}."
+        ]
+
+        # Select a random template
+        template = random.choice(response_templates)
+
+        # Format the template with the answer label
+        return template.format(answer_label.toPython() if answer_label else "unknown")
+
+
 
 if __name__ == "__main__":
-    q = "who is director of Alice in Wonderland"
+    q = "who is director of Alice in Wonderland" 
     q2 = "who is director of Pirates of the Caribbean: On Stranger Tides"
     q3 = "who is director of Shrek"
-    q4 = "who is director of The Dark Knight"
+    q4 = "who is director of The Dark Knight" #wrong response
+    q5 = "who is the director of Inception"
+    q6 = "who directed Inception" #problem
+    q7 = "who directed The Dark Knight" #wrong response
 
     f0 = "Who is the director of Good Will Hunting?	"
     f1 = "Who directed The Bridge on the River Kwai?	"
     f2 = "Who is the director of Star Wars: Episode VI - Return of the Jedi?	"
 
     e1 = "Who is the screenwriter of The Masked Gang: Cyprus?"
-    e2 = "What is the MPAA film rating of Weathering with You?"
+    e2 = "What is the MPAA film rating of Weathering with You?" #problem
     e3 = "What is the genre of Good Neighbors?"
 
-    w1 = "When was The Godfather released? "
+    w1 = "When was The Godfather released? " #problem
 
     mmq1 = "Show me a picture of Halle Berry."
     mmq2 = "What does Julia Roberts look like?"
     mmq3 = "Let me know what Sandra Bullock looks like."
 
+    r0 = "Recommend me a movie like Inception."
     r1 = "Recommend me a movie like The Dark Knight."
     r2 = "Recommend me a movie like The Dark Knight and The Dark Knight Rises."
     r3 = "Recommend me a movie like The Dark Knight and The Dark Knight Rises and The Dark Knight Returns."
@@ -115,10 +111,12 @@ if __name__ == "__main__":
     c2 = "Can you tell me the publication date of Tom Meets Zizou?	"
     c3 = "Who is the executive producer of X-Men: First Class?	"
 
-    t1 = "What is the IMDB rating of Inception?"
+    t1 = "What is the IMDB rating of Inception?" #problem
 
     ec = EntryClassifier()
-    print(ec.start(t1))
+    result = ec.start(r1)
+
+    print(result)
     # print(ec.start(f1))
     # print(ec.start(f2))
     #
