@@ -37,3 +37,4 @@ GET_FILM_BY_NAME_FILTER = """
             }
             LIMIT 1
         """
+
