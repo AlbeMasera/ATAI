@@ -36,3 +36,51 @@ class Graph:
         }
         res = list(self.g.query(HEADER_CONST + query))
         return res[0] if len(res) > 0 else []
+
+    def get_answer(self, entity: str, predicate: str) -> str:
+        query = f"""
+        SELECT ?director WHERE {{
+
+        ?movie rdfs:label "{entity}"@en .
+
+        ?movie wdt:{predicate} ?director .
+
+        }}
+
+        LIMIT 1
+        """
+
+        return self.sparql_query(HEADER_CONST + query)
+
+    def sparql_query(self, query):
+        # clean input
+        query = query.replace("'''", "\n")
+        query = query.replace("‘’’", "\n")
+        query = query.replace("PREFIX", "\nPREFIX")
+
+        try:
+            result = self.g.query(query)
+            # Handle different conditions
+            processed_result = []
+            for item in result:
+                try:
+                    # Unpack as (str, int)
+                    s, nc = item
+                    processed_result.append(
+                        (str(self.handle_none(s)), int(self.handle_none(nc)))
+                    )
+                except ValueError:
+                    try:
+                        # Unpack as (str, str)
+                        s, nc = item
+                        processed_result.append(
+                            (str(self.handle_none(s)), str(self.handle_none(nc)))
+                        )
+                    except ValueError:
+                        # String value
+                        processed_result.append(str(self.handle_none(item[0])))
+            result = processed_result
+        except Exception as e:
+            result = f"Error: {str(e)}"
+
+        return result

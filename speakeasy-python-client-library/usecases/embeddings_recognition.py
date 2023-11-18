@@ -150,3 +150,28 @@ class EmbeddingRecognizer:
                 )
 
         return None
+
+
+if __name__ == "__main__":
+    query2 = "What is the <relationLabel> of Weathering with You"
+    query3 = "What is the <genre> of Good Neighbors?"
+    query1 = "What is the <MPAA film rating> of Weathering with You?"
+
+    r1 = "Recommend me a movie like The Dark Knight."
+    r2 = "Recommend me a movie like The Dark Knight and The Dark Knight Rises."
+    r3 = "Recommend me a movie like The Dark Knight and The Dark Knight Rises and The Dark Knight Returns."
+    r4 = "Recommend movies similar to Hamlet and Othello."
+    r4 = "Given that I like The Lion King, Pocahontas, and The Beauty and the Beast, can you recommend some movies?"
+    r5 = (
+        "Recommend movies like Nightmare on Elm Street, Friday the 13th, and Halloween."
+    )
+    r6 = "Recommend movies similar to Hamlet and Othello.	"
+
+    f1 = "Who is the <director> of Star Wars: Episode VI - Return of the Jedi?	"
+    f2 = "Who is the <director> of Star Wars: Episode VI - Return of the Jedi?"
+    f3 = "Who is the director of Star Wars: Episode VI - Return of the Jedi? "
+
+    e1 = "Who is the screenwriter of The Masked Gang: Cyprus?"
+
+    ec = EmbeddingRecognizer()
+    print(ec.get_predictions(r1))
