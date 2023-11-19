@@ -75,6 +75,27 @@ class EmbeddingAnswerer(object):
 
         return en
 
+    def get_n_closest(
+        self, nodes: list[rdflib.IdentifiedNode], n=10
+    ) -> list[rdflib.IdentifiedNode]:
+        if not nodes or not any(nodes):
+            return []
+
+        entities = [self.ent2id.get(n, None) for n in nodes]
+        if None in entities:
+            return []
+
+        center = np.mean(
+            [self.entity_emb[e] for e in entities if e is not None], axis=0
+        )
+
+        # Retrieve the closest entities
+        dist = pairwise_distances(center.reshape(1, -1), self.entity_emb).reshape(-1)
+        most_likely_indices = np.argsort(dist)
+
+        closest_entities = [self.id2ent[i] for i in most_likely_indices[:n]]
+        return closest_entities
+
 
 LABELS_IN_RELATION_IDS_DEL = {
     "cast member": 0,
