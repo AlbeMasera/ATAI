@@ -5,6 +5,9 @@ from nltk.stem.snowball import SnowballStemmer
 import editdistance
 from nltk.corpus import wordnet as wn
 from nltk.tokenize import word_tokenize
+import pandas as pd
+from sentence_transformers import SentenceTransformer
+import numpy
 
 
 def read_original_predicates(input_file):
@@ -62,7 +65,6 @@ def process_predicates(input_file, output_file):
             synonyms = create_synonyms(w, snowball_stemmer)
             for y in synonyms:
                 n = row["label"].replace(w, y)
-                print(f"{row['label']} -> {n}")
 
                 cp = row.copy(deep=True)
                 cp["label"] = n
@@ -87,3 +89,17 @@ if __name__ == "__main__":
         os.path.dirname(os.path.abspath(__file__)), "predicates_extended.csv"
     )
     process_predicates(input_file, output_file)
+
+    model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+
+    df1 = pd.read_csv(output_file)
+
+    sentences = df1["label"].tolist()
+    print(sentences[0])
+
+    pool = model.start_multi_process_pool()
+    embeddings = model.encode_multi_process(sentences, pool)
+    numpy.save(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "embeddings2.npy"),
+        embeddings,
+    )

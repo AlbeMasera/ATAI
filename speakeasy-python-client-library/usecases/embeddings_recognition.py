@@ -173,5 +173,12 @@ if __name__ == "__main__":
 
     e1 = "Who is the screenwriter of The Masked Gang: Cyprus?"
 
+    w1 = "When was The Godfather released? "
+    w2 = "What is the publication date of The Godfather? "
+
+    t1 = "What is the IMDB rating of Cars?"
+
     ec = EmbeddingRecognizer()
-    print(ec.get_predictions(r1))
+    print(ec.get_predicates(w1))
+    print(ec.get_predicates(w2))
+    print(ec.get_predicates(t1))

@@ -5,6 +5,8 @@ import rdflib
 from rdflib import Namespace, query
 from rdflib.term import IdentifiedNode
 import utils
+import re
+
 
 WD = Namespace("http://www.wikidata.org/entity/")
 WDT = Namespace("http://www.wikidata.org/prop/direct/")
@@ -37,20 +39,19 @@ class Graph:
         res = list(self.g.query(HEADER_CONST + query))
         return res[0] if len(res) > 0 else []
 
-    def get_answer(self, entity: str, predicate: str) -> str:
+    def get_answer(self, predicate: str, entity: str) -> str:
+        entity = re.search(r"[QP]\d+", entity)
+        predicate = re.search(r"[QP]\d+", predicate)
         query = f"""
-        SELECT ?director WHERE {{
-
-        ?movie rdfs:label "{entity}"@en .
-
-        ?movie wdt:{predicate} ?director .
-
+        SELECT ?result WHERE {{
+        wd:{entity.group()} wdt:{predicate.group()} ?result .
         }}
-
         LIMIT 1
         """
-
         return self.sparql_query(HEADER_CONST + query)
+
+    def handle_none(self, query):
+        return "None" if query is None else str(query)
 
     def sparql_query(self, query):
         # clean input

@@ -6,6 +6,7 @@ from entity_recognizer import EntityRecognizer
 import embeddings_recognition as embeddings_rec
 import embeddings
 from graph import Graph
+import recomender
 
 
 class EntryClassifier:
@@ -13,6 +14,7 @@ class EntryClassifier:
         # Initialize components
         self.entity_recognizer = EntityRecognizer()
         self.embedding_answerer = embeddings.EmbeddingAnswerer()
+        self.recomender = recomender.MovieRecommender()
         self.graph = Graph(
             os.path.join(
                 os.path.dirname(os.path.abspath(__file__)),
@@ -26,21 +28,6 @@ class EntryClassifier:
         # Preprocess query
         cleaned_query = utils.remove_different_minus_scores(query)
 
-        when_pattern = r"^\s*When\s"
-        if re.match(when_pattern, query):
-            predicate_label = "publication date"
-            fixed_query = query
-
-            prediction = self.entity_recognizer.get_single_entity(
-                query, is_question=True
-            )
-            entity: rdflib.IdentifiedNode | None = None
-
-            res = self.graph.get_movie_with_label(prediction.original_text)
-            entity = res[0]
-
-            return self.graph.get_answer(entity, "P577")
-
         # Get predicates using embedding recognizer
         predicate = self.embedding_recognizer.get_predicates(cleaned_query)
 
@@ -49,10 +36,21 @@ class EntryClassifier:
             predicate.label
         )
 
-        # Answer the question using embeddings and NER
-        return self.answer_embedding_question(
-            predicate.fixed_query, is_predicate_in_embeddings
-        )
+        if is_predicate_in_embeddings:
+            # Answer the question using embeddings
+            return self.answer_embedding_question(
+                predicate.fixed_query, is_predicate_in_embeddings
+            )
+        else:
+            prediction = self.entity_recognizer.get_single_entity(
+                query, is_question=True
+            )
+            entity: rdflib.IdentifiedNode | None = None
+
+            res = self.graph.get_movie_with_label(prediction.original_text)
+            entity = res[0]
+            # Answer the question using KG
+            return self.graph.get_answer(predicate.predicate, entity)
 
     def answer_embedding_question(
         self, query: str, relation: embeddings.EmbeddingRelation
@@ -71,6 +69,15 @@ class EntryClassifier:
 
         answer_label = self.graph.entity_to_label(answer_entity)
         return "I think you are looking for {}".format(answer_label.toPython())
+
+    def answer_recommendation_question(self, query: str) -> str:
+        print(f"[+] start RECOMMENDATION answering of q: {query}")
+        predictions: list[
+            embeddings_rec.PossiblePredicate
+        ] = self.entity_recognizer.get_predicates(query, is_question=False)
+
+        movies = [pre.original_text for pre in predictions]
+        return self.recomender.recommend_embedding(movies)
 
 
 if __name__ == "__main__":
@@ -109,7 +116,7 @@ if __name__ == "__main__":
     t1 = "What is the IMDB rating of Cars?"
 
     ec = EntryClassifier()
-    print(ec.start(w1))
+    print(ec.start(t1))
     # print(ec.start(f1))
     # print(ec.start(f2))
     #

@@ -29,7 +29,7 @@ class Agent:
         self.ec = EntryClassifier()
 
     def handle_none(self, query):
-        return self.handle_utf8("None" if query is None else str(query))
+        return "None" if query is None else str(query)
 
     def sparql_query(self, query):
         # clean input
@@ -109,6 +109,7 @@ class Agent:
                     else:
                         try:
                             respond = self.ec.start(query)
+                            print(f"Respond: {respond}")
                             room.post_messages(respond)
                         except Exception as e:
                             print(f"Error: {str(e)}")

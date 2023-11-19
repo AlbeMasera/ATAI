@@ -26,6 +26,8 @@
 46,assessment,http://www.wikidata.org/prop/direct/P5021
 52,distributed by,http://www.wikidata.org/prop/direct/P750
 53,publication date,http://www.wikidata.org/prop/direct/P577
+53,release,http://www.wikidata.org/prop/direct/P577
+53,released,http://www.wikidata.org/prop/direct/P577
 59,Filmiroda rating,http://www.wikidata.org/prop/direct/P2747
 62,ICAA rating,http://www.wikidata.org/prop/direct/P3306
 63,different from,http://www.wikidata.org/prop/direct/P1889
@@ -171,6 +173,7 @@
 6005,capital of,http://www.wikidata.org/prop/direct/P1376
 6327,country for sport,http://www.wikidata.org/prop/direct/P1532
 6333,FPB rating,http://www.wikidata.org/prop/direct/P4437
+6333,IMDb rating,http://www.wikidata.org/prop/direct/P4437
 6346,parent organization,http://www.wikidata.org/prop/direct/P749
 6381,first appearance,http://www.wikidata.org/prop/direct/P4584
 6497,affiliation,http://www.wikidata.org/prop/direct/P1416
@@ -252,4 +255,3 @@
 117129,designed by,http://www.wikidata.org/prop/direct/P287
 142471,stepparent,http://www.wikidata.org/prop/direct/P3448
 211312,member of sports team,http://www.wikidata.org/prop/direct/P54
-
