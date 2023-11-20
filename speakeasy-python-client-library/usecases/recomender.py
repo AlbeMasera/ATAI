@@ -14,6 +14,7 @@ class MovieRecommender(object):
         self.embeddings = embeddings.EmbeddingAnswerer()
 
     def recommend_embedding(self, movie_names: List[str]) -> str:
+        movie_names = [i for i in movie_names if i != "The" or i != "the" or len(i) < 3]
         movies, movie_nodes = self.get_movies_and_nodes(movie_names)
 
         if not movie_nodes:

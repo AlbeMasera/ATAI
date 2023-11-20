@@ -60,6 +60,12 @@ class EntityRecognizer:
             merged_text,
         )
 
+    def get_entities(self, sentence, is_question=False):
+        sentence = utils.add_sentence_ending(sentence, is_question=is_question)
+        predictions = self.ner_pipeline(sentence)
+        entities = self.extract_entities(sentence, predictions)
+        return [x.original_text for x in entities]
+
 
 if __name__ == "__main__":
     query2 = "What is the <relationLabel> of Weathering with You"
@@ -85,4 +91,4 @@ if __name__ == "__main__":
     w1 = "When was The Godfather released? "
 
     ec = EntityRecognizer()
-    print(ec.get_single_entity(w1).original_text)
+    print(ec.get_single_entity(r4).original_text)

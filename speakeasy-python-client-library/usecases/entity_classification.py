@@ -14,7 +14,6 @@ class EntryClassifier:
         # Initialize components
         self.entity_recognizer = EntityRecognizer()
         self.embedding_answerer = embeddings.EmbeddingAnswerer()
-        self.recomender = recomender.MovieRecommender()
         self.graph = Graph(
             os.path.join(
                 os.path.dirname(os.path.abspath(__file__)),
@@ -22,6 +21,7 @@ class EntryClassifier:
                 "pickle_graph.pickel",
             )
         )
+        self.recomender = recomender.MovieRecommender(self.graph)
         self.embedding_recognizer = embeddings_rec.EmbeddingRecognizer()
 
     def start(self, query: str) -> str:
@@ -30,6 +30,12 @@ class EntryClassifier:
 
         # Get predicates using embedding recognizer
         predicate = self.embedding_recognizer.get_predicates(cleaned_query)
+
+        if not predicate:
+            # Ansewer the question using reccomentation
+            entities = self.entity_recognizer.get_entities(cleaned_query)
+            print(f"[+] entities: {entities}")
+            return self.recomender.recommend_embedding(entities)
 
         # Check if predicate exists in embeddings
         is_predicate_in_embeddings = self.embedding_answerer.is_predicate_in_embedding(
@@ -45,12 +51,13 @@ class EntryClassifier:
             prediction = self.entity_recognizer.get_single_entity(
                 query, is_question=True
             )
+
             entity: rdflib.IdentifiedNode | None = None
 
             res = self.graph.get_movie_with_label(prediction.original_text)
             entity = res[0]
             # Answer the question using KG
-            return self.graph.get_answer(predicate.predicate, entity)
+            return str(self.graph.get_answer(predicate.predicate, entity)[0])
 
     def answer_embedding_question(
         self, query: str, relation: embeddings.EmbeddingRelation
@@ -116,7 +123,7 @@ if __name__ == "__main__":
     t1 = "What is the IMDB rating of Cars?"
 
     ec = EntryClassifier()
-    print(ec.start(t1))
+    print(ec.start(r5))
     # print(ec.start(f1))
     # print(ec.start(f2))
     #
