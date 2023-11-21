@@ -5,7 +5,7 @@ from typing import List
 import pandas as pd
 
 import embeddings
-from graph import Graph
+from Graph import Graph
 
 
 class MovieRecommender(object):

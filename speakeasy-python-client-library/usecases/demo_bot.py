@@ -4,6 +4,7 @@ from typing import List
 from nltk.corpus import wordnet as wn
 from transformers import pipeline, set_seed
 from sklearn.metrics import pairwise_distances
+import random
 import time
 import pickle
 import re  # Regular expressions
@@ -74,6 +75,14 @@ class Agent:
         )
 
     def listen(self):
+         # Define response templates
+        response_templates = [
+            "Good question, let's see...",
+            "I hear you, let me quickly have a look.",
+            "Interesting query, I'm on it!",
+            "Hmm, checking now...",
+        ]
+
         while True:
             # only check active chatrooms (i.e., remaining_time > 0) if active=True.
             rooms: List[Chatroom] = self.speakeasy.get_rooms(active=True)
@@ -81,7 +90,8 @@ class Agent:
                 if not room.initiated:
                     # send a welcome message if room is not initiated
                     room.post_messages(
-                        f"Hello! This is a welcome message from {room.my_alias}."
+                        f"Hello and welcome! This is {room.my_alias}.\n" 
+                        f"I'm happy to answer your questions. Ask away :)"
                     )
                     room.initiated = True
                 # Retrieve messages from this chat room.
@@ -99,8 +109,11 @@ class Agent:
                     # Extract query from message
                     query = message.message
 
-                    # Send a message to the corresponding chat room using the post_messages method of the room object.
-                    room.post_messages(f"Received your message!")
+                     # Select a random response template
+                    response_message = random.choice(response_templates)
+
+                    # Send a randomized response message
+                    room.post_messages(response_message)
                     # Mark the message as processed, so it will be filtered out when retrieving new messages.
 
                     if self.is_sparql(query):
@@ -113,7 +126,7 @@ class Agent:
                             room.post_messages(respond)
                         except Exception as e:
                             print(f"Error: {str(e)}")
-                            room.post_messages("Sorry something went wrong '>.<")
+                            room.post_messages("Sorry, I ran into an issue here. Should we try another question instead?")
 
                     room.mark_as_processed(message)
                 # Retrieve reactions from this chat room.
@@ -127,7 +140,7 @@ class Agent:
 
                     # Implement your agent here #
 
-                    room.post_messages(f"Received your reaction: '{reaction.type}' ")
+                    room.post_messages(f"Oh wow.. Thanks for the reaction '{reaction.type}' ")
                     room.mark_as_processed(reaction)
 
             time.sleep(listen_freq)

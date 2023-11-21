@@ -2,14 +2,28 @@ import os
 import rdflib
 import utils
 import re
+import random
 from entity_recognizer import EntityRecognizer
 import embeddings_recognition as embeddings_rec
 import embeddings
-from graph import Graph
+from Graph import Graph
 import recomender
 
 
 class EntryClassifier:
+    FACTUAL_RESPONSE_TEMPLATES = [
+        "I think the answer you are looking for is {}.",
+        "The answer to your question is {}.",
+        "Your query led me to {}.",
+        "According to the dataset, the answer is {}."
+    ]
+
+    RECOMMENDATION_RESPONSE_TEMPLATES = [
+        "I would recommend {}.",
+        "Based on your interest, I recommend {}.",
+        "I think you would enjoy {}."
+    ]
+
     def __init__(self):
         # Initialize components
         self.entity_recognizer = EntityRecognizer()
@@ -35,7 +49,10 @@ class EntryClassifier:
             # Ansewer the question using reccomentation
             entities = self.entity_recognizer.get_entities(cleaned_query)
             print(f"[+] entities: {entities}")
-            return self.recomender.recommend_embedding(entities)
+            answer = self.recomender.recommend_embedding(entities)
+            template = random.choice(self.RECOMMENDATION_RESPONSE_TEMPLATES)
+            formatted_response = template.format(answer)
+            return formatted_response
 
         # Check if predicate exists in embeddings
         is_predicate_in_embeddings = self.embedding_answerer.is_predicate_in_embedding(
@@ -44,9 +61,12 @@ class EntryClassifier:
 
         if is_predicate_in_embeddings:
             # Answer the question using embeddings
-            return self.answer_embedding_question(
+            answer = self.answer_embedding_question(
                 predicate.fixed_query, is_predicate_in_embeddings
             )
+            template = random.choice(self.FACTUAL_RESPONSE_TEMPLATES)
+            formatted_response = template.format(answer)
+            return formatted_response
         else:
             prediction = self.entity_recognizer.get_single_entity(
                 query, is_question=True
@@ -57,11 +77,13 @@ class EntryClassifier:
             res = self.graph.get_movie_with_label(prediction.original_text)
             entity = res[0]
             # Answer the question using KG
-            return str(self.graph.get_answer(predicate.predicate, entity)[0])
+            answer = str(self.graph.get_answer(predicate.predicate, entity)[0])
+        template = random.choice(self.FACTUAL_RESPONSE_TEMPLATES)
+        formatted_response = template.format(answer)
+        return formatted_response
 
     def answer_embedding_question(
-        self, query: str, relation: embeddings.EmbeddingRelation
-    ) -> str:
+        self, query: str, relation: embeddings.EmbeddingRelation) -> str:
         # handle when questions
 
         prediction = self.entity_recognizer.get_single_entity(query, is_question=True)
@@ -75,7 +97,7 @@ class EntryClassifier:
         )
 
         answer_label = self.graph.entity_to_label(answer_entity)
-        return "I think you are looking for {}".format(answer_label.toPython())
+        return " {}".format(answer_label.toPython())
 
     def answer_recommendation_question(self, query: str) -> str:
         print(f"[+] start RECOMMENDATION answering of q: {query}")
