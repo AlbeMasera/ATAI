@@ -6,7 +6,7 @@ import random
 from entity_recognizer import EntityRecognizer
 import embeddings_recognition as embeddings_rec
 import embeddings
-from Graph import Graph
+from graph import Graph
 import recomender
 
 
@@ -15,13 +15,13 @@ class EntryClassifier:
         "I think the answer you are looking for is {}.",
         "The answer to your question is {}.",
         "Your query led me to {}.",
-        "According to the dataset, the answer is {}."
+        "According to the dataset, the answer is {}.",
     ]
 
     RECOMMENDATION_RESPONSE_TEMPLATES = [
         "I would recommend {}.",
         "Based on your interest, I recommend {}.",
-        "I think you would enjoy {}."
+        "I think you would enjoy {}.",
     ]
 
     def __init__(self):
@@ -48,7 +48,6 @@ class EntryClassifier:
         if not predicate:
             # Ansewer the question using reccomentation
             entities = self.entity_recognizer.get_entities(cleaned_query)
-            print(f"[+] entities: {entities}")
             answer = self.recomender.recommend_embedding(entities)
             template = random.choice(self.RECOMMENDATION_RESPONSE_TEMPLATES)
             formatted_response = template.format(answer)
@@ -83,7 +82,8 @@ class EntryClassifier:
         return formatted_response
 
     def answer_embedding_question(
-        self, query: str, relation: embeddings.EmbeddingRelation) -> str:
+        self, query: str, relation: embeddings.EmbeddingRelation
+    ) -> str:
         # handle when questions
 
         prediction = self.entity_recognizer.get_single_entity(query, is_question=True)
@@ -98,15 +98,6 @@ class EntryClassifier:
 
         answer_label = self.graph.entity_to_label(answer_entity)
         return " {}".format(answer_label.toPython())
-
-    def answer_recommendation_question(self, query: str) -> str:
-        print(f"[+] start RECOMMENDATION answering of q: {query}")
-        predictions: list[
-            embeddings_rec.PossiblePredicate
-        ] = self.entity_recognizer.get_predicates(query, is_question=False)
-
-        movies = [pre.original_text for pre in predictions]
-        return self.recomender.recommend_embedding(movies)
 
 
 if __name__ == "__main__":
@@ -125,10 +116,6 @@ if __name__ == "__main__":
 
     w1 = "When was The Godfather released? "
 
-    mmq1 = "Show me a picture of Halle Berry."
-    mmq2 = "What does Julia Roberts look like?"
-    mmq3 = "Let me know what Sandra Bullock looks like."
-
     r1 = "Recommend me a movie like The Dark Knight."
     r2 = "Recommend me a movie like The Dark Knight and The Dark Knight Rises."
     r3 = "Recommend me a movie like The Dark Knight and The Dark Knight Rises and The Dark Knight Returns."
@@ -138,41 +125,7 @@ if __name__ == "__main__":
     )
     r6 = "Recommend movies similar to Hamlet and Othello.	"
 
-    c1 = "What is the box office of The Princess and the Frog?	"
-    c2 = "Can you tell me the publication date of Tom Meets Zizou?	"
-    c3 = "Who is the executive producer of X-Men: First Class?	"
-
     t1 = "What is the IMDB rating of Cars?"
 
     ec = EntryClassifier()
-    print(ec.start(r5))
-    # print(ec.start(f1))
-    # print(ec.start(f2))
-    #
-    # print(ec.start(r1))
-    # print(ec.start(r2))
-    # print(ec.start(r3))
-    # print(ec.start(r4))
-    # print(ec.start(r5))
-    # print(ec.start(r6))
-    #
-    # print(ec.start(q))
-    # print(ec.start(q2))
-    # print(ec.start(q3))
-    # print(ec.start(q4))
-    # print(ec.start(e1))
-    # print(ec.start(e2))
-    # print(ec.start(e3))
-    # print(ec.start(mmq1))
-    # print(ec.start(mmq2))
-    # print(ec.start(mmq3))
-    #
-    # print(ec.start(c1))
-    # print(ec.start(c2))
-    # print(ec.start(c3))
-
-    # print(ec.movieRecommendation.recommend_embedding(["The Lion King", "Pocahontas", "The Beauty and the Beast"]))
-    # print(ec.movieRecommendation.recommend_embedding(["Nightmare on Elm Street", "Friday the 13th", "Halloween"]))
-    # print(ec.movieRecommendation.recommend_embedding(["Hangover"]))
-    # print(ec.movieRecommendation.recommend_embedding(["genre"]))
-    # print(ec.movieRecommendation.recommend_embedding(["The Dark Knight", "The Dark Knight Rises"]))
+    print(ec.start(q))

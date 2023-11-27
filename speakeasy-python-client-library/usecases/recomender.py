@@ -5,7 +5,7 @@ from typing import List
 import pandas as pd
 
 import embeddings
-from Graph import Graph
+from graph import Graph
 
 
 class MovieRecommender(object):
@@ -51,34 +51,3 @@ class MovieRecommender(object):
     def recommend_random(self) -> str:
         rand_movies = self.graph.get_movie_with_label(chr(randint(97, 122)))
         return str(self.graph.entity_to_label(rand_movies[0]))
-
-
-if __name__ == "__main__":
-    # m1 = "Hamlet"
-    # m2 = "Othello"
-
-    # Get the absolute path to the current directory
-    current_directory = os.path.dirname(os.path.abspath(__file__))
-
-    # Define the relative path to the "data" folder
-    data_folder = os.path.join(current_directory, "data")
-
-    # Use absolute paths for loading files from the "data" folder
-    GRAPH_PICKLE = os.path.join(data_folder, "pickle_graph.pickel")
-
-    g = Graph(GRAPH_PICKLE)
-
-    mr = MovieRecommender(g)
-    a = mr.recommend_embedding(["The Lion King ", "Pocahontas", "Beauty and the Beast"])
-    print(a)
-
-    b = mr.recommend_embedding(["Hamlet ", "Othello"])
-    print(b)
-
-    c = mr.recommend_embedding(
-        ["Nightmare on Elm Street", "Friday the 13th", "Halloween"]
-    )
-    print(c)
-
-    d = mr.recommend_embedding(["bohbohboh"])
-    print(d)
