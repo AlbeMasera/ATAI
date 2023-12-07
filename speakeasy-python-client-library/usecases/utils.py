@@ -37,3 +37,12 @@ GET_FILM_BY_NAME_FILTER = """
             }
             LIMIT 1
         """
+
+GET_IMDB_ID_BY_NAME_FILTER = """
+            SELECT DISTINCT ?imdb_id WHERE{                                                              
+                ?film wdt:P345 ?imdb_id.                                                          
+                ?film rdfs:label ?queryByTitle.                                                          
+                FILTER(REGEX(?queryByTitle, "%(filmName)s", "i"))
+            }
+            LIMIT 5
+        """

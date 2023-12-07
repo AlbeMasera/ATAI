@@ -85,3 +85,10 @@ class Graph:
             result = f"Error: {str(e)}"
 
         return result
+
+    def get_imdb_id_with_label(self, label: str) -> List[IdentifiedNode]:
+        query = utils.GET_IMDB_ID_BY_NAME_FILTER % {
+            "filmName": utils.lower_remove_sent_endings_at_end(label)
+        }
+        print(query)
+        return self.sparql_query(HEADER_CONST + query)

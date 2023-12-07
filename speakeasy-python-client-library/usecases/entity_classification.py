@@ -1,5 +1,6 @@
 import os
 import rdflib
+import multimedia
 import utils
 import re
 import random
@@ -37,6 +38,7 @@ class EntryClassifier:
         )
         self.recomender = recomender.MovieRecommender(self.graph)
         self.embedding_recognizer = embeddings_rec.EmbeddingRecognizer()
+        self.multimedia = multimedia.Multimedia(self.graph)
 
     def start(self, query: str) -> str:
         # Preprocess query
