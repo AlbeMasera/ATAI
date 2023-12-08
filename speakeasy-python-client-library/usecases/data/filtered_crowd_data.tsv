@@ -1,0 +1,123 @@
+HITId	HITTypeId	Title	Reward	AssignmentId	WorkerId	AssignmentStatus	WorkTimeInSeconds	LifetimeApprovalRate	Input1ID	Input2ID	Input3ID	AnswerID	AnswerLabel	FixPosition	FixValue
+1	7QT	Is this triple correct or incorrect?	$0.50	1	2133ICYWE97	Submitted	60	99%	wd:Q11621	wdt:P2142	792910554	1.0	CORRECT		
+1	7QT	Is this triple correct or incorrect?	$0.50	3	928UJANWZ12	Submitted	50	98%	wd:Q11621	wdt:P2142	792910554	2.0	INCORRECT		
+2	7QT	Is this triple correct or incorrect?	$0.50	7	2133ICYWE97	Submitted	120	99%	wd:Q603545	wdt:P2142	4300000	1.0	CORRECT		
+2	7QT	Is this triple correct or incorrect?	$0.50	8	928UJANWZ12	Submitted	60	98%	wd:Q603545	wdt:P2142	4300000	1.0	CORRECT		
+3	7QT	Is this triple correct or incorrect?	$0.50	11	2133ICYWE97	Submitted	140	99%	wd:Q16911843	wdt:P577	2014-01-18	2.0	INCORRECT	Object	2014-02-18
+3	7QT	Is this triple correct or incorrect?	$0.50	12	928UJANWZ12	Submitted	80	98%	wd:Q16911843	wdt:P577	2014-01-18	1.0	CORRECT		
+4	7QT	Is this triple correct or incorrect?	$0.50	16	2133ICYWE97	Submitted	120	99%	wd:Q132863	wdt:P2142	969023261	2.0	INCORRECT	Object	
+4	7QT	Is this triple correct or incorrect?	$0.50	17	928UJANWZ12	Submitted	240	98%	wd:Q132863	wdt:P2142	969023261	2.0	INCORRECT		
+5	7QT	Is this triple correct or incorrect?	$0.50	21	2133ICYWE97	Submitted	120	99%	wd:Q1628022	wdt:P577	1951-01-01	1.0	CORRECT		
+5	7QT	Is this triple correct or incorrect?	$0.50	23	928UJANWZ12	Submitted	240	98%	wd:Q1628022	wdt:P577	1951-01-01	1.0	CORRECT		
+6	7QT	Is this triple correct or incorrect?	$0.50	26	928UJANWZ12	Submitted	60	98%	wd:Q48313910	wdt:P577	2018-02-24	1.0	CORRECT		
+6	7QT	Is this triple correct or incorrect?	$0.50	29	2133ICYWE97	Submitted	120	99%	wd:Q48313910	wdt:P577	2018-02-24	2.0	INCORRECT	Object	2019-02-24
+7	7QT	Is this triple correct or incorrect?	$0.50	31	2133ICYWE97	Submitted	60	99%	wd:Q171300	wdt:P2142	267000000	1.0	CORRECT		
+7	7QT	Is this triple correct or incorrect?	$0.50	32	928UJANWZ12	Submitted	50	98%	wd:Q171300	wdt:P2142	267000000	1.0	CORRECT		
+8	7QT	Is this triple correct or incorrect?	$0.50	36	2133ICYWE97	Submitted	120	99%	wd:Q217010	wdt:P2142	698491347	2.0	INCORRECT		
+8	7QT	Is this triple correct or incorrect?	$0.50	37	928UJANWZ12	Submitted	240	98%	wd:Q217010	wdt:P2142	698491347	2.0	INCORRECT	Object	698491348
+9	7QT	Is this triple correct or incorrect?	$0.50	41	2133ICYWE97	Submitted	120	99%	wd:Q4993462	wdt:P577	2008-08-29	2.0	INCORRECT		
+9	7QT	Is this triple correct or incorrect?	$0.50	42	928UJANWZ12	Submitted	60	98%	wd:Q4993462	wdt:P577	2008-08-29	2.0	INCORRECT		
+10	7QT	Is this triple correct or incorrect?	$0.50	46	2133ICYWE97	Submitted	60	99%	wd:Q7033842	wdt:P577	1996-06-01	1.0	CORRECT		
+10	7QT	Is this triple correct or incorrect?	$0.50	48	928UJANWZ12	Submitted	50	98%	wd:Q7033842	wdt:P577	1996-06-01	2.0	INCORRECT		
+11	7QT	Is this triple correct or incorrect?	$0.50	51	2133ICYWE97	Submitted	120	99%	wd:Q1339195	ddis:indirectSubclassOf	wd:Q27096213	1.0	CORRECT		
+11	7QT	Is this triple correct or incorrect?	$0.50	52	928UJANWZ12	Submitted	240	98%	wd:Q1339195	ddis:indirectSubclassOf	wd:Q27096213	2.0	INCORRECT	Object	wd:Q72
+12	7QT	Is this triple correct or incorrect?	$0.50	56	2133ICYWE97	Submitted	120	99%	wd:Q104649845	ddis:indirectSubclassOf	wd:Q43229	1.0	CORRECT		
+12	7QT	Is this triple correct or incorrect?	$0.50	57	928UJANWZ12	Submitted	240	98%	wd:Q104649845	ddis:indirectSubclassOf	wd:Q43229	1.0	CORRECT		
+13	7QT	Is this triple correct or incorrect?	$0.50	61	2133ICYWE97	Submitted	120	99%	wd:Q61928601	ddis:indirectSubclassOf	wd:Q95074	2.0	INCORRECT	Object	wd:Q94074
+13	7QT	Is this triple correct or incorrect?	$0.50	62	928UJANWZ12	Submitted	240	98%	wd:Q61928601	ddis:indirectSubclassOf	wd:Q95074	1.0	CORRECT		
+14	7QT	Is this triple correct or incorrect?	$0.50	66	2133ICYWE97	Submitted	120	99%	wd:Q1004	ddis:indirectSubclassOf	wd:Q47461344	2.0	INCORRECT		
+14	7QT	Is this triple correct or incorrect?	$0.50	67	928UJANWZ12	Submitted	240	98%	wd:Q1004	ddis:indirectSubclassOf	wd:Q47461344	2.0	INCORRECT		
+15	7QT	Is this triple correct or incorrect?	$0.50	71	2133ICYWE97	Submitted	120	99%	wd:Q8275050	ddis:indirectSubclassOf	wd:Q47461344	1.0	CORRECT		
+15	7QT	Is this triple correct or incorrect?	$0.50	72	928UJANWZ12	Submitted	240	98%	wd:Q8275050	ddis:indirectSubclassOf	wd:Q47461344	1.0	CORRECT		
+16	7QT	Is this triple correct or incorrect?	$0.50	76	2133ICYWE97	Submitted	60	99%	wd:Q17710986	ddis:indirectSubclassOf	wd:Q7725310	2.0	INCORRECT		
+16	7QT	Is this triple correct or incorrect?	$0.50	77	928UJANWZ12	Submitted	50	98%	wd:Q17710986	ddis:indirectSubclassOf	wd:Q7725310	1.0	CORRECT		
+17	7QT	Is this triple correct or incorrect?	$0.50	81	2133ICYWE97	Submitted	60	99%	wd:Q16101952	ddis:indirectSubclassOf	wd:Q95074	2.0	INCORRECT	Object	wd:Q95073
+17	7QT	Is this triple correct or incorrect?	$0.50	83	928UJANWZ12	Submitted	50	98%	wd:Q16101952	ddis:indirectSubclassOf	wd:Q95074	2.0	INCORRECT	Object	
+18	7QT	Is this triple correct or incorrect?	$0.50	86	2133ICYWE97	Submitted	120	99%	wd:Q104649845	ddis:indirectSubclassOf	wd:Q43229	1.0	CORRECT		
+18	7QT	Is this triple correct or incorrect?	$0.50	87	928UJANWZ12	Submitted	240	98%	wd:Q104649845	ddis:indirectSubclassOf	wd:Q43229	1.0	CORRECT		
+19	7QT	Is this triple correct or incorrect?	$0.50	91	2133ICYWE97	Submitted	140	99%	wd:Q15715406	ddis:indirectSubclassOf	wd:Q27096213	2.0	INCORRECT		
+19	7QT	Is this triple correct or incorrect?	$0.50	92	928UJANWZ12	Submitted	80	98%	wd:Q15715406	ddis:indirectSubclassOf	wd:Q27096213	2.0	INCORRECT		
+20	7QT	Is this triple correct or incorrect?	$0.50	96	2133ICYWE97	Submitted	120	99%	wd:Q15239622	ddis:indirectSubclassOf	wd:Q27096213	1.0	CORRECT		
+20	7QT	Is this triple correct or incorrect?	$0.50	97	928UJANWZ12	Submitted	236	98%	wd:Q15239622	ddis:indirectSubclassOf	wd:Q27096213	2.0	INCORRECT		
+21	7QT	Is this triple correct or incorrect?	$0.50	101	2133ICYWE97	Submitted	140	99%	wd:Q708135	ddis:indirectSubclassOf	wd:Q618779	1.0	CORRECT		
+21	7QT	Is this triple correct or incorrect?	$0.50	102	928UJANWZ12	Submitted	80	98%	wd:Q708135	ddis:indirectSubclassOf	wd:Q618779	2.0	INCORRECT		
+22	8QT	Is this triple correct or incorrect?	$0.50	106	AALKMII98	Submitted	337	98%	wd:Q1720855	wdt:P577	2010-10-01	2.0	INCORRECT	Object	2010-01-01
+22	8QT	Is this triple correct or incorrect?	$0.50	107	HHCKW1111	Submitted	199	80%	wd:Q1720855	wdt:P577	2010-10-01	1.0	CORRECT		
+23	8QT	Is this triple correct or incorrect?	$0.50	111	AALKMII98	Submitted	237	98%	wd:Q598752	wdt:P577	2001-01-01	2.0	INCORRECT	Object	2011-01-01
+23	8QT	Is this triple correct or incorrect?	$0.50	112	HHCKW1111	Submitted	200	80%	wd:Q598752	wdt:P577	2001-01-01	2.0	INCORRECT	Object	2011-01-01
+24	8QT	Is this triple correct or incorrect?	$0.50	116	AALKMII98	Submitted	240	98%	wd:Q427386	wdt:P2142	176997186	2.0	INCORRECT	Object	176997168
+24	8QT	Is this triple correct or incorrect?	$0.50	117	HHCKW1111	Submitted	200	80%	wd:Q427386	wdt:P2142	176997186	1.0	CORRECT		
+25	8QT	Is this triple correct or incorrect?	$0.50	121	AALKMII98	Submitted	240	98%	wd:Q321561	wdt:P577	1982-01-01	1.0	CORRECT		
+25	8QT	Is this triple correct or incorrect?	$0.50	122	HHCKW1111	Submitted	198	80%	wd:Q321561	wdt:P577	1982-01-01	2.0	INCORRECT	Object	1992-01-01
+26	8QT	Is this triple correct or incorrect?	$0.50	126	HHCKW1111	Submitted	200	80%	wd:Q1410031	wdt:P577	2010-10-01	2.0	INCORRECT	Object	2011-01-01
+26	8QT	Is this triple correct or incorrect?	$0.50	127	AALKMII98	Submitted	235	98%	wd:Q1410031	wdt:P577	2010-10-01	2.0	INCORRECT	Object	2011-01-01
+27	8QT	Is this triple correct or incorrect?	$0.50	132	HHCKW1111	Submitted	200	80%	wd:Q20001199	wdt:P2142	863756050	1.0	CORRECT		
+27	8QT	Is this triple correct or incorrect?	$0.50	134	AALKMII98	Submitted	240	98%	wd:Q20001199	wdt:P2142	863756050	2.0	INCORRECT	Object	863756051
+28	8QT	Is this triple correct or incorrect?	$0.50	136	AALKMII98	Submitted	236	98%	wd:Q15055043	wdt:P2142	511200000	1.0	CORRECT		
+28	8QT	Is this triple correct or incorrect?	$0.50	140	HHCKW1111	Submitted	191	80%	wd:Q15055043	wdt:P2142	511200000	1.0	CORRECT		
+29	8QT	Is this triple correct or incorrect?	$0.50	141	AALKMII98	Submitted	240	98%	wd:Q639070	wdt:P161	wd:Q2865083	2.0	INCORRECT	Object	Q5423258
+29	8QT	Is this triple correct or incorrect?	$0.50	142	HHCKW1111	Submitted	200	80%	wd:Q639070	wdt:P161	wd:Q2865083	2.0	INCORRECT	Object	Q5423258
+30	8QT	Is this triple correct or incorrect?	$0.50	146	AALKMII98	Submitted	238	98%	wd:Q23999890	wdt:P577	2015-01-05	1.0	CORRECT		
+30	8QT	Is this triple correct or incorrect?	$0.50	147	HHCKW1111	Submitted	298	80%	wd:Q23999890	wdt:P577	2015-01-05	1.0	CORRECT		
+31	8QT	Is this triple correct or incorrect?	$0.50	151	AALKMII98	Submitted	240	98%	wd:Q841233	wdt:P2142	10696220	1.0	CORRECT		
+31	8QT	Is this triple correct or incorrect?	$0.50	152	HHCKW1111	Submitted	200	80%	wd:Q841233	wdt:P2142	10696220	1.0	CORRECT		
+32	8QT	Is this triple correct or incorrect?	$0.50	156	AALKMII98	Submitted	240	98%	wd:Q2893887	wdt:P161	wd:Q105825	2.0	INCORRECT	Subject	Q1168152
+32	8QT	Is this triple correct or incorrect?	$0.50	157	HHCKW1111	Submitted	200	80%	wd:Q2893887	wdt:P161	wd:Q105825	1.0	CORRECT		
+33	8QT	Is this triple correct or incorrect?	$0.50	161	AALKMII98	Submitted	240	98%	wd:Q19803136	wdt:P577	2015-06-27	2.0	INCORRECT	Object	2015-08-27
+33	8QT	Is this triple correct or incorrect?	$0.50	162	HHCKW1111	Submitted	200	80%	wd:Q19803136	wdt:P577	2015-06-27	1.0	CORRECT		
+34	8QT	Is this triple correct or incorrect?	$0.50	166	AALKMII98	Submitted	240	98%	wd:Q1039395	wdt:P161	wd:Q17386547	2.0	INCORRECT	Subject	Q908556
+34	8QT	Is this triple correct or incorrect?	$0.50	167	HHCKW1111	Submitted	200	80%	wd:Q1039395	wdt:P161	wd:Q17386547	2.0	INCORRECT	Subject	Q908556
+35	8QT	Is this triple correct or incorrect?	$0.50	171	AALKMII98	Submitted	240	98%	wd:Q202211	wdt:P495	wd:Q30	1.0	CORRECT		
+35	8QT	Is this triple correct or incorrect?	$0.50	172	HHCKW1111	Submitted	200	80%	wd:Q202211	wdt:P495	wd:Q30	2.0	INCORRECT	Subject	Q1471671
+36	8QT	Is this triple correct or incorrect?	$0.50	176	AALKMII98	Submitted	237	98%	wd:Q28974159	wdt:P750	wd:Q907311	1.0	CORRECT		
+36	8QT	Is this triple correct or incorrect?	$0.50	177	HHCKW1111	Submitted	200	80%	wd:Q28974159	wdt:P750	wd:Q907311	2.0	INCORRECT	Subject	Q1722254
+37	8QT	Is this triple correct or incorrect?	$0.50	181	AALKMII98	Submitted	240	98%	wd:Q326914	wdt:P136	wd:Q8261	1.0	CORRECT		
+37	8QT	Is this triple correct or incorrect?	$0.50	182	HHCKW1111	Submitted	188	80%	wd:Q326914	wdt:P136	wd:Q8261	2.0	INCORRECT	Subject	Q15052538
+38	8QT	Is this triple correct or incorrect?	$0.50	186	AALKMII98	Submitted	240	98%	wd:Q885281	wdt:P161	wd:Q3087184	1.0	CORRECT		
+38	8QT	Is this triple correct or incorrect?	$0.50	188	HHCKW1111	Submitted	200	80%	wd:Q885281	wdt:P161	wd:Q3087184	2.0	INCORRECT	Subject	Q409022
+39	8QT	Is this triple correct or incorrect?	$0.50	191	AALKMII98	Submitted	240	98%	wd:Q814781	wdt:.P344	wd:Q40087803	2.0	INCORRECT	Subject	Q27703272
+39	8QT	Is this triple correct or incorrect?	$0.50	192	HHCKW1111	Submitted	189	80%	wd:Q814781	wdt:.P344	wd:Q40087803	1.0	CORRECT		
+40	8QT	Is this triple correct or incorrect?	$0.50	196	AALKMII98	Submitted	240	98%	wd:Q6548158	wdt:P136	wd:Q33999	1.0	CORRECT		
+40	8QT	Is this triple correct or incorrect?	$0.50	197	HHCKW1111	Submitted	202	80%	wd:Q6548158	wdt:P136	wd:Q33999	2.0	INCORRECT	Predicate	P106
+41	8QT	Is this triple correct or incorrect?	$0.50	201	AALKMII98	Submitted	241	98%	wd:Q1123629	wdt:P725	wd:Q211040	2.0	INCORRECT	Predicate	P161
+41	8QT	Is this triple correct or incorrect?	$0.50	202	HHCKW1111	Submitted	200	80%	wd:Q1123629	wdt:P725	wd:Q211040	2.0	INCORRECT	Predicate	P161
+42	9QT	Is this triple correct or incorrect?	$0.50	207	HHCKW1111	Submitted	203	80%	wd:Q1780602	wdt:P921	wd:Q295093	1.0	CORRECT		
+42	9QT	Is this triple correct or incorrect?	$0.50	210	QZAHIFT8263	Submitted	4	40%	wd:Q1780602	wdt:P921	wd:Q295093	1.0	CORRECT		
+43	9QT	Is this triple correct or incorrect?	$0.50	212	HHCKW1111	Submitted	200	80%	wd:Q610633	wdt:P2554	wd:Q1700810	2.0	INCORRECT	Predicate	P58
+43	9QT	Is this triple correct or incorrect?	$0.50	215	QZAHIFT8263	Submitted	2	40%	wd:Q610633	wdt:P2554	wd:Q1700810	1.0	CORRECT		
+44	9QT	Is this triple correct or incorrect?	$0.50	217	HHCKW1111	Submitted	200	80%	wd:Q2188914	wdt:P161	wd:Q2416526	2.0	INCORRECT	Object	Q17350908
+44	9QT	Is this triple correct or incorrect?	$0.50	218	QZAHIFT8263	Submitted	2	40%	wd:Q2188914	wdt:P161	wd:Q2416526	2.0	INCORRECT	100	100
+45	9QT	Is this triple correct or incorrect?	$0.50	222	HHCKW1111	Submitted	200	80%	wd:Q1032889	wdt:P58	wd:Q4762311	2.0	INCORRECT	Object	Q3194791
+45	9QT	Is this triple correct or incorrect?	$0.50	224	QZAHIFT8263	Submitted	2	40%	wd:Q1032889	wdt:P58	wd:Q4762311	1.0	CORRECT		
+46	9QT	Is this triple correct or incorrect?	$0.50	227	HHCKW1111	Submitted	200	80%	wd:Q209538	wdt:P3650	wd:Q28732983	2.0	INCORRECT	Object	Q28732985
+46	9QT	Is this triple correct or incorrect?	$0.50	230	QZAHIFT8263	Submitted	2	40%	wd:Q209538	wdt:P3650	wd:Q28732983	1.0	CORRECT		
+47	9QT	Is this triple correct or incorrect?	$0.50	232	HHCKW1111	Submitted	200	80%	wd:Q31202708	wdt:P3092	wd:Q4805527	2.0	INCORRECT	Predicate	P58
+47	9QT	Is this triple correct or incorrect?	$0.50	234	QZAHIFT8263	Submitted	2	40%	wd:Q31202708	wdt:P3092	wd:Q4805527		CORRECT		
+48	9QT	Is this triple correct or incorrect?	$0.50	237	QZAHIFT8263	Submitted	2	40%	wd:Q2576243	wdt:P364	wd:Q1860	1.0	CORRECT		
+48	9QT	Is this triple correct or incorrect?	$0.50	238	HHCKW1111	Submitted	200	80%	wd:Q2576243	wdt:P364	wd:Q1860	2.0	INCORRECT	Subject	Q268905
+49	9QT	Is this triple correct or incorrect?	$0.50	242	HHCKW1111	Submitted	200	80%	wd:Q4335275	wdt:P520	wd:Q52382294	1.0	CORRECT		
+49	9QT	Is this triple correct or incorrect?	$0.50	243	QZAHIFT8263	Submitted	2	40%	wd:Q4335275	wdt:P520	wd:Q52382294	1.0	CORRECT		
+50	9QT	Is this triple correct or incorrect?	$0.50	247	HHCKW1111	Submitted	200	80%	wd:Q931557	wdt:P750	wd:Q80948336	1.0	CORRECT		
+50	9QT	Is this triple correct or incorrect?	$0.50	249	QZAHIFT8263	Submitted	2	40%	wd:Q931557	wdt:P750	wd:Q80948336	1.0	CORRECT		
+51	9QT	Is this triple correct or incorrect?	$0.50	252	HHCKW1111	Submitted	200	80%	wd:Q2235250	wdt:P161	wd:Q599673	1.0	CORRECT		
+51	9QT	Is this triple correct or incorrect?	$0.50	253	QZAHIFT8263	Submitted	2	40%	wd:Q2235250	wdt:P161	wd:Q599673	1.0	CORRECT		
+52	9QT	Is this triple correct or incorrect?	$0.50	257	HHCKW1111	Submitted	200	80%	wd:Q696646	wdt:P3174	wd:Q1315917	1.0	CORRECT		
+52	9QT	Is this triple correct or incorrect?	$0.50	260	QZAHIFT8263	Submitted	2	40%	wd:Q696646	wdt:P3174	wd:Q1315917	2.0	INCORRECT		
+53	9QT	Is this triple correct or incorrect?	$0.50	262	HHCKW1111	Submitted	200	80%	wd:Q6782400	wdt:P945	wd:Q17	1.0	CORRECT		
+53	9QT	Is this triple correct or incorrect?	$0.50	265	QZAHIFT8263	Submitted	67	40%	wd:Q6782400	wdt:P945	wd:Q17	1.0	CORRECT		
+54	9QT	Is this triple correct or incorrect?	$0.50	267	HHCKW1111	Submitted	200	80%	wd:Q6538	wdt:P119	wd:Q1792	1.0	CORRECT		
+54	9QT	Is this triple correct or incorrect?	$0.50	270	QZAHIFT8263	Submitted	2	40%	wd:Q6538	wdt:P119	wd:Q1792	2.0	INCORRECT		
+55	9QT	Is this triple correct or incorrect?	$0.50	272	HHCKW1111	Submitted	200	80%	wd:Q9192	wdt:P276	wd:Q833	2.0	INCORRECT	Predicate	P17
+55	9QT	Is this triple correct or incorrect?	$0.50	274	QZAHIFT8263	Submitted	2	40%	wd:Q9192	wdt:P276	wd:Q833	1.0	CORRECT		
+56	9QT	Is this triple correct or incorrect?	$0.50	278	HHCKW1111	Submitted	200	80%	wd:Q10623856	wdt:P20	wd:Q2096	1.0	CORRECT		
+56	9QT	Is this triple correct or incorrect?	$0.50	280	QZAHIFT8263	Submitted	2	40%	wd:Q10623856	wdt:P20	wd:Q2096	1.0	CORRECT		
+57	9QT	Is this triple correct or incorrect?	$0.50	282	HHCKW1111	Submitted	200	80%	wd:Q223596	wdt:P1431	wd:Q457180	2.0	INCORRECT	Object	Q181900
+57	9QT	Is this triple correct or incorrect?	$0.50	285	QZAHIFT8263	Submitted	2	40%	wd:Q223596	wdt:P1431	wd:Q457180	1.0	CORRECT		
+58	9QT	Is this triple correct or incorrect?	$0.50	289	QZAHIFT8263	Submitted	2	40%	wd:Q943992	wdt:P161	wd:Q160432	2.0	INCORRECT	100	100
+58	9QT	Is this triple correct or incorrect?	$0.50	290	HHCKW1111	Submitted	200	80%	wd:Q943992	wdt:P161	wd:Q160432	2.0	INCORRECT	Object	
+59	9QT	Is this triple correct or incorrect?	$0.50	292	HHCKW1111	Submitted	200	80%	wd:Q1893555	wdt:P272	wd:Q48784114	2.0	INCORRECT	Object	Q7488442
+59	9QT	Is this triple correct or incorrect?	$0.50	295	QZAHIFT8263	Submitted	2	40%	wd:Q1893555	wdt:P272	wd:Q48784114	2.0	INCORRECT		
+60	9QT	Is this triple correct or incorrect?	$0.50	297	HHCKW1111	Submitted	200	80%	wd:Q21060270	wdt:P27	wd:Q916	1.0	CORRECT		
+60	9QT	Is this triple correct or incorrect?	$0.50	300	QZAHIFT8263	Submitted	2	40%	wd:Q21060270	wdt:P27	wd:Q916	2.0	INCORRECT	100	100
+61	9QT	Is this triple correct or incorrect?	$0.50	302	HHCKW1111	Submitted	200	80%	wd:Q1288004	wdt:P1412	wd:Q13330	1.0	CORRECT		
+61	9QT	Is this triple correct or incorrect?	$0.50	305	QZAHIFT8263	Submitted	2	40%	wd:Q1288004	wdt:P1412	wd:Q13330	2.0	INCORRECT	100	100
