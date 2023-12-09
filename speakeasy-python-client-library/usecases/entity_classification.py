@@ -25,6 +25,12 @@ class EntryClassifier:
         "I think you would enjoy {}.",
     ]
 
+    IMAGES_RESPONSE_TEMPLATES = [
+        "Here is a picture of {}. \n{}",
+        "I found this picture of {}. \n{}",
+        "I think this picture of {} is relevant. \n{}",
+    ]
+
     def __init__(self):
         # Initialize components
         self.entity_recognizer = EntityRecognizer()
@@ -48,12 +54,24 @@ class EntryClassifier:
         predicate = self.embedding_recognizer.get_predicates(cleaned_query)
 
         if not predicate:
-            # Ansewer the question using reccomentation
-            entities = self.entity_recognizer.get_entities(cleaned_query)
-            answer = self.recomender.recommend_embedding(entities)
-            template = random.choice(self.RECOMMENDATION_RESPONSE_TEMPLATES)
-            formatted_response = template.format(answer)
-            return formatted_response
+            for i in utils.RECCOMENDATION_WORDS:
+                entities = self.entity_recognizer.get_entities(cleaned_query)
+
+                if i in cleaned_query.lower():
+                    # Ansewer the question using reccomentation
+                    answer = self.recomender.recommend_embedding(entities)
+                    template = random.choice(self.RECOMMENDATION_RESPONSE_TEMPLATES)
+                    formatted_response = template.format(answer)
+                    return formatted_response
+                else:
+                    # Answer the question using multimedia
+                    answer = self.multimedia.get_image_from_lable(entities[0])
+                    if answer:
+                        template = random.choice(self.IMAGES_RESPONSE_TEMPLATES)
+                        formatted_response = template.format(entities[0], answer)
+                        return formatted_response
+                    else:
+                        return "Sorry, I couldn't find an aswer for your question. Should we try another question?"
 
         # Check if predicate exists in embeddings
         is_predicate_in_embeddings = self.embedding_answerer.is_predicate_in_embedding(
@@ -130,4 +148,4 @@ if __name__ == "__main__":
     t1 = "What is the IMDB rating of Cars?"
 
     ec = EntryClassifier()
-    print(ec.start(q))
+    print(ec.start(r6))

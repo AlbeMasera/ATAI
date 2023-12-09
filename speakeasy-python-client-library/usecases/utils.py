@@ -46,3 +46,15 @@ GET_IMDB_ID_BY_NAME_FILTER = """
             }
             LIMIT 5
         """
+
+RECCOMENDATION_WORDS = [
+    "recommend",
+    "suggest",
+    "advice",
+    "advise",
+    "propose",
+    "offer",
+    "love",
+    "enjoy",
+    "prefer",
+]

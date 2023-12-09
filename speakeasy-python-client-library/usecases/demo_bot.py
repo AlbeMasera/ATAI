@@ -1,4 +1,3 @@
-from rdflib import Graph, URIRef
 from speakeasypy import Speakeasy, Chatroom
 from typing import List
 from nltk.corpus import wordnet as wn
@@ -6,13 +5,7 @@ from transformers import pipeline, set_seed
 from sklearn.metrics import pairwise_distances
 import random
 import time
-import pickle
 import re  # Regular expressions
-import spacy
-import graphlib
-import numpy as np
-import csv
-import os
 from entity_classification import EntryClassifier
 
 DEFAULT_HOST_URL = "https://speakeasy.ifi.uzh.ch"
@@ -102,10 +95,6 @@ class Agent:
                         f"\t- Chatroom {room.room_id} "
                         f"- new message #{message.ordinal}: '{message.message}' "
                         f"- {self.get_time()}"
-                    )
-
-                    room.post_messages(
-                        '<img src="https://files.ifi.uzh.ch/ddis/teaching/2023/ATAI/dataset/movienet/images/0000/rm0301568.jpg" alt="Image" >'
                     )
 
                     # Extract query from message

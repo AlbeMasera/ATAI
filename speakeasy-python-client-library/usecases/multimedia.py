@@ -28,8 +28,11 @@ class Multimedia(object):
         for imdb_id in imdb_ids:
             for i, o in enumerate(self._json_src):
                 if imdb_id in o["cast"] or imdb_id in o["movie"]:
-                    return o["img"]
-        return "Error"
+                    return (
+                        "https://files.ifi.uzh.ch/ddis/teaching/2023/ATAI/dataset/movienet/images/"
+                        + o["img"]
+                    )
+        return ""
 
 
 if __name__ == "__main__":

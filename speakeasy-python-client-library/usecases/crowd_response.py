@@ -3,14 +3,15 @@ import rdflib
 from enum import Enum
 from entity_recognizer import EntityRecognizer
 from embeddings_recognition import EmbeddingRecognizer
-from Graph import Graph
+from graph import Graph
 
 # Define namespaces
-WD = rdflib.Namespace('http://www.wikidata.org/entity/')
-WDT = rdflib.Namespace('http://www.wikidata.org/prop/direct/')
-DDIS = rdflib.Namespace('http://ddis.ch/atai/')
+WD = rdflib.Namespace("http://www.wikidata.org/entity/")
+WDT = rdflib.Namespace("http://www.wikidata.org/prop/direct/")
+DDIS = rdflib.Namespace("http://ddis.ch/atai/")
 RDFS = rdflib.namespace.RDFS
-SCHEMA = rdflib.Namespace('http://schema.org/')
+SCHEMA = rdflib.Namespace("http://schema.org/")
+
 
 class AnswerLabel(Enum):
     No = 0
@@ -19,8 +20,11 @@ class AnswerLabel(Enum):
     Correct = 3
     Predicate = 4
 
+
 class CrowdResponse:
-    def __init__(self, graph: Graph, level: AnswerLabel, message: str, stats: str | None):
+    def __init__(
+        self, graph: Graph, level: AnswerLabel, message: str, stats: str | None
+    ):
         self.level = level
         self.message = message
         self.stats = stats
@@ -32,17 +36,24 @@ class CrowdResponse:
 
     def get_text(self):
         stat = f"\n({self.stats})" if self.stats else ""
-        return f"However, the crowd has an answer: {self.message}{stat}" if self.level != AnswerLabel.No else ""
+        return (
+            f"However, the crowd has an answer: {self.message}{stat}"
+            if self.level != AnswerLabel.No
+            else ""
+        )
+
 
 class CrowdResponder:
-    def __init__(self, embedding_recognizer: EmbeddingRecognizer, graph: Graph, file: str):
-        self.df = pd.read_csv(file, sep='\t')
+    def __init__(
+        self, embedding_recognizer: EmbeddingRecognizer, graph: Graph, file: str
+    ):
+        self.df = pd.read_csv(file, sep="\t")
         self.embedding_recognizer = embedding_recognizer
         self.graph = graph
 
     def get_batch_rating(self, batch_id: str) -> str:
         # copied results crow_calculate.py
-        d = {'7QT': 0.142857, '8QT': -0.212121, '9QT': "-0.125320"}
+        d = {"7QT": 0.142857, "8QT": -0.212121, "9QT": "-0.125320"}
 
     def add_label_to_node(self, value: str) -> str:
         if "wikidata" in value:
@@ -53,13 +64,22 @@ class CrowdResponder:
 
     def response(self, query: str, predicate: rdflib.term.URIRef) -> CrowdResponse:
         if not predicate:
-            return CrowdResponse(AnswerLabel.No, "Sorry, I couldn't find any predicates in your question. Should we try another question?")
+            return CrowdResponse(
+                AnswerLabel.No,
+                "Sorry, I couldn't find any predicates in your question. Should we try another question?",
+            )
 
         recognized_entity = self.embedding_recognizer.get_crowd_entity(query)
         if not recognized_entity:
-            return CrowdResponse(AnswerLabel.No, "Sorry, I couldn't find that entity in the dataset. Should we try another question?")
+            return CrowdResponse(
+                AnswerLabel.No,
+                "Sorry, I couldn't find that entity in the dataset. Should we try another question?",
+            )
 
-        result = self.df[(self.df["Input1ID"] == recognized_entity.node) & (self.df["Input2ID"] == predicate.toPython())]
+        result = self.df[
+            (self.df["Input1ID"] == recognized_entity.node)
+            & (self.df["Input2ID"] == predicate.toPython())
+        ]
         if result.empty:
             return self.get_fixed_predicate_answer(recognized_entity.node, predicate)
 
@@ -67,19 +87,35 @@ class CrowdResponder:
         correct_value = result["Input3ID"].values[0]
         if majority > 0:
             correct_value = self.__add_lbl_if_node(correct_value)
-            return CrowdResponse(AnswerLabel.Correct, f"The crowd agrees that the answer is correct. The answer is {correct_value}", stats)
+            return CrowdResponse(
+                AnswerLabel.Correct,
+                f"The crowd agrees that the answer is correct. The answer is {correct_value}",
+                stats,
+            )
 
         values = result["FixValue"].tolist()
-        pos = result['FixPosition'].values
+        pos = result["FixPosition"].values
         if not values:
-            return CrowdResponse(AnswerLabel.Position, f"The crowd found errors but did not propose a fixed value. Errors were found at: {pos}", stats)
+            return CrowdResponse(
+                AnswerLabel.Position,
+                f"The crowd found errors but did not propose a fixed value. Errors were found at: {pos}",
+                stats,
+            )
 
         if pos and (pos[0] == "Subject" or pos[0] == "Predicate"):
             correct_value = self.__add_lbl_if_node(correct_value)
-            return CrowdResponse(AnswerLabel.Value, f"The crowd was asked if {correct_value} is correct. They proposed a correction {values[0]} for the {pos[0]}.", stats)
+            return CrowdResponse(
+                AnswerLabel.Value,
+                f"The crowd was asked if {correct_value} is correct. They proposed a correction {values[0]} for the {pos[0]}.",
+                stats,
+            )
 
         value = self.__add_lbl_if_node(values[0])
-        return CrowdResponse(AnswerLabel.Value, f"The crowd found some errors. The proposed fixed value is: {value}.", stats)
+        return CrowdResponse(
+            AnswerLabel.Value,
+            f"The crowd found some errors. The proposed fixed value is: {value}.",
+            stats,
+        )
 
     def __calc_stats(self, result) -> tuple[int, str]:
         c = result["CORRECT"].values[0]
@@ -89,21 +125,33 @@ class CrowdResponder:
         stats = f"Voted {c} Correct and {ic} Incorrect. {batch_rating_text}"
         return majority, stats
 
-    def get_fixed_predicate_answer(self, subject: str, predicate: rdflib.term.URIRef) -> CrowdResponse:
-        result = self.df[(self.df["Input1ID"] == subject) & (self.df["FixValue"] == predicate.toPython())]
+    def get_fixed_predicate_answer(
+        self, subject: str, predicate: rdflib.term.URIRef
+    ) -> CrowdResponse:
+        result = self.df[
+            (self.df["Input1ID"] == subject)
+            & (self.df["FixValue"] == predicate.toPython())
+        ]
         if result.empty:
-            return CrowdResponse(AnswerLabel.No, "No answer found in the crowd dataset.")
+            return CrowdResponse(
+                AnswerLabel.No, "No answer found in the crowd dataset."
+            )
 
         _, stats = self.__calc_stats(result)
         correct_value = self.__add_lbl_if_node(result["Input3ID"].values[0])
-        return CrowdResponse(AnswerLabel.Predicate, f"The crowd suggests the value {correct_value} for this question.", stats)
+        return CrowdResponse(
+            AnswerLabel.Predicate,
+            f"The crowd suggests the value {correct_value} for this question.",
+            stats,
+        )
 
     def retrieve_batch_rating(self, batch_id: str) -> str:
         # Placeholder for the function to retrieve batch rating dynamically
         # Replace with actual implementation
         return "Rating not available"
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     recognizer = EmbeddingRecognizer()
     graph = Graph("speakeasy-python-client-library/usecases/data/pickle_graph.pickel")
     crowd_path = "speakeasy-python-client-library/usecases/data/crowd_bot.csv"
