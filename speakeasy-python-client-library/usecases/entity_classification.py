@@ -71,7 +71,7 @@ class EntryClassifier:
                         + " you like."
                         + "\n"
                         + "The genre of the movie is "
-                        + str(self.graph.get_genre(answer))
+                        + str(self.graph.get_genre(answer)[0])
                     )
 
                     return formatted_response
