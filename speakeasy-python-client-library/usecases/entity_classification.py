@@ -62,6 +62,18 @@ class EntryClassifier:
                     answer = self.recomender.recommend_embedding(entities)
                     template = random.choice(self.RECOMMENDATION_RESPONSE_TEMPLATES)
                     formatted_response = template.format(answer)
+
+                    # Motivate the answer
+                    formatted_response += (
+                        "\n\n"
+                        + "I recommend this movie because it is similar to the movies "
+                        + (", ".join(entities))
+                        + " you like."
+                        + "\n"
+                        + "The genre of the movie is "
+                        + str(self.graph.get_genre(answer))
+                    )
+
                     return formatted_response
                 else:
                     # Answer the question using multimedia
@@ -148,4 +160,4 @@ if __name__ == "__main__":
     t1 = "What is the IMDB rating of Cars?"
 
     ec = EntryClassifier()
-    print(ec.start(e3))
+    print(ec.start(r6))

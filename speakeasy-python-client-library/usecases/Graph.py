@@ -92,3 +92,10 @@ class Graph:
         }
         print(query)
         return self.sparql_query(HEADER_CONST + query)
+
+    def get_genre(self, entity: str) -> str:
+        query = utils.GET_GENRE_BY_LABLE % {
+            "filmName": utils.lower_remove_sent_endings_at_end(entity)
+        }
+        print(query)
+        return self.sparql_query(HEADER_CONST + query)

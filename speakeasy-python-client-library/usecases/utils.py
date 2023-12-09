@@ -47,6 +47,16 @@ GET_IMDB_ID_BY_NAME_FILTER = """
             LIMIT 5
         """
 
+GET_GENRE_BY_LABLE = """
+            SELECT DISTINCT ?genreTitle WHERE{                                                              
+                ?film wdt:P136 ?genre.                                                          
+                ?film rdfs:label ?queryByTitle.  
+                ?genre rdfs:label ?genreTitle.                                                         
+                FILTER(REGEX(?queryByTitle, "%(filmName)s", "i"))
+            }
+            LIMIT 1
+        """
+
 RECCOMENDATION_WORDS = [
     "recommend",
     "suggest",
