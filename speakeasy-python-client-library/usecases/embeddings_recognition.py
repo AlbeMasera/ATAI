@@ -18,11 +18,15 @@ current_directory = os.path.dirname(os.path.abspath(__file__))
 # Define the relative path to the "data" folder
 data_folder = os.path.join(current_directory, "data")
 
+THRESHOLD = 0.75
+
 # Use absolute paths for loading files from the "data" folder
 PREDICATE_DESC = os.path.join(data_folder, "predicates_extended.csv")
 PRED_EMBEDDINGS = os.path.join(data_folder, "embeddings2.npy")
 REPLACE_PREDICATES_FILE = os.path.join(data_folder, "replace_predicates_ner.csv")
 
+CROWD_ENTITIES = os.path.join(data_folder, "entities_crowd.csv")
+CROWD_ENTITIES_EMBEDDINGS = os.path.join(data_folder, "entities_crowd_emb.npy")
 
 class PossiblePredicate:
     def __init__(
@@ -33,14 +37,24 @@ class PossiblePredicate:
         self.predicate: rdflib.term.URIRef = predicate
         self.fixed_query: str = query
 
+class CrowdEntity:
+    def __init__(self, label: str, score: float, predicate: rdflib.term.URIRef, query: str):
+        self.label: str = label
+        self.score: float = score
+        self.node: rdflib.term.URIRef = predicate
+        self.fixed_query: str = query
 
+    def __str__(self):
+        return f"CrowdEntity(label={self.label}, score={self.score}, node={self.node}, fixed_query={self.fixed_query})"
+        
 class EmbeddingRecognizer:
     def __init__(
         self,
         pred_df_path: str = PREDICATE_DESC,
         pred_embeddings_path: str = PRED_EMBEDDINGS,
         replace_predicates_path: str = REPLACE_PREDICATES_FILE,
-    ):
+        crowd_df_path : str = CROWD_ENTITIES, crowd_embeddings_path: str = CROWD_ENTITIES_EMBEDDINGS):
+
         self.model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
         self.stammer = PorterStemmer()
 
@@ -49,6 +63,10 @@ class EmbeddingRecognizer:
         self.pred_df = pd.read_csv(pred_df_path)
 
         self.replace_predicates_df = pd.read_csv(replace_predicates_path)
+
+        np_arr = numpy.load(crowd_embeddings_path)
+        self.crowd_embeddings = torch.from_numpy(np_arr).to('cpu')
+        self.crowd_df = pd.read_csv(crowd_df_path)
 
     @staticmethod
     def __max_len_everygrams(arr: list) -> int:
@@ -150,3 +168,27 @@ class EmbeddingRecognizer:
                 )
 
         return None
+
+    def get_crowd_entity(self, query: str) -> Optional[CrowdEntity]:
+        # Tokenization and everygram generation
+        words = self.__generate_everygrams(query, stemming=True)
+        query_embeddings = self.model.encode(words, convert_to_tensor=True, device="cpu")
+
+        for i, query_embed in enumerate(query_embeddings):
+            hits = util.semantic_search(query_embed, self.crowd_embeddings, top_k=1)
+            for hit in hits[0]:
+                if hit['score'] >= THRESHOLD:
+                    index = hit['corpus_id']
+                    label = self.crowd_df['label'][index]
+                    entity = self.crowd_df['entity'][index]
+
+                    fixed_query = self.__fix_query(query, label, words[i], query_embeddings[i])
+                    return CrowdEntity(label, hit['score'], self.crowd_df['entity'][index], fixed_query)
+
+        return None
+
+if __name__ == '__main__':
+    pred_map = EmbeddingRecognizer()
+
+    x = pred_map.get_crowd_entity("Can you tell me the publication date of Tom Meets Zizou?	")
+    print(x)

@@ -16,9 +16,14 @@ from sklearn.metrics import pairwise_distances
 
 from embeddings import EmbeddingAnswerer
 from entity_classification import EntryClassifier
+<<<<<<< Updated upstream
 from entity_recognizer import EntityRecognizer
 from query_utils import is_recommendation_query
 from recommender import MovieRecommender
+=======
+from crowd_response import CrowdResponder
+from embeddings_recognition import EmbeddingRecognizer
+>>>>>>> Stashed changes
 
 DEFAULT_HOST_URL = "https://speakeasy.ifi.uzh.ch"
 listen_freq = 2
@@ -32,6 +37,7 @@ class Agent:
             host=DEFAULT_HOST_URL, username=username, password=password
         )
         self.speakeasy.login()  # This framework will help you log out automatically when the program terminates.
+<<<<<<< Updated upstream
  
         self.graph = Graph()
         pickle_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "pickle_graph.pickel")
@@ -42,6 +48,25 @@ class Agent:
 
         self.movie_recommender = MovieRecommender(self.graph, self.embedding_answerer)
         
+=======
+        
+        self.graph = Graph(
+            os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "data",
+                "pickle_graph.pickel",
+            )
+        )
+        
+        self.embedding_recognizer = EmbeddingRecognizer()
+        self.ec = EntryClassifier()
+
+        current_directory = os.path.dirname(os.path.abspath(__file__))
+        data_folder = os.path.join(current_directory, "data")
+        CROWD_ENTITIES = os.path.join(data_folder, "entities_crowd.csv")
+
+        self.crowd_response = CrowdResponder(self.embedding_recognizer, self.graph, CROWD_ENTITIES)
+>>>>>>> Stashed changes
 
     def handle_none(self, query):
         return self.handle_utf8("None" if query is None else str(query))
@@ -163,6 +188,17 @@ class Agent:
                     else:
                         try:
                             respond = self.ec.start(query)
+<<<<<<< Updated upstream
+=======
+                            print(f"Respond: {respond}")
+
+                            predicate = self.embedding_recognizer.get_predicates(query)
+                            crowd_response = self.crowd_responder.response(query, predicate.predicate if predicate else None)
+                            if crowd_response.level != AnswerLabel.No:
+                                crowd_text = crowd_response.get_text()
+                                respond += f"\nCrowd Insight: {crowd_text}"
+
+>>>>>>> Stashed changes
                             room.post_messages(respond)
                         except Exception as e:
                             print(f"{str(e)}")

@@ -165,3 +165,4 @@ cython_debug/
 #.idea/
 speakeasy-python-client-library/usecases/data/entity_embeds.npy
 speakeasy-python-client-library/usecases/data/pickle_graph.pickel
+speakeasy-python-client-library/usecases/data/images.json
