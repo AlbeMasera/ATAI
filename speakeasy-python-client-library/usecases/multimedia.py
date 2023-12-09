@@ -27,9 +27,20 @@ class Multimedia(object):
     def get_image_from_imdb_id(self, imdb_ids: [str]) -> str:
         for imdb_id in imdb_ids:
             for i, o in enumerate(self._json_src):
-                if imdb_id in o["cast"] or imdb_id in o["movie"]:
+                if imdb_id in o["cast"]:
                     return (
-                        "https://files.ifi.uzh.ch/ddis/teaching/2023/ATAI/dataset/movienet/images/"
+                        "https://www.imdb.com/name/"
+                        + imdb_id
+                        + "\n"
+                        + "https://files.ifi.uzh.ch/ddis/teaching/2023/ATAI/dataset/movienet/images/"
+                        + o["img"]
+                    )
+                if imdb_id in o["movie"]:
+                    return (
+                        "https://m.imdb.com/title/"
+                        + imdb_id
+                        + "\n"
+                        + "https://files.ifi.uzh.ch/ddis/teaching/2023/ATAI/dataset/movienet/images/"
                         + o["img"]
                     )
         return ""

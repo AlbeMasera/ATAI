@@ -132,7 +132,7 @@ if __name__ == "__main__":
 
     e1 = "Who is the screenwriter of The Masked Gang: Cyprus?"
     e2 = "What is the MPAA film rating of Weathering with You?"
-    e3 = "What is the genre of Good Neighbors?"
+    e3 = "What is the genre of Shrek?"
 
     w1 = "When was The Godfather released? "
 
@@ -148,4 +148,4 @@ if __name__ == "__main__":
     t1 = "What is the IMDB rating of Cars?"
 
     ec = EntryClassifier()
-    print(ec.start(r6))
+    print(ec.start(e3))
