@@ -53,7 +53,9 @@ if __name__ == '__main__':
     src = "speakeasy-python-client-library/usecases/data/filtered_crowd_data.tsv"
     df = pd.read_csv(src, sep="\t")
 
-    graph_pickle_path = "speakeasy-python-client-library/usecases/data/pickle_graph.pickel"
+    graph_pickle_path = (
+        "speakeasy-python-client-library/usecases/data/pickle_graph.pickel"
+    )
     graph = Graph(graph_pickle_path)
 
     # Extract entities

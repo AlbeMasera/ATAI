@@ -20,7 +20,23 @@ class EntityRecognizer:
         self.ner_pipeline = NerPipeline(
             model=model, tokenizer=tokenizer, device=-1, aggregation_strategy="average"
         )
-
+    
+    @staticmethod
+    def extract_entities(query, predictions):
+        entities = []
+        for prediction in predictions:
+            original_text = query[prediction["start"] : prediction["end"]]
+            entities.append(
+                NamedEntity(
+                    prediction["entity_group"],
+                    prediction["word"],
+                    prediction["start"],
+                    prediction["end"],
+                    original_text,
+                )
+            )
+        return entities
+    '''
     def extract_entities(self, query):
         # Run the query through the NER pipeline to get predictions
         predictions = self.ner_pipeline(query)
@@ -34,11 +50,33 @@ class EntityRecognizer:
                     prediction["word"],
                     prediction["start"],
                     prediction["end"],
-                    query[prediction["start"]:prediction["end"]],
+                    #query[prediction["start"]:prediction["end"]],
+                    original_text,
                 )
             )
         return entities
+    '''
+    def get_single_entity(self, sentence, is_question=False):
+        sentence = utils.add_sentence_ending(sentence, is_question=is_question)
+        predictions = self.ner_pipeline(sentence)
+        entities = self.extract_entities(sentence, predictions)
 
+        if len(entities) == 1:
+            return entities[0]
+
+        entities.sort(key=lambda x: x.start)
+        start_entity = entities[0]
+        end_entity = max(entities, key=lambda x: x.end)
+        merged_text = sentence[start_entity.start : end_entity.end]
+
+        return NamedEntity(
+            "MISC",
+            f"{start_entity.word} -> {end_entity.word}",
+            start_entity.start,
+            end_entity.end,
+            merged_text,
+        )
+    '''
     def get_single_entity(self, sentence, is_question=False):
         sentence = utils.add_sentence_ending(sentence, is_question=is_question)
         
@@ -60,15 +98,9 @@ class EntityRecognizer:
             end_entity.end,
             merged_text,
         )
-
     '''
-    def extract_movie_titles(self, sentence):
+    def get_entities(self, sentence, is_question=False):
+        sentence = utils.add_sentence_ending(sentence, is_question=is_question)
         predictions = self.ner_pipeline(sentence)
-        movie_titles = []
-
-        for prediction in predictions:
-            if prediction['entity_group'] == 'WORK_OF_ART':  # assuming WORK_OF_ART can represent movie titles
-                movie_titles.append(prediction['word'])
-
-        return movie_titles
-    '''
+        entities = self.extract_entities(sentence, predictions)
+        return [x.original_text for x in entities]

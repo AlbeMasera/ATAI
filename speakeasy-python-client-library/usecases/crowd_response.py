@@ -37,7 +37,11 @@ class CrowdResponse:
 
     def get_text(self):
         stat = f"\n({self.stats})" if self.stats else ""
-        return f"However, the crowd has an answer: {self.message}{stat}" if self.level != AnswerLabel.No else ""
+        return (
+            f"However, the crowd has an answer: {self.message}{stat}" 
+            if self.level != AnswerLabel.No 
+            else ""
+        )
 
 class CrowdResponder:
     def __init__(self, embedding_recognizer: EmbeddingRecognizer, graph: Graph, file: str = CROWD_FILE):
@@ -47,7 +51,7 @@ class CrowdResponder:
 
     def get_batch_rating(self, batch_id: str) -> str:
         # copied results crowd_calculate.py
-        d = {'7QT': 0.142857, '8QT': -0.212121, '9QT': "-0.125320"}
+        d = {"7QT": 0.142857, "8QT": -0.212121, "9QT": "-0.125320"}
         return str(d.get(batch_id, "Rating not available"))
 
     def add_label_to_node(self, value: str) -> str:
@@ -76,7 +80,7 @@ class CrowdResponder:
             return CrowdResponse(self.graph, AnswerLabel.Correct, f"The crowd agrees that the answer is correct. The answer is {correct_value}", stats)
 
         values = result["FixValue"].tolist()
-        pos = result['FixPosition'].values
+        pos = result["FixPosition"].values
         if not values:
             return CrowdResponse(self.graph, AnswerLabel.Position, f"The crowd found errors but did not propose a fixed value. Errors were found at: {pos}", stats)
 
@@ -114,7 +118,7 @@ if __name__ == '__main__':
     crowd_path = "speakeasy-python-client-library/usecases/data/crowd_bot.csv"
     crowd = CrowdResponder(recognizer, graph, crowd_path)
 
-    query = "Can you tell me the publication date of Tom Meets Zizou?"
+    query = "What is the box office of The Princess and the Frog?"
     predicate = recognizer.get_predicates(query)
     answer = crowd.response(query, predicate.predicate if predicate else None)
     print(answer)

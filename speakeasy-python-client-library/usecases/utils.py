@@ -38,3 +38,33 @@ GET_FILM_BY_NAME_FILTER = """
             LIMIT 1
         """
 
+GET_IMDB_ID_BY_NAME_FILTER = """
+            SELECT DISTINCT ?imdb_id WHERE{                                                              
+                ?film wdt:P345 ?imdb_id.                                                          
+                ?film rdfs:label ?queryByTitle.                                                          
+                FILTER(REGEX(?queryByTitle, "%(filmName)s", "i"))
+            }
+            LIMIT 5
+        """
+
+GET_GENRE_BY_LABLE = """
+            SELECT DISTINCT ?genreTitle WHERE{                                                              
+                ?film wdt:P136 ?genre.                                                          
+                ?film rdfs:label ?queryByTitle.  
+                ?genre rdfs:label ?genreTitle.                                                         
+                FILTER(REGEX(?queryByTitle, "%(filmName)s", "i"))
+            }
+            LIMIT 1
+        """
+
+RECCOMENDATION_WORDS = [
+    "recommend",
+    "suggest",
+    "advice",
+    "advise",
+    "propose",
+    "offer",
+    "love",
+    "enjoy",
+    "prefer",
+]

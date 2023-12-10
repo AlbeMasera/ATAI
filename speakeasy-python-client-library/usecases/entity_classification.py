@@ -26,6 +26,12 @@ class EntryClassifier:
         "I think you would enjoy {}.",
     ]
 
+    IMAGES_RESPONSE_TEMPLATES = [
+        "Here is a picture of {}. \n{}",
+        "I found this picture of {}. \n{}",
+        "I think this picture of {} is relevant. \n{}",
+    ]
+
     def __init__(self):
         # Initialize components
         self.entity_recognizer = EntityRecognizer()
@@ -56,12 +62,36 @@ class EntryClassifier:
         predicate = self.embedding_recognizer.get_predicates(cleaned_query)
 
         if not predicate:
-            # Ansewer the question using reccomentation
-            entities = self.entity_recognizer.get_entities(cleaned_query)
-            answer = self.recomender.recommend_embedding(entities)
-            template = random.choice(self.RECOMMENDATION_RESPONSE_TEMPLATES)
-            formatted_response = template.format(answer)
-            return formatted_response
+            # Answer the question using reccomentation
+            for i in utils.RECCOMENDATION_WORDS:
+                entities = self.entity_recognizer.get_entities(cleaned_query)
+                if i in cleaned_query.lower():
+                    # Ansewer the question using reccomentation
+                    answer = self.recomender.recommend_embedding(entities)
+                    template = random.choice(self.RECOMMENDATION_RESPONSE_TEMPLATES)
+                    formatted_response = template.format(answer)
+
+                    # Motivate the answer
+                    formatted_response += (
+                        "\n\n"
+                        + "I recommend this movie because it is similar to the movies "
+                        + (", ".join(entities))
+                        + " you like."
+                        + "\n"
+                        + "The genre of the movie is "
+                        + str(self.graph.get_genre(answer)[0])
+                    )
+                
+                    return formatted_response
+                else:
+                    # Answer the question using multimedia
+                    answer = self.multimedia.get_image_from_lable(entities[0])
+                    if answer:
+                        template = random.choice(self.IMAGES_RESPONSE_TEMPLATES)
+                        formatted_response = template.format(entities[0], answer)
+                        return formatted_response
+                    else:
+                        return "Sorry, I couldn't find an aswer for your question. Should we try another question?"
 
          # Initialize response
         formatted_response = None
@@ -92,6 +122,7 @@ class EntryClassifier:
             answer = str(self.graph.get_answer(predicate.predicate, entity)[0])
         template = random.choice(self.FACTUAL_RESPONSE_TEMPLATES)
         formatted_response = template.format(answer)
+        
         # Use CrowdResponder to validate or augment the response
         if formatted_response:
             crowd_response = self.crowd_response.response(query, predicate.predicate if predicate else None)
@@ -149,6 +180,6 @@ if __name__ == "__main__":
     c1 = "What is the box office of The Princess and the Frog?	"
     c2 = "Can you tell me the publication date of Tom Meets Zizou?	"
     c3 = "Who is the executive producer of X-Men: First Class?	"
-
+s
     ec = EntryClassifier()
     print(ec.start(c2))     

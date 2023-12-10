@@ -17,7 +17,7 @@ from sklearn.metrics import pairwise_distances
 from embeddings import EmbeddingAnswerer
 from entity_classification import EntryClassifier
 from entity_recognizer import EntityRecognizer
-from crowd_response import CrowdResponder
+from crowd_response import CrowdResponder, AnswerLabel
 from embeddings_recognition import EmbeddingRecognizer
 
 
@@ -128,6 +128,30 @@ class Agent:
                     #
                     # Extract query from message
                     query = message.message
+                    response_message = random.choice(response_templates)
+                    room.post_messages(response_message)
+
+                    if self.is_sparql(query):
+                        respond = self.sparql_query(message.message)
+                        room.post_messages(f"Query answer: '{respond}'")
+                    else:
+                        try:
+                            respond = self.ec.start(query)
+                            predicate = self.embedding_recognizer.get_predicates(query)
+                            crowd_response = self.crowd_response.response(query, predicate.predicate if predicate else None)
+                            if crowd_response.level != AnswerLabel.No:
+                                crowd_text = crowd_response.get_text()
+                                respond += f"\nCrowd Insight: {crowd_text}"
+                            room.post_messages(respond)
+                        except Exception as e:
+                            error_message = f"Encountered an error: {str(e)}"
+                            print(error_message)
+                            room.post_messages("Sorry, I ran into an issue. Should we try another question instead?")
+
+                    room.mark_as_processed(message)
+
+                '''
+                    query = message.message
 
                     # Select a random response template
                     response_message = random.choice(response_templates)
@@ -155,6 +179,7 @@ class Agent:
                             room.post_messages("Sorry, I ran into an issue here. Should we try another question instead?")
 
                     room.mark_as_processed(message)
+                '''
                 # Retrieve reactions from this chat room.
                 # If only_new=True, it filters out reactions that have already been marked as processed.
                 for reaction in room.get_reactions(only_new=True):
