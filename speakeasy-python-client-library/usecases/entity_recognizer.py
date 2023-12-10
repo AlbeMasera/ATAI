@@ -16,33 +16,34 @@ class NamedEntity:
 class EntityRecognizer:
     def __init__(self):
         tokenizer = AutoTokenizer.from_pretrained(NER_MODEL_NAME, device=-1)
-        model = AutoModelForTokenClassification.from_pretrained(NER_MODEL_NAME).to(
-            "cpu"
-        )
+        model = AutoModelForTokenClassification.from_pretrained(NER_MODEL_NAME).to("cpu")
         self.ner_pipeline = NerPipeline(
             model=model, tokenizer=tokenizer, device=-1, aggregation_strategy="average"
         )
 
-    @staticmethod
-    def extract_entities(query, predictions):
+    def extract_entities(self, query):
+        # Run the query through the NER pipeline to get predictions
+        predictions = self.ner_pipeline(query)
+        
+        # Extract entities from the predictions
         entities = []
         for prediction in predictions:
-            original_text = query[prediction["start"] : prediction["end"]]
             entities.append(
                 NamedEntity(
                     prediction["entity_group"],
                     prediction["word"],
                     prediction["start"],
                     prediction["end"],
-                    original_text,
+                    query[prediction["start"]:prediction["end"]],
                 )
             )
         return entities
 
     def get_single_entity(self, sentence, is_question=False):
         sentence = utils.add_sentence_ending(sentence, is_question=is_question)
-        predictions = self.ner_pipeline(sentence)
-        entities = self.extract_entities(sentence, predictions)
+        
+        # Directly use extract_entities which now only needs the sentence
+        entities = self.extract_entities(sentence)
 
         if len(entities) == 1:
             return entities[0]
@@ -59,3 +60,15 @@ class EntityRecognizer:
             end_entity.end,
             merged_text,
         )
+
+    '''
+    def extract_movie_titles(self, sentence):
+        predictions = self.ner_pipeline(sentence)
+        movie_titles = []
+
+        for prediction in predictions:
+            if prediction['entity_group'] == 'WORK_OF_ART':  # assuming WORK_OF_ART can represent movie titles
+                movie_titles.append(prediction['word'])
+
+        return movie_titles
+    '''

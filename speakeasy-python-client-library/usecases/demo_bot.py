@@ -1,18 +1,25 @@
+import time
+import pickle
+import re
+import spacy
+import graphlib
+import numpy as np
+import csv
+import os
+import random
 from rdflib import Graph, URIRef
 from speakeasypy import Speakeasy, Chatroom
 from typing import List
 from nltk.corpus import wordnet as wn
 from transformers import pipeline, set_seed
 from sklearn.metrics import pairwise_distances
-import time
-import pickle
-import re  # Regular expressions
-import spacy
-import graphlib
-import numpy as np
-import csv
-import os
+
+from embeddings import EmbeddingAnswerer
 from entity_classification import EntryClassifier
+from entity_recognizer import EntityRecognizer
+from crowd_response import CrowdResponder
+from embeddings_recognition import EmbeddingRecognizer
+
 
 DEFAULT_HOST_URL = "https://speakeasy.ifi.uzh.ch"
 listen_freq = 2
@@ -26,7 +33,20 @@ class Agent:
             host=DEFAULT_HOST_URL, username=username, password=password
         )
         self.speakeasy.login()  # This framework will help you log out automatically when the program terminates.
+        
+        current_directory = os.path.dirname(os.path.abspath(__file__))
+        data_folder = os.path.join(current_directory, "data")
+        pickle_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "pickle_graph.pickel")
+
+        self.graph = Graph()
+        
+        self.embedding_answerer = EmbeddingAnswerer()
+        self.entity_recognizer = EntityRecognizer()
         self.ec = EntryClassifier()
+        self.embedding_recognizer = EmbeddingRecognizer()
+        
+        CROWD_ENTITIES = os.path.join(data_folder, "entities_crowd.csv")
+        self.crowd_response = CrowdResponder(self.embedding_recognizer, self.graph, CROWD_ENTITIES)
 
     def handle_none(self, query):
         return self.handle_utf8("None" if query is None else str(query))
@@ -72,8 +92,17 @@ class Agent:
             re.search(rf"\b{keyword}\b", query, re.IGNORECASE)
             for keyword in sparql_keywords
         )
+    
 
     def listen(self):
+        # Define response templates
+        response_templates = [
+            "Good question, let's see...",
+            "I hear you, let me quickly have a look.",
+            "Interesting query, I'm on it!",
+            "Hmm, checking now...",
+        ]
+
         while True:
             # only check active chatrooms (i.e., remaining_time > 0) if active=True.
             rooms: List[Chatroom] = self.speakeasy.get_rooms(active=True)
@@ -81,7 +110,8 @@ class Agent:
                 if not room.initiated:
                     # send a welcome message if room is not initiated
                     room.post_messages(
-                        f"Hello! This is a welcome message from {room.my_alias}."
+                        f"Hello and welcome! This is {room.my_alias}.\n" 
+                        f"I'm happy to answer your questions. Ask away :)"
                     )
                     room.initiated = True
                 # Retrieve messages from this chat room.
@@ -99,9 +129,11 @@ class Agent:
                     # Extract query from message
                     query = message.message
 
-                    # Send a message to the corresponding chat room using the post_messages method of the room object.
-                    room.post_messages(f"Received your message!")
-                    # Mark the message as processed, so it will be filtered out when retrieving new messages.
+                    # Select a random response template
+                    response_message = random.choice(response_templates)
+
+                    # Send a randomized response message
+                    room.post_messages(response_message)
 
                     if self.is_sparql(query):
                         respond = self.sparql_query(message.message)
@@ -109,10 +141,18 @@ class Agent:
                     else:
                         try:
                             respond = self.ec.start(query)
+                            print(f"Respond: {respond}")
+
+                            predicate = self.embedding_recognizer.get_predicates(query)
+                            crowd_response = self.crowd_response.response(query, predicate.predicate if predicate else None)
+                            if crowd_response.level != AnswerLabel.No:
+                                crowd_text = crowd_response.get_text()
+                                respond += f"\nCrowd Insight: {crowd_text}"
+
                             room.post_messages(respond)
                         except Exception as e:
-                            print(f"Error: {str(e)}")
-                            room.post_messages("Sorry something went wrong '>.<")
+                            print(f"{str(e)}")
+                            room.post_messages("Sorry, I ran into an issue here. Should we try another question instead?")
 
                     room.mark_as_processed(message)
                 # Retrieve reactions from this chat room.
@@ -126,7 +166,7 @@ class Agent:
 
                     # Implement your agent here #
 
-                    room.post_messages(f"Received your reaction: '{reaction.type}' ")
+                    room.post_messages(f"Oh wow.. Thanks for the reaction '{reaction.type}'.")
                     room.mark_as_processed(reaction)
 
             time.sleep(listen_freq)

@@ -1,7 +1,7 @@
 import numpy as np
 import rdflib, csv
 from sklearn.metrics import pairwise_distances
-
+from recomender import MovieRecommender
 import os
 
 
@@ -74,6 +74,28 @@ class EmbeddingAnswerer(object):
         en = self.id2ent[most_likely[0]]
 
         return en
+
+    def get_n_closest(self, nodes, n=10):
+        # Convert RDF nodes to embeddings
+        entity_embeddings = [self.entity_emb[self.ent2id.get(node)] for node in nodes if node in self.ent2id]
+
+        # Check if there are valid embeddings
+        if not entity_embeddings:
+            return []
+
+        # Calculate mean of the embeddings for the provided nodes
+        mean_embedding = np.mean(entity_embeddings, axis=0)
+
+        # Compute distances to all other embeddings
+        distances = pairwise_distances([mean_embedding], self.entity_emb)[0]
+
+        # Find the indices of the closest embeddings
+        closest_indices = np.argsort(distances)[:n]
+
+        # Convert indices back to RDF nodes
+        closest_nodes = [self.id2ent.get(index) for index in closest_indices]
+
+        return closest_nodes 
 
 
 LABELS_IN_RELATION_IDS_DEL = {
