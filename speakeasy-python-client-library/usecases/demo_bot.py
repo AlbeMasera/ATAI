@@ -1,8 +1,5 @@
 from speakeasypy import Speakeasy, Chatroom
 from typing import List
-from nltk.corpus import wordnet as wn
-from transformers import pipeline, set_seed
-from sklearn.metrics import pairwise_distances
 import random
 import time
 import re  # Regular expressions

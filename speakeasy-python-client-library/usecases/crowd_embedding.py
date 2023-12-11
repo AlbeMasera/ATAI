@@ -2,7 +2,6 @@ import pandas as pd
 import rdflib
 from sentence_transformers import SentenceTransformer
 import numpy as np
-import os, sys
 from graph import Graph
 
 src = "speakeasy-python-client-library/usecases/data/filtered_crowd_data.tsv"

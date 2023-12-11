@@ -31,7 +31,7 @@ class Multimedia(object):
                     return (
                         "https://www.imdb.com/name/"
                         + imdb_id
-                        + "\n"
+                        + "\n\n"
                         + "https://files.ifi.uzh.ch/ddis/teaching/2023/ATAI/dataset/movienet/images/"
                         + o["img"]
                     )
@@ -39,7 +39,7 @@ class Multimedia(object):
                     return (
                         "https://m.imdb.com/title/"
                         + imdb_id
-                        + "\n"
+                        + "\n\n"
                         + "https://files.ifi.uzh.ch/ddis/teaching/2023/ATAI/dataset/movienet/images/"
                         + o["img"]
                     )

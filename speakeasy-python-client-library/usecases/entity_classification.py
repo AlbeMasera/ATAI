@@ -7,8 +7,11 @@ import random
 from entity_recognizer import EntityRecognizer
 import embeddings_recognition as embeddings_rec
 import embeddings
+import crowd_response
 from graph import Graph
 import recomender
+
+CROWD_PATH = "speakeasy-python-client-library/usecases/data/crowd_bot.csv"
 
 
 class EntryClassifier:
@@ -45,6 +48,9 @@ class EntryClassifier:
         self.recomender = recomender.MovieRecommender(self.graph)
         self.embedding_recognizer = embeddings_rec.EmbeddingRecognizer()
         self.multimedia = multimedia.Multimedia(self.graph)
+        self.crowd = crowd_response.CrowdResponder(
+            self.entity_recognizer, self.graph, CROWD_PATH
+        )
 
     def start(self, query: str) -> str:
         # Preprocess query
@@ -53,7 +59,13 @@ class EntryClassifier:
         # Get predicates using embedding recognizer
         predicate = self.embedding_recognizer.get_predicates(cleaned_query)
 
-        if not predicate:
+        print(predicate)
+
+        if (
+            not predicate
+            or "picture" in cleaned_query.lower()
+            or "photo" in cleaned_query.lower()
+        ):
             for i in utils.RECCOMENDATION_WORDS:
                 entities = self.entity_recognizer.get_entities(cleaned_query)
 
@@ -91,13 +103,14 @@ class EntryClassifier:
         )
 
         if is_predicate_in_embeddings:
-            # Answer the question using embeddings
-            answer = self.answer_embedding_question(
-                predicate.fixed_query, is_predicate_in_embeddings
-            )
-            template = random.choice(self.FACTUAL_RESPONSE_TEMPLATES)
-            formatted_response = template.format(answer)
-            return formatted_response
+            try:
+                # Answer the question using embeddings
+                answer = self.answer_embedding_question(
+                    predicate.fixed_query, is_predicate_in_embeddings
+                )
+            except:
+                answer = ""
+
         else:
             prediction = self.entity_recognizer.get_single_entity(
                 query, is_question=True
@@ -107,8 +120,19 @@ class EntryClassifier:
 
             res = self.graph.get_movie_with_label(prediction.original_text)
             entity = res[0]
-            # Answer the question using KG
-            answer = str(self.graph.get_answer(predicate.predicate, entity)[0])
+            try:
+                # Answer the question using KG
+                answer = str(self.graph.get_answer(predicate.predicate, entity)[0])
+            except:
+                answer = ""
+
+        # Answer the question using crowd
+        if not answer:
+            answer_crowd = self.crowd.response(
+                query, predicate.predicate if predicate else None
+            )
+            return answer_crowd.response
+
         template = random.choice(self.FACTUAL_RESPONSE_TEMPLATES)
         formatted_response = template.format(answer)
         return formatted_response
@@ -133,7 +157,7 @@ class EntryClassifier:
 
 
 if __name__ == "__main__":
-    q = "who is director of Alice in Wonderland"
+    q1 = "who is director of Alice in Wonderland"
     q2 = "who is director of Pirates of the Caribbean: On Stranger Tides"
     q3 = "who is director of Shrek"
     q4 = "who is director of The Dark Knight"
@@ -159,5 +183,19 @@ if __name__ == "__main__":
 
     t1 = "What is the IMDB rating of Cars?"
 
+    m1 = "Show me a picture of The Lion King."
+    m2 = "Show me a picture of Tom Holland."
+
+    c1 = "What is the box office of The Princess and the Frog?"
+    c2 = "Who is the executive producer of X-Men: First Class?"
+    c3 = "Can you tell me the publication date of Tom Meets Zizou?"
+
     ec = EntryClassifier()
-    print(ec.start(r6))
+
+    print(ec.start(q1))
+    print(ec.start(r4))
+    print(ec.start(m1))
+    print(ec.start(m2))
+    print(ec.start(c1))
+    print(ec.start(c2))
+    print(ec.start(c3))

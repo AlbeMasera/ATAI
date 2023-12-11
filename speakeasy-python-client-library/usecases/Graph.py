@@ -82,7 +82,7 @@ class Graph:
                         processed_result.append(str(self.handle_none(item[0])))
             result = processed_result
         except Exception as e:
-            result = f"Error: {str(e)}"
+            result = ""
 
         return result
 
@@ -90,12 +90,10 @@ class Graph:
         query = utils.GET_IMDB_ID_BY_NAME_FILTER % {
             "filmName": utils.lower_remove_sent_endings_at_end(label)
         }
-        print(query)
         return self.sparql_query(HEADER_CONST + query)
 
     def get_genre(self, entity: str) -> str:
         query = utils.GET_GENRE_BY_LABLE % {
             "filmName": utils.lower_remove_sent_endings_at_end(entity)
         }
-        print(query)
         return self.sparql_query(HEADER_CONST + query)
