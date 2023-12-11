@@ -1,9 +1,25 @@
+import time
+import pickle
+import re
+import spacy
+import graphlib
+import numpy as np
+import csv
+import os
+import random
+from rdflib import Graph, URIRef
 from speakeasypy import Speakeasy, Chatroom
 from typing import List
-import random
-import time
-import re  # Regular expressions
+from nltk.corpus import wordnet as wn
+from transformers import pipeline, set_seed
+from sklearn.metrics import pairwise_distances
+
+from embeddings import EmbeddingAnswerer
 from entity_classification import EntryClassifier
+from entity_recognizer import EntityRecognizer
+from crowd_response import CrowdResponder, AnswerLabel
+from embeddings_recognition import EmbeddingRecognizer
+
 
 DEFAULT_HOST_URL = "https://speakeasy.ifi.uzh.ch"
 listen_freq = 2
@@ -17,7 +33,24 @@ class Agent:
             host=DEFAULT_HOST_URL, username=username, password=password
         )
         self.speakeasy.login()  # This framework will help you log out automatically when the program terminates.
+
+        current_directory = os.path.dirname(os.path.abspath(__file__))
+        data_folder = os.path.join(current_directory, "data")
+        pickle_file_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "data", "pickle_graph.pickel"
+        )
+
+        self.graph = Graph()
+
+        self.embedding_answerer = EmbeddingAnswerer()
+        self.entity_recognizer = EntityRecognizer()
         self.ec = EntryClassifier()
+        self.embedding_recognizer = EmbeddingRecognizer()
+
+        CROWD_ENTITIES = os.path.join(data_folder, "entities_crowd.csv")
+        self.crowd_response = CrowdResponder(
+            self.embedding_recognizer, self.graph, CROWD_ENTITIES
+        )
 
     def handle_none(self, query):
         return "None" if query is None else str(query)
@@ -94,7 +127,6 @@ class Agent:
                         f"- {self.get_time()}"
                     )
 
-                    # Extract query from message
                     query = message.message
 
                     # Select a random response template
@@ -102,7 +134,6 @@ class Agent:
 
                     # Send a randomized response message
                     room.post_messages(response_message)
-                    # Mark the message as processed, so it will be filtered out when retrieving new messages.
 
                     if self.is_sparql(query):
                         respond = self.sparql_query(message.message)
@@ -111,14 +142,24 @@ class Agent:
                         try:
                             respond = self.ec.start(query)
                             print(f"Respond: {respond}")
+
+                            predicate = self.embedding_recognizer.get_predicates(query)
+                            crowd_response = self.crowd_response.response(
+                                query, predicate.predicate if predicate else None
+                            )
+                            if crowd_response.level != AnswerLabel.No:
+                                crowd_text = crowd_response.get_text()
+                                respond += f"\nCrowd Insight: {crowd_text}"
+
                             room.post_messages(respond)
                         except Exception as e:
-                            print(f"Error: {str(e)}")
+                            print(f"{str(e)}")
                             room.post_messages(
                                 "Sorry, I ran into an issue here. Should we try another question instead?"
                             )
 
                     room.mark_as_processed(message)
+
                 # Retrieve reactions from this chat room.
                 # If only_new=True, it filters out reactions that have already been marked as processed.
                 for reaction in room.get_reactions(only_new=True):
@@ -131,7 +172,7 @@ class Agent:
                     # Implement your agent here #
 
                     room.post_messages(
-                        f"Oh wow.. Thanks for the reaction '{reaction.type}' "
+                        f"Oh wow.. Thanks for the reaction '{reaction.type}'."
                     )
                     room.mark_as_processed(reaction)
 

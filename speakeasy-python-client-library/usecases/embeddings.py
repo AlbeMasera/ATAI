@@ -1,7 +1,7 @@
 import numpy as np
 import rdflib, csv
 from sklearn.metrics import pairwise_distances
-
+from recomender import MovieRecommender
 import os
 
 
