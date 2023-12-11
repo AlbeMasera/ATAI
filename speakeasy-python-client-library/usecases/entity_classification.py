@@ -46,11 +46,10 @@ class EntryClassifier:
             )
         )
         self.recomender = recomender.MovieRecommender(self.graph)
+
         self.embedding_recognizer = embeddings_rec.EmbeddingRecognizer()
-        self.multimedia = multimedia.Multimedia(self.graph)
-        self.crowd = crowd_response.CrowdResponder(
-            self.entity_recognizer, self.graph, CROWD_PATH
-        )
+        self.multimedia = "multimedia.Multimedia(self.graph)"
+        self.crowd = crowd_response.CrowdResponder(self.graph, CROWD_PATH)
 
     def start(self, query: str) -> str:
         # Preprocess query
@@ -58,8 +57,6 @@ class EntryClassifier:
 
         # Get predicates using embedding recognizer
         predicate = self.embedding_recognizer.get_predicates(cleaned_query)
-
-        print(predicate)
 
         if (
             not predicate
@@ -109,7 +106,7 @@ class EntryClassifier:
                     predicate.fixed_query, is_predicate_in_embeddings
                 )
             except:
-                answer = ""
+                answer = "unknown"
 
         else:
             prediction = self.entity_recognizer.get_single_entity(
@@ -124,18 +121,17 @@ class EntryClassifier:
                 # Answer the question using KG
                 answer = str(self.graph.get_answer(predicate.predicate, entity)[0])
             except:
-                answer = ""
+                answer = "unknown"
 
         # Answer the question using crowd
-        if not answer:
-            answer_crowd = self.crowd.response(
-                query, predicate.predicate if predicate else None
-            )
-            return answer_crowd.response
+        answer_crowd = self.crowd.response(
+            query, predicate.predicate if predicate else None
+        )
 
         template = random.choice(self.FACTUAL_RESPONSE_TEMPLATES)
         formatted_response = template.format(answer)
-        return formatted_response
+
+        return formatted_response + " " + str(answer_crowd)
 
     def answer_embedding_question(
         self, query: str, relation: embeddings.EmbeddingRelation
@@ -192,10 +188,6 @@ if __name__ == "__main__":
 
     ec = EntryClassifier()
 
-    print(ec.start(q1))
-    print(ec.start(r4))
-    print(ec.start(m1))
-    print(ec.start(m2))
     print(ec.start(c1))
     print(ec.start(c2))
     print(ec.start(c3))

@@ -29,19 +29,19 @@ class Multimedia(object):
             for i, o in enumerate(self._json_src):
                 if imdb_id in o["cast"]:
                     return (
-                        "https://www.imdb.com/name/"
-                        + imdb_id
+                        "image:"
+                        + str(o["img"]).rsplit(".", 1)[0]
                         + "\n\n"
-                        + "https://files.ifi.uzh.ch/ddis/teaching/2023/ATAI/dataset/movienet/images/"
-                        + o["img"]
+                        + "https://www.imdb.com/name/"
+                        + imdb_id
                     )
                 if imdb_id in o["movie"]:
                     return (
-                        "https://m.imdb.com/title/"
-                        + imdb_id
+                        "image:"
+                        + str(o["img"]).rsplit(".", 1)[0]
                         + "\n\n"
-                        + "https://files.ifi.uzh.ch/ddis/teaching/2023/ATAI/dataset/movienet/images/"
-                        + o["img"]
+                        + "https://m.imdb.com/title/"
+                        + imdb_id
                     )
         return ""
 

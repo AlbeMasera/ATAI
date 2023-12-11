@@ -51,12 +51,11 @@ class CrowdResponse:
 class CrowdResponder:
     def __init__(
         self,
-        embedding_recognizer: EmbeddingRecognizer,
         graph: Graph,
         file: str = CROWD_FILE,
     ):
         self.df = pd.read_csv(file, sep="\t")
-        self.embedding_recognizer = embedding_recognizer
+        self.embedding_recognizer = EmbeddingRecognizer()
         self.graph = graph
 
     def get_batch_rating(self, batch_id: str) -> str:
@@ -67,7 +66,7 @@ class CrowdResponder:
     def add_label_to_node(self, value: str) -> str:
         if "wikidata" in value:
             node = rdflib.URIRef(value)
-            lbl = self.graph.entity_2_label(node)
+            lbl = self.graph.entity_to_label(node)
             return f"{lbl}\n({value})"
         return value
 
@@ -172,7 +171,7 @@ if __name__ == "__main__":
     recognizer = EmbeddingRecognizer()
     graph = Graph("speakeasy-python-client-library/usecases/data/pickle_graph.pickel")
     crowd_path = "speakeasy-python-client-library/usecases/data/crowd_bot.csv"
-    crowd = CrowdResponder(recognizer, graph, crowd_path)
+    crowd = CrowdResponder(graph, crowd_path)
 
     query = "What is the box office of The Princess and the Frog?"
     predicate = recognizer.get_predicates(query)
