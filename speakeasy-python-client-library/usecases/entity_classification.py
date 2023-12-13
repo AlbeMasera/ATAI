@@ -48,7 +48,7 @@ class EntryClassifier:
         self.recomender = recomender.MovieRecommender(self.graph)
 
         self.embedding_recognizer = embeddings_rec.EmbeddingRecognizer()
-        self.multimedia = "multimedia.Multimedia(self.graph)"
+        self.multimedia = multimedia.Multimedia(self.graph)
         self.crowd = crowd_response.CrowdResponder(self.graph, CROWD_PATH)
 
     def start(self, query: str) -> str:
@@ -68,7 +68,7 @@ class EntryClassifier:
 
                 if i in cleaned_query.lower():
                     # Ansewer the question using reccomentation
-                    answer = self.recomender.recommend_embedding(entities)
+                    answer = self.recomender.recommend_embedding(entities, query)
                     template = random.choice(self.RECOMMENDATION_RESPONSE_TEMPLATES)
                     formatted_response = template.format(answer)
 
@@ -188,6 +188,6 @@ if __name__ == "__main__":
 
     ec = EntryClassifier()
 
-    print(ec.start(c1))
+    print(ec.start(m1))
     print(ec.start(c2))
     print(ec.start(c3))

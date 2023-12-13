@@ -37,7 +37,7 @@ class CrowdResponse:
         self.graph = graph
 
     def __str__(self):
-        return f"{self.level.name}: {self.message} ({self.stats if self.stats else 'No stats available'})"
+        return f"{self.level.name}: {self.message} ({self.stats if self.stats else ''})"
 
     def get_text(self):
         stat = f"\n({self.stats})" if self.stats else ""
@@ -75,7 +75,7 @@ class CrowdResponder:
             return CrowdResponse(
                 self.graph,
                 AnswerLabel.No,
-                "Sorry, I couldn't find any predicates in your question. Should we try another question?",
+                "Crowd data",
                 None,
             )
 
@@ -84,7 +84,7 @@ class CrowdResponder:
             return CrowdResponse(
                 self.graph,
                 AnswerLabel.No,
-                "Sorry, I couldn't find that entity in the dataset. Should we try another question?",
+                "Crowd data",
                 None,
             )
 

@@ -13,7 +13,7 @@ class MovieRecommender(object):
         self.graph = graph
         self.embeddings = embeddings.EmbeddingAnswerer()
 
-    def recommend_embedding(self, movie_names: List[str]) -> str:
+    def recommend_embedding(self, movie_names: List[str], query: str) -> str:
         movie_names = [i for i in movie_names if i != "The" or i != "the" or len(i) < 3]
         movies, movie_nodes = self.get_movies_and_nodes(movie_names)
 
@@ -34,6 +34,9 @@ class MovieRecommender(object):
 
         # filter out movies with the same label (e.g., remove newer versions of the same movie)
         movies = [x for x in lbl_2_ent.keys() if x not in movie_names]
+
+        # filter out movies with the same label (e.g., remove newer versions of the same movie)
+        movies = [x for x in movies if x not in query]
 
         # get random element
         return str(movies[0])
